@@ -1,0 +1,4 @@
+{
+  "shell": [ "script", "zsh", "tmux", "vim", "neovim" ],
+  "gui": [ "shell", "sway", "alacritty", "ncmpcpp" ]
+}

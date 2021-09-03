@@ -1,0 +1,14 @@
+font=DejaVuSans 10
+text-color=#c0c5ce
+background-color=#2b303b
+progress-color=#444444
+icons=1
+padding=2
+width=500
+border-color=#ECBE7B
+border-size=1
+border-radius=1
+icon-path=/usr/share/icons/Papirus-Dark/
+actions=1
+default-timeout=8000
+markup=1

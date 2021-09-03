@@ -1,0 +1,37 @@
+{
+    "com.github.ulauncher.ulauncher-timer": {
+        "id": "com.github.ulauncher.ulauncher-timer",
+        "url": "https://github.com/ulauncher/ulauncher-timer",
+        "updated_at": "2021-01-29T11:28:02.298925",
+        "last_commit": "4262fc24db08610d01ea311d2e12f22588c98886",
+        "last_commit_time": "2020-11-03T07:21:30"
+    },
+    "com.github.rdnetto.ulauncher-sway": {
+        "id": "com.github.rdnetto.ulauncher-sway",
+        "url": "https://github.com/rdnetto/ulauncher-sway",
+        "updated_at": "2021-01-29T11:28:04.257759",
+        "last_commit": "ca6e8365723fd444b302236fb72eded4a1378c3e",
+        "last_commit_time": "2020-07-01T16:04:10"
+    },
+    "com.github.daniprado.ulauncher-clipboard": {
+        "id": "com.github.daniprado.ulauncher-clipboard",
+        "url": "https://github.com/daniprado/ulauncher-clipboard",
+        "updated_at": "2021-01-19T22:02:44.826643",
+        "last_commit": "b3d1bf6e9a4d7ec19dd3d444094e661711e10ac8",
+        "last_commit_time": "2021-01-19T16:11:14"
+    },
+    "com.github.kbialek.ulauncher-bitwarden": {
+        "id": "com.github.kbialek.ulauncher-bitwarden",
+        "url": "https://github.com/kbialek/ulauncher-bitwarden",
+        "updated_at": "2021-01-29T11:28:08.838191",
+        "last_commit": "aaa8f4331b4dad350f1fe4e76e64b3e9d73074d5",
+        "last_commit_time": "2020-11-14T17:09:56"
+    },
+    "com.github.daniprado.ulauncher-ssh": {
+        "id": "com.github.daniprado.ulauncher-ssh",
+        "url": "https://github.com/daniprado/ulauncher-ssh",
+        "updated_at": "2021-01-29T11:28:09.875766",
+        "last_commit": "8e1177940589d7f2c7a82f5d8a19ad52a3a38c89",
+        "last_commit_time": "2021-01-18T20:45:37"
+    }
+}

@@ -1,0 +1,47 @@
+def_key "?"
+  show_help
+
+def_key "enter"
+  run_action
+
+def_key "enter"
+  enter_directory
+
+def_key "enter"
+  toggle_output
+
+def_key "enter"
+  play_item
+
+def_key "space"
+  add_item_to_playlist
+
+def_key "j"
+  scroll_down
+
+def_key "k"
+  scroll_up
+
+def_key "ctrl-n"
+  next_screen
+
+def_key "ctrl-m"
+  previous_screen
+
+def_key "ctrl-f"
+  page_down
+
+def_key "ctrl-b"
+  page_up
+
+def_key "L"
+  show_lyrics
+
+def_key "B"
+  jump_to_browser
+
+def_key "P"
+  jump_to_playing_song
+
+def_key "M"
+  jump_to_media_library

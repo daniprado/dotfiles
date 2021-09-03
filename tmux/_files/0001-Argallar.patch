@@ -1,0 +1,96 @@
+diff --git a/segments/lan_ip.sh b/segments/lan_ip.sh
+index fe97dad..a6bf2c8 100755
+--- a/segments/lan_ip.sh
++++ b/segments/lan_ip.sh
+@@ -13,7 +13,8 @@ run_segment() {
+ 	else
+ 		# Get the names of all attached NICs.
+ 		all_nics="$(ip addr show | cut -d ' ' -f2 | tr -d :)"
+-		all_nics=(${all_nics[@]//lo/})	 # Remove lo interface.
++		all_nics=(${all_nics[@]//lo/})	   # Remove lo interface.
++		all_nics=(${all_nics[@]//docker/}) # Remove docker interface.
+ 
+ 		for nic in "${all_nics[@]}"; do
+ 			# Parse IP address for the NIC.
+diff --git a/themes/default.sh b/themes/default.sh
+index b7c5ae5..c43f119 100644
+--- a/themes/default.sh
++++ b/themes/default.sh
+@@ -12,8 +12,8 @@ else
+ 	TMUX_POWERLINE_SEPARATOR_RIGHT_THIN="❯"
+ fi
+ 
+-TMUX_POWERLINE_DEFAULT_BACKGROUND_COLOR=${TMUX_POWERLINE_DEFAULT_BACKGROUND_COLOR:-'235'}
+-TMUX_POWERLINE_DEFAULT_FOREGROUND_COLOR=${TMUX_POWERLINE_DEFAULT_FOREGROUND_COLOR:-'255'}
++TMUX_POWERLINE_DEFAULT_BACKGROUND_COLOR=${TMUX_POWERLINE_DEFAULT_BACKGROUND_COLOR:-'0'}
++TMUX_POWERLINE_DEFAULT_FOREGROUND_COLOR=${TMUX_POWERLINE_DEFAULT_FOREGROUND_COLOR:-'0'}
+ 
+ TMUX_POWERLINE_DEFAULT_LEFTSIDE_SEPARATOR=${TMUX_POWERLINE_DEFAULT_LEFTSIDE_SEPARATOR:-$TMUX_POWERLINE_SEPARATOR_RIGHT_BOLD}
+ TMUX_POWERLINE_DEFAULT_RIGHTSIDE_SEPARATOR=${TMUX_POWERLINE_DEFAULT_RIGHTSIDE_SEPARATOR:-$TMUX_POWERLINE_SEPARATOR_LEFT_BOLD}
+@@ -23,37 +23,39 @@ TMUX_POWERLINE_DEFAULT_RIGHTSIDE_SEPARATOR=${TMUX_POWERLINE_DEFAULT_RIGHTSIDE_SE
+ 
+ if [ -z $TMUX_POWERLINE_LEFT_STATUS_SEGMENTS ]; then
+ 	TMUX_POWERLINE_LEFT_STATUS_SEGMENTS=(
+-		"tmux_session_info 148 234" \
+-		"hostname 33 0" \
+-		#"ifstat 30 255" \
+-		#"ifstat_sys 30 255" \
+-		"lan_ip 24 255 ${TMUX_POWERLINE_SEPARATOR_RIGHT_THIN}" \
+-		"wan_ip 24 255" \
+-		"vcs_branch 29 88" \
+-		"vcs_compare 60 255" \
+-		"vcs_staged 64 255" \
+-		"vcs_modified 9 255" \
+-		"vcs_others 245 0" \
++		"tmux_session_info 236 7" \
++		# "mode_indicator 2 7" \
++		# "hostname 236 11" \
++		"uptime 12 0" \
++		"lan_ip 52 7" \
++		"wan_ip 16 2" \
++		# "pwd 89 211" \
++		# "vcs_branch 29 88" \
++		# "vcs_compare 60 255" \
++		# "vcs_staged 64 255" \
++		# "vcs_modified 9 255" \
++		# "vcs_others 245 0" \
+ 	)
+ fi
+ 
+ if [ -z $TMUX_POWERLINE_RIGHT_STATUS_SEGMENTS ]; then
+ 	TMUX_POWERLINE_RIGHT_STATUS_SEGMENTS=(
+-		#"earthquake 3 0" \
+-		"pwd 89 211" \
+-		#"macos_notification_count 29 255" \
+-		"mailcount 9 255" \
+-		"now_playing 234 37" \
+-		#"cpu 240 136" \
+-		"load 237 167" \
+-		#"tmux_mem_cpu_load 234 136" \
+-		"battery 137 127" \
+-		"weather 37 255" \
+-		#"rainbarf 0 ${TMUX_POWERLINE_DEFAULT_FOREGROUND_COLOR}" \
+-		#"xkb_layout 125 117" \
+-		"date_day 235 136" \
+-		"date 235 136 ${TMUX_POWERLINE_SEPARATOR_LEFT_THIN}" \
+-		"time 235 136 ${TMUX_POWERLINE_SEPARATOR_LEFT_THIN}" \
+-		#"utc_time 235 136 ${TMUX_POWERLINE_SEPARATOR_LEFT_THIN}" \
++		# "ifstat 30 255" \
++		# "cpu 12 9" \
++		# "tmux_mem_cpu_load 234 136" \
++		"ifstat_sys 16 2" \
++		# "earthquake 3 0" \
++		# "macos_notification_count 29 255" \
++		# "mailcount 9 255" \
++		# "now_playing 234 37" \
++		"load 52 7" \
++		# "battery 137 127" \
++		# "weather 37 255" \
++		# "rainbarf 0 ${TMUX_POWERLINE_DEFAULT_FOREGROUND_COLOR}" \
++		# "xkb_layout 125 117" \
++		# "date_day 235 136" \
++		# "date 235 136 ${TMUX_POWERLINE_SEPARATOR_LEFT_THIN}" \
++		# "time 235 136 ${TMUX_POWERLINE_SEPARATOR_LEFT_THIN}" \
++		# "utc_time 235 136 ${TMUX_POWERLINE_SEPARATOR_LEFT_THIN}" \
+ 	)
+ fi

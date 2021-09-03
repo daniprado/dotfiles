@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+use_asdf() {
+  source $ASDF_DIR/asdf.sh
+}

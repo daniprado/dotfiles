@@ -1,0 +1,104 @@
+set $config ~/.config
+
+set $mod Mod4
+
+set $left h
+set $down j
+set $up k
+set $right l
+
+set $theme gruvbox-dark-gtk
+set $icon_theme Papirus-Dark
+exec_always {
+    gsettings set org.gnome.desktop.interface gtk-theme '$theme'
+    gsettings set org.gnome.desktop.interface gtk-color-theme '$theme'
+    gsettings set org.gnome.desktop.interface gtk-application-prefer-dark-theme 1
+    gsettings set org.gnome.desktop.interface icon-theme '$icon_theme'
+    gsettings set org.gnome.desktop.interface cursor-theme '$icon_theme'
+}
+seat seat0 xcursor_theme $icon_theme 24
+font pango:System DejaVu Sans Extralight 10
+
+set $browser 'vivaldi-stable --enable-features=UseOzonePlatform --ozone-platform=wayland'
+set $term alacritty
+set $telegram telegram-desktop
+set $editor ~/.local/bin/nvim_sway
+set $screenshot ~/Media/Pictures/Screenshot
+set $wallpaper ~/.local/share/pictures
+
+floating_modifier $mod
+default_border pixel 2
+default_floating_border none
+hide_edge_borders smart
+popup_during_fullscreen smart
+floating_maximum_size 1024 x 768
+floating_minimum_size 80 x 60
+
+smart_gaps on
+gaps inner 4
+gaps outer 5
+
+exec swayidle -w \
+  timeout 600 'swaylock' \
+  timeout 300 'swaymsg "output * dpms off"' \
+    resume 'swaymsg "output * dpms on"' \
+  before-sleep 'swaylock'
+
+bar {
+  swaybar_command waybar
+}
+
+set $lightred    #4a3637
+set $red         #d17b49
+set $darkgreen   #7b8748
+set $darkyellow  #af865a
+set $darkblue    #535c5c
+set $darkmagenta #775759
+set $darkcyan    #6d715e
+set $white       #c0b18b
+set $mediumgrey  #4a3637
+set $darkred     #d17b49
+set $green       #7b8748
+set $yellow      #af865a
+set $blue        #535c5c
+set $magenta     #775759
+set $cyan        #6d715e
+set $darkwhite   #c0b18b
+set $background  #1f1f1f
+set $background2 #4a3637
+
+#                       BORDER      BACKGROUND  TEXT        INDICATOR    CHILD_BORDER
+client.focused          $background $background $darkyellow $background2 $background2
+client.focused_inactive $background $background $yellow     $background2 $background2
+client.unfocused        $background $background $yellow     $background2 $background2
+client.urgent           $darkred    $mediumgrey $background $darkred     $darkred
+client.placeholder      $darkred    $mediumgrey $background $darkred     $darkred
+client.background       $background
+
+exec ~/.config/sway/script/fade.py
+
+swaynag_command swaynagmode
+set $nag exec swaynagmode
+mode "nag" {
+  bindsym {
+    Ctrl+d    mode "default"
+
+    Ctrl+c    $nag --exit
+    q         $nag --exit
+    Escape    $nag --exit
+
+    Return    $nag --confirm
+
+    Tab       $nag --select prev
+    Shift+Tab $nag --select next
+
+    Left      $nag --select next
+    Right     $nag --select prev
+
+    Up        $nag --select next
+    Down      $nag --select prev
+  }
+}
+
+include $config/sway/conf.d/*
+

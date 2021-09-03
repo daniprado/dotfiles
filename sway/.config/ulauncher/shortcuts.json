@@ -1,0 +1,72 @@
+{
+    "8743a99b-5082-41da-833b-9a791e4f7f09": {
+        "id": "8743a99b-5082-41da-833b-9a791e4f7f09",
+        "name": "Google Search",
+        "keyword": "gg",
+        "cmd": "https://google.com/search?q=%s",
+        "icon": "/usr/share/ulauncher/media/google-search-icon.png",
+        "is_default_search": true,
+        "run_without_argument": false,
+        "added": 1610487217.4640741
+    },
+    "4fb15b5c-03f7-48c1-8735-813362675050": {
+        "id": "4fb15b5c-03f7-48c1-8735-813362675050",
+        "name": "Stack Overflow",
+        "keyword": "so",
+        "cmd": "http://stackoverflow.com/search?q=%s",
+        "icon": "/usr/share/ulauncher/media/stackoverflow-icon.svg",
+        "is_default_search": true,
+        "run_without_argument": false,
+        "added": 1610487217.4641778
+    },
+    "f73c487f-cb26-47b3-ae06-ae559f7738be": {
+        "id": "f73c487f-cb26-47b3-ae06-ae559f7738be",
+        "name": "Wikipedia",
+        "keyword": "wiki",
+        "cmd": "https://en.wikipedia.org/wiki/%s",
+        "icon": "/usr/share/ulauncher/media/wikipedia-icon.png",
+        "is_default_search": true,
+        "run_without_argument": false,
+        "added": 1610487217.4642467
+    },
+    "e504a5ec-ff13-4c2c-b3c1-1d0ecd6186e9": {
+        "id": "e504a5ec-ff13-4c2c-b3c1-1d0ecd6186e9",
+        "name": "StartPage",
+        "keyword": "sp",
+        "cmd": "https://www.startpage.com/do/dsearch?query=%s",
+        "icon": "~/.config/ulauncher/icons/startpage.png",
+        "is_default_search": false,
+        "run_without_argument": false,
+        "added": 1610902933.50979
+    },
+    "5ed74ab4-6e64-43c5-a6a5-9f1853ea38eb": {
+        "id": "5ed74ab4-6e64-43c5-a6a5-9f1853ea38eb",
+        "name": "DuckDuckGo",
+        "keyword": "dk",
+        "cmd": "https://duckduckgo.com/?q=%s",
+        "icon": "~/.config/ulauncher/icons/duckduckgo.svg",
+        "is_default_search": true,
+        "run_without_argument": false,
+        "added": 1610902971.2630975
+    },
+    "147da541-f254-4f4a-994a-53ad195bc089": {
+        "id": "147da541-f254-4f4a-994a-53ad195bc089",
+        "name": "Qwant",
+        "keyword": "qq",
+        "cmd": "https://lite.qwant.com/?q=%s&l=en&s=1&theme=1",
+        "icon": null,
+        "is_default_search": false,
+        "run_without_argument": false,
+        "added": 1612126342.8789976
+    },
+    "10021738-a203-4ddd-8a4b-73a0ba47f9d7": {
+        "id": "10021738-a203-4ddd-8a4b-73a0ba47f9d7",
+        "name": "Github",
+        "keyword": "gb",
+        "cmd": "https://github.com/search?q=%s",
+        "icon": null,
+        "is_default_search": false,
+        "run_without_argument": false,
+        "added": 1613319424.193798
+    }
+}

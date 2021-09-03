@@ -1,0 +1,147 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "DejaVuSans";
+    font-size: 14px;
+    min-height: 0;
+    border-radius: 5%;
+}
+
+window#waybar {
+    background-color: #535c5c;
+    color: #a89984;
+}
+
+#window {
+    font-weight: bold;
+    font-family: "DejaVuSans";
+}
+
+#workspaces button {
+    padding: 0 5px;
+    background-color: transparent;
+    color: #a89984;
+    border-top: 2px solid transparent;
+    border-radius: 25%;
+}
+
+#workspaces button.focused {
+    font-weight: bold;
+    background-color: #556b79;
+    color: #282828;
+}
+
+#workspaces button.urgent {
+    background-color: #74423f;
+}
+
+#workspaces button:hover {
+    box-shadow: inherit;
+    text-shadow: inherit;
+}
+#workspaces button:hover {
+    background-color: #a89984;
+    border: #6c71c4;
+    color: #282828;
+}
+
+#mode, #battery {
+    padding: 0 8px;
+    margin: 0 6px;
+}
+
+#clock, #cpu, #memory, #network, #pulseaudio, #tray, #mode, #idle_inhibitor, #backlight, #custom-storage {
+    padding: 0 3px;
+    margin: 0 2px;
+}
+
+#mpd {
+    padding: 0 6px;
+    margin: 0 8px;
+    font-weight: bold;
+    color: #282828;
+    background-color: #5e6547;
+    border-radius: 0%;
+}
+
+#clock {
+    font-weight: bold;
+}
+
+#mode {
+    color: #fb4934;
+    background-color: #282828;
+}
+
+#network {
+    color: #83a598;
+    border-radius: 40%;
+}
+
+#network.bandwith {
+    color: #fabd2f;
+}
+
+#battery {
+    font-weight: bold;
+    color: #232323;
+    border-radius: 40%;
+}
+
+#battery.charging {
+    background-color: #5e6547;
+}
+
+#battery.warning {
+    background-color: #fb4934;
+}
+
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+    }
+}
+
+#battery.critical:not(.charging) {
+    color: #fb4934;
+    background-color: #232323;
+    animation-name: blink;
+    animation-duration: 0.8s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#network.disconnected, #network.disabled, #network.linked {
+    color: #282828;
+    background-color: #74423f;
+}
+
+#pulseaudio {
+    font-weight: bold;
+    color: #282828;
+    background-color: #5e6547;
+    border-radius: 40%;
+}
+
+#pulseaudio.muted {
+    background-color: #74423f;
+}
+
+#custom-sway-scratch {
+    padding: 0 5px;
+    border-radius: 40%;
+}
+
+#custom-sway-scratch.none {
+    color: #535c5c;
+}
+
+#custom-sway-scratch.one {
+    color: #282828;
+}
+
+#custom-sway-scratch.many {
+    color: #fabd2f;
+}
+

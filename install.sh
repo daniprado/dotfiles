@@ -13,5 +13,6 @@ curl ${GETPIP_URL} -o ${GETPIP_PATH} && python ${GETPIP_PATH}
 (cd ~; pip install --user pipx)
 
 [[ -f "./script/install.sh" ]] && ./script/install.sh
+ag-dotfiler --op install shell
 
 exit 0

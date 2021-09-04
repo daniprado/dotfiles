@@ -13,4 +13,6 @@ if [[ "$?" -eq 0 ]]; then
   create_link "/usr/share/zsh/site-functions/_alacritty" "${AG_CONFIG}/zsh/completions/_alacritty"
 fi
 
+pipx_install "alacritty-colorscheme"
+
 exit 0

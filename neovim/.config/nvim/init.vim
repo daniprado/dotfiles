@@ -402,7 +402,6 @@ lua <<EOF
         },
       },
     }
-    -- require('nvim_context_vt').setup()
 
     -- require('snippets').use_suggested_mappings()
     require('nvim-autopairs').setup({
@@ -424,8 +423,6 @@ lua <<EOF
     require('bufferline').setup({
       options = {
         numbers = "none",
-        number_style = "superscript",
-        mappings = true,
         close_command = "Bdelete! %d",
         right_mouse_command = "Bdelete! %d",
         left_mouse_command = "buffer %d",

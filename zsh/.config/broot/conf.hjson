@@ -34,6 +34,7 @@
         { key: "ctrl-alt-h", execution: ":panel_left" }
         { key: "ctrl-alt-l", execution: ":panel_right" }
         { key: "ctrl-g", execution: ":toggle_git_status" }
+        { key: "ctrl-z", execution: ":toggle_files" }
         { key: "ctrl-h", execution: ":toggle_hidden" }
         { key: "ctrl-d", execution: ":toggle_dates" }
         { key: "ctrl-s", execution: ":toggle_sizes" }

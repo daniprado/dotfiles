@@ -12,7 +12,9 @@ GETPIP_PATH="${AG_TEMP}/get-pip.py"
 curl ${GETPIP_URL} -o ${GETPIP_PATH} && python ${GETPIP_PATH}
 (cd ~; pip install --user pipx)
 
-[[ -f "./script/install.sh" ]] && ./script/install.sh
-ag-dotfiler --op install shell
+if [[ -f "./script/install.sh" ]]; then
+  ./script/install.sh
+  ag-dotfiler --op install shell
+fi
 
 exit 0

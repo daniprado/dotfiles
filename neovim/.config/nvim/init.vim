@@ -57,7 +57,7 @@ endif
   "General {{{
     Plug 'lambdalisue/suda.vim', { 'on': ['SudaRead', 'SudaWrite'] }                     "Open/Save file as root
     Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }                                   "Edit history on current buffer
-    Plug 'svermeulen/vim-yoink'                                                          "Stack of yanks
+    Plug 'AckslD/nvim-neoclip.lua'                                                       "Stack of yanks
     Plug 'machakann/vim-highlightedyank'                                                 "Highlight yakend text
     Plug 'bronson/vim-visual-star-search'                                                "Find text under cursor by pressing *
     Plug 'tversteeg/registers.nvim'                                                      "Show registers contents
@@ -250,9 +250,6 @@ endif
       let g:floaterm_autoclose = 1
       hi FloatermNC guibg=gray
       let g:floaterm_repl_runner = expand(stdpath('config').'/repl-runner.sh')
-      let g:vimwiki_list = [{'path':  expand(stdpath('data').'/vimwiki/'),
-                            \ 'path_html': expand(stdpath('data').'/vimwiki/html/')}]
-    "}}}
 
     "Tmux {{{
       let g:tmux_navigator_no_mappings = 1
@@ -320,7 +317,30 @@ lua <<EOF
 
     require('numb').setup()
     require('gitsigns').setup()
+    require('neoclip').setup({
+      history = 1000,
+      filter = nil,
+      preview = true,
+      default_register = '*',
+      content_spec_column = false,
+      on_paste = {
+        set_reg = false,
+      },
+      keys = {
+        i = {
+          select = '<cr>',
+          paste = '<c-p>',
+          paste_behind = '<c-k>',
+        },
+        n = {
+          select = '<cr>',
+          paste = 'p',
+          paste_behind = 'P',
+        },
+      },
+    })
     require('telescope').setup{ defaults = { prompt_prefix="🔍 ", }, }
+    require('telescope').load_extension('neoclip')
 
     require('lspinstall').setup()
     local function make_config()
@@ -564,8 +584,6 @@ EOF
   nnoremap <leader>v      <C-v>|                                                         " Cursor visual mode
   nnoremap <leader>u      <cmd>UndotreeToggle<cr>|                                       " Open change history for buffer
   nnoremap <leader>ip     <cmd>set invpaste paste?<cr>|                                  " Toggle paste modes
-  nmap     <leader>p      <plug>(YoinkPostPasteSwapBack)|                                " Cycle to previous historical yank
-  nmap     <leader>P      <plug>(YoinkPostPasteSwapForward)|                             " Cycle to next historical yank
   nmap     <leader>s      <plug>(SubversiveSubstituteRange)|                             " Replace 1st motion inside 2nd with given text
   xmap     <leader>s      <plug>(SubversiveSubstituteRange)|                             " Replace 1st motion inside 2nd with given text
   nmap     <leader>R      <cmd>source $MYVIMRC<cr>|                                      " Reload config
@@ -606,6 +624,8 @@ EOF
   nnoremap <leader><tab>  <cmd>Telescope commands<cr>|                                   "
   nnoremap <leader><S-tab> <cmd>Telescope keymaps<cr>|                                   "
   nnoremap <leader><M-tab> <cmd>Telescope help_tags<cr>|                                 "
+
+  nnoremap <leader>p      <cmd>Telescope neoclip<cr>|                                 "
   nnoremap <leader>r      <cmd>Telescope registers theme=get_dropdown layout_config.height=0.85<cr>
   nnoremap <leader>:      <cmd>Telescope command_history theme=get_dropdown layout_config.height=0.85<cr>
   nnoremap <leader>/      <cmd>Telescope search_history theme=get_dropdown layout_config.height=0.85<cr>
@@ -623,21 +643,11 @@ EOF
   nnoremap <leader>bd     <cmd>DBUIToggle<cr>|                                           " Activate/deactivate DB-UI
   vnoremap <leader><enter> :DB<cr>|                                                      " Activate/deactivate DB-UI
 
-  nmap p                  <plug>(YoinkPaste_p)|                                          "
-  nmap P                  <plug>(YoinkPaste_P)|                                          " Yanks
-  nmap gp                 <plug>(YoinkPaste_gp)|                                         "
-  nmap gP                 <plug>(YoinkPaste_gP)|                                         "
-
   nnoremap <C-M-V>        "+gP|                                                          "
   inoremap <C-M-V>        <C-R>+|                                                        "
   cnoremap <C-M-V>        <C-R>+|                                                        " Copy & Paste
   vmap     <C-c>          "+yi|                                                          " shortcuts
-  vmap     <C-x>          "+c|                                                           "
-  vmap     <C-v>          c<ESC>"+p|                                                     "
-  imap     <C-v>          <C-r><C-o>+|                                                   "
   xnoremap "+y            y:call system("wl-copy", @")<cr>|                              "
-  nnoremap "+p            <cmd>let @"=substitute(system("wl-paste --no-newline"), '<C-v><C-m>', '', 'g')<cr>|
-  nnoremap "*p            <cmd>let @"=substitute(system("wl-paste --no-newline --primary"), '<C-v><C-m>', '', 'g')<cr>|
 
   nnoremap <C-a>          <cmd>exec "normal! ggVG"<cr>|                                  " Select all text in buffer
   nnoremap <C-n>          <cmd>bnext<cr>|                                                " Focus next buffer

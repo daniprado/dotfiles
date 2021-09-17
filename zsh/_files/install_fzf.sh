@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 FZF_URL="https://github.com/junegunn/fzf.git"
 FZF_PATH="${AG_CONFIG}/fzf"

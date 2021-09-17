@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ZINIT_URL="https://github.com/zdharma/zinit.git"
 ZINIT_PATH="${AG_CONFIG}/zsh/zinit"

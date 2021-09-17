@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 BEETCOMP_URL="https://raw.githubusercontent.com/beetbox/beets/master/extra/_beet"
 

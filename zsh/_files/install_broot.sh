@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 BROOT_URL="https://dystroy.org/broot/download/x86_64-linux/broot"
 BRCOMP_URL="https://dystroy.org/broot/download/completion/_br"

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 BUKU_URL="https://github.com/jarun/buku.git"
 BUKU_PATH="${AG_TEMP}/buku"

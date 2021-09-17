@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 DUF_VERSION="0.6.2"
 DUF_FILE="duf_${DUF_VERSION}_linux_x86_64.tar.gz"

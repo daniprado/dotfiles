@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 EXA_VERSION="v0.10.0"
 BAT_VERSION="v0.18.2"

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 DSF_URL="https://github.com/so-fancy/diff-so-fancy.git"
 DSF_PATH="${AG_SHARE}/diff-so-fancy"

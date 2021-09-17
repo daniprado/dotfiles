@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 source ${AG_SRC:-~/dotfiles}/script/_files/common.sh
 CURR_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"

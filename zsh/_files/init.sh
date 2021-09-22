@@ -9,6 +9,8 @@ create_folders "${FOLDERS[@]}"
 PIPX_PKGS=( "trash-cli" "telegram-send" "sshtunnel" "bpytop" "asciinema" )
 pipx_install "${PIPX_PKGS[@]}"
 
+pkg_install "fd" "fd-find" "fd"
+
 ZSH_BIN=$(which zsh)
 if [[ "${ZSH_BIN}" != *"${SHELL}" ]]; then
   exe "chsh --shell ${ZSH_BIN}"

@@ -6,7 +6,7 @@ NVIM_VERSION="v0.5.0"
 NVIM_FOLDER="nvim-linux64"
 NVIM_PATH="https://github.com/neovim/neovim/releases/download/${NVIM_VERSION}/${NVIM_FOLDER}.tar.gz"
 
-FOLDERS=( "${AG_SHARE}/nvim", "${AG_CONFIG}/nvim", "${AG_CACHE}/nvim" )
+FOLDERS=( "${AG_SHARE}/nvim" "${AG_CONFIG}/nvim" "${AG_CACHE}/nvim" )
 create_folders "${FOLDERS[@]}"
 
 PIP_PACKAGES=( "pynvim" )

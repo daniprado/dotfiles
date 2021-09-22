@@ -42,8 +42,9 @@ fi
 export VISUAL="${EDITOR}"
 
 alias gfz="git fuzzy"
-if type "batcat" >/dev/null; then
-  ln -s /usr/bin/batcat ~/.local/bin/bat
+BAT_PATH="~/.local/bin/bat"
+if type "batcat" >/dev/null && [[ ! -f "${BAT_PATH}" ]]; then
+  ln -s /usr/bin/batcat "${BAT_PATH}"
 fi
 if type "bat" >/dev/null; then
   alias cat="bat"

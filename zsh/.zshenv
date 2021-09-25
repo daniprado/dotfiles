@@ -1,6 +1,7 @@
 export XDG_CONFIG_HOME=${HOME}/.config
 export XDG_CACHE_HOME=${HOME}/.cache
 export XDG_TEMP_HOME=${HOME}/tmp
+export TMP=${XDG_TEMP_HOME}
 ZSHCONF=${XDG_CONFIG_HOME}/zsh
 ZSHCACHE=${XDG_CACHE_HOME}/zsh
 

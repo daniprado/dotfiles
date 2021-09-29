@@ -68,3 +68,5 @@ source ${ZSHCONF}/alias.zsh
 
 (( ! ${+functions[p10k]} )) || p10k finalize
 
+
+source /home/dprado/.config/broot/launcher/bash/br

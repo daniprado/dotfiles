@@ -33,6 +33,7 @@ endif
     Plug 'nvim-lua/popup.nvim'                                                 "Lua libraries
     Plug 'nvim-lua/plenary.nvim'                                               "Lua libraries
     Plug 'kyazdani42/nvim-web-devicons'                                        "Lua libraries
+    Plug 'tami5/sqlite.lua'                                                    "Lua libraries
     Plug 'rktjmp/lush.nvim'                                                    "Colorscheme Lua lib
   "}}}
 
@@ -228,8 +229,8 @@ endif
       let g:suda_smart_edit = 1
 
       let g:floaterm_keymap_toggle = '<C-M-t>'
-      let g:floaterm_keymap_next = '<C-M-l>'
-      let g:floaterm_keymap_prev = '<C-M-h>'
+      let g:floaterm_keymap_next = '<C-M-j>'
+      let g:floaterm_keymap_prev = '<C-M-k>'
       let g:floaterm_width = 0.8
       let g:floaterm_height = 0.8
       let g:floaterm_opener = 'edit'
@@ -307,7 +308,10 @@ endif
     require('gitsigns').setup()
     require('rooter').setup({ echo = false })
     require('neoclip').setup({
+      content_spec_colunm = true,
       history = 1000,
+      enable_persistant_history = true,
+      db_path = vim.fn.stdpath("data") .. "/neoclip.sqlite3",
       on_paste = { set_reg = true, },
       keys = {
         i = { select = '<cr>', paste = '<c-v>', paste_behind = '<c-s-v>', },
@@ -371,7 +375,7 @@ endif
         smart_rename = { enable = true, keymaps = { smart_rename = "<M-r>" } },
         navigation = {
           enable = true,
-          keymaps = { goto_definition = "<M-w>d", goto_next_usage = "<M-w>l", goto_previous_usage = "<M-w>h", },
+          keymaps = { goto_definition = "<M-d>", goto_next_usage = "<M-j>", goto_previous_usage = "<M-k>", },
         },
       },
       textobjects = {
@@ -542,7 +546,7 @@ EOF
   nnoremap <leader>dt     <cmd>diffthis<cr>|                                     "Activate diff on buffer
   nnoremap <leader>do     <cmd>diffoff<cr>|                                      "Deactivate diff on buffer
 
-  nnoremap <leader>fl     <cmd>Telescope current_buffer_fuzzy_find<cr>           "
+  nnoremap <leader>fl     <cmd>Telescope current_buffer_fuzzy_find<cr>|          "
   nnoremap <leader>fh     <cmd>Telescope oldfiles<cr>|                           "
   nnoremap <leader>ff     <cmd>FloatermNew broot<cr>|                            "Open files
   nnoremap <leader>fif    <cmd>Telescope live_grep<cr>|                          "
@@ -558,11 +562,6 @@ EOF
   vnoremap <leader>tp     :FloatermNew python<cr>|                               "
   nnoremap <leader>tb     <cmd>FloatermNew bpytop<cr>|                           "
 
-  nnoremap <M-g>s         <cmd>lua require"gitsigns".stage_hunk()<cr>|           "
-  nnoremap <M-g>u         <cmd>lua require"gitsigns".undo_stage_hunk()<cr>|      "
-  nnoremap <M-g>r         <cmd>lua require"gitsigns".reset_hunk()<cr>|           "Gitsigns
-  nnoremap <M-g>R         <cmd>lua require"gitsigns".reset_buffer()<cr>|         "
-  nnoremap <M-g>p         <cmd>lua require"gitsigns".preview_hunk()<cr>|         "
   nnoremap <leader>gb     <cmd>Gitsigns toggle_current_line_blame<cr>|           "Activate blame per line
   nnoremap <leader>gc     <cmd>Telescope git_commits<cr>|                        "List of repository commits
   nnoremap <leader>gC     <cmd>Telescope git_bcommits<cr>|                       "List of file commits
@@ -570,16 +569,10 @@ EOF
   nnoremap <leader>gR     <cmd>Telescope repo list<cr>|                          "List system repositories
   nnoremap <leader>tg     <cmd>FloatermNew lazygit<cr>|                          "Open lazygit term
 
-  nnoremap <M-h>          <cmd>lua vim.lsp.buf.hover()<cr>|                      "LSP commands
-  nnoremap <M-f>          <cmd>lua vim.lsp.buf.formatting()<cr>|                 "
-  nnoremap <M-w>a         <cmd>lua vim.lsp.buf.code_action()<cr>|                "
   nnoremap <leader>wr     <cmd>Telescope lsp_references theme=get_dropdown<cr>|  "LSP references inside file
   nnoremap <leader>wi     <cmd>Telescope treesitter<cr>|                         "Treesitter references inside file
   nnoremap <leader>ws     <cmd>Telescope lsp_document_symbols<cr>|               "LSP symbols inside file
   nnoremap <leader>wd     <cmd>Telescope lsp_workspace_diagnostics theme=get_dropdown layout_config.width=0.7<cr>
-
-  " inoremap <M-n>          <cmd>lua return require('snippets').expand_or_advance(1)<cr>|  "Next snippet
-  " inoremap <M-m>          <cmd>lua return require('snippets').advance_snippet(-1)<cr>|   "Previous snippet
 
   nnoremap <leader>ax     <cmd>AnsibleVaultDecrypt<cr>|                          "Decrypt an Ansible vault
   nnoremap <leader>aX     <cmd>AnsibleVaultEncrypt<cr>|                          "Encrypt a file using Ansible vault
@@ -587,6 +580,19 @@ EOF
   vnoremap <leader><enter> :DB<cr>|                                              "Execute query
   " nmap gqaj             Pretifies JSON under cursor
   " nmap gwaj             Takes the JSON object on the clipboard and extends it into the JSON object under the cursor.
+
+  nnoremap <M-g>s         <cmd>lua require"gitsigns".stage_hunk()<cr>|           "
+  nnoremap <M-g>u         <cmd>lua require"gitsigns".undo_stage_hunk()<cr>|      "
+  nnoremap <M-g>r         <cmd>lua require"gitsigns".reset_hunk()<cr>|           "Gitsigns
+  nnoremap <M-g>R         <cmd>lua require"gitsigns".reset_buffer()<cr>|         "
+  nnoremap <M-g>p         <cmd>lua require"gitsigns".preview_hunk()<cr>|         "
+
+  nnoremap <M-h>          <cmd>lua vim.lsp.buf.hover()<cr>|                      "LSP commands
+  nnoremap <M-f>          <cmd>lua vim.lsp.buf.formatting()<cr>|                 "
+  nnoremap <M-a>          <cmd>lua vim.lsp.buf.code_action()<cr>|                "
+
+  " inoremap <M-n>          <cmd>lua return require('snippets').expand_or_advance(1)<cr>|  "Next snippet
+  " inoremap <M-m>          <cmd>lua return require('snippets').advance_snippet(-1)<cr>|   "Previous snippet
 
 "}}}
 
@@ -605,20 +611,17 @@ EOF
   nmap sS                 <plug>(SubversiveSubstituteToEndOfLine)                "Replase till EOL with yank content
   " nmap [cdy]s             Change,delete,add surround: accepts text object + 1 or 2 brackets
 
-  nnoremap <C-j>w         <cmd>HopWord<cr>|                                      "
-  nnoremap <C-j>c         <cmd>HopChar1<cr>|                                     "Hop!
-  nnoremap <C-j>C         <cmd>HopChar2<cr>|                                     "
-  nnoremap <C-j>p         <cmd>HopPattern<cr>|                                   "
-  omap     <silent> m     :<C-U>lua require('tsht').nodes()<cr>|                 "Treesitter hop!
-  vnoremap <silent> m     :lua require('tsht').nodes()<cr>|                      "
+  nnoremap <M-w>          <cmd>HopWord<cr>|                                      "
+  omap     <silent>m      :<C-U>lua require('tsht').nodes()<cr>|                 "Treesitter hop!
+  vnoremap <silent>m      :lua require('tsht').nodes()<cr>|                      "
 
-  nnoremap <M-g>l         <cmd>lua require"gitsigns.actions".next_hunk()<cr>|    "Next git modified chunk
-  nnoremap <M-g>h         <cmd>lua require"gitsigns.actions".prev_hunk()<cr>|    "Previous git modified chunk
+  nnoremap <M-g>n         <cmd>lua require"gitsigns.actions".next_hunk()<cr>|    "Next git modified chunk
+  nnoremap <M-g>b         <cmd>lua require"gitsigns.actions".prev_hunk()<cr>|    "Previous git modified chunk
 
   nnoremap <M-s>          <cmd>ISwap<cr>|                                        "Swap list elements
   nnoremap <M-e>          <cmd>lua vim.lsp.diagnostic.goto_next()<cr>|           "
   nnoremap <M-S-e>        <cmd>lua vim.lsp.diagnostic.goto_prev()<cr>|           " LSP Motions
-  nnoremap <M-w>g         <cmd>lua vim.lsp.buf.implementation()<cr>|             "
-  nnoremap <M-w>G         <cmd>lua vim.lsp.buf.type_definition()<cr>|            "
-  nnoremap <M-w>D         <cmd>lua vim.lsp.buf.declaration()<cr>|                "
+  nnoremap <M-i>          <cmd>lua vim.lsp.buf.implementation()<cr>|             "
+  nnoremap <M-t>          <cmd>lua vim.lsp.buf.type_definition()<cr>|            "
+  nnoremap <M-S-d>        <cmd>lua vim.lsp.buf.declaration()<cr>|                "
 "}}}

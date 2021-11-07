@@ -1,6 +1,2 @@
 [General]
-theme=KvGnomeDark
-
-[Applications]
-Default=pinentry-wayland
-KvGnomeDark=pinentry-wayland
+theme=KvArcDark

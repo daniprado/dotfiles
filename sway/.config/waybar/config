@@ -2,9 +2,29 @@
   "layer": "top",
   "position": "top",
   "height": 26,
-  "modules-left": ["custom/sway-scratch", "sway/workspaces", "sway/mode", "battery", "network#bandwith"],
-  "modules-center": ["mpd", "sway/window"],
-  "modules-right": ["network#wlan", "network#eth", "network#wan", "network#xurelo", "pulseaudio", "tray", "clock", "idle_inhibitor", "backlight"],
+  "modules-left": [
+    "custom/sway-scratch",
+    "sway/workspaces",
+    "sway/mode",
+    "battery",
+    "network#bandwith"
+  ],
+  "modules-center": [
+    "mpd",
+    "sway/window"
+  ],
+  "modules-right": [
+    "network#wlan",
+    "network#eth",
+    "network#wan",
+    "network#xurelo",
+    "pulseaudio",
+    "tray",
+    "clock",
+    "custom/color-mode",
+    "idle_inhibitor",
+    "backlight"
+  ],
   "sway/mode": {
     "format": " {}"
   },
@@ -13,18 +33,18 @@
     "disable-scroll": true
   },
   "mpd": {
-  	"format": "{stateIcon} {artist} - {album} - {title}",
-  	"format-disconnected": "",
-  	"format-stopped": "",
-  	"interval": 1,
+    "format": "{stateIcon} {artist} - {album} - {title}",
+    "format-disconnected": "",
+    "format-stopped": "",
+    "interval": 1,
     "on-click": "alacritty -e ncmpcpp",
     "server": "localhost",
     "port": 6600,
-  	"state-icons": {
-  		"paused": "",
-  		"playing": ""
-  	},
-  	"max-length": 50
+    "state-icons": {
+      "paused": "",
+      "playing": ""
+    },
+    "max-length": 50
   },
   "sway/window": {
     "max-length": 30,
@@ -42,7 +62,7 @@
     "format-disconnected": " W",
     "on-click": "alacritty -e watch ip addr",
     "interval": 5,
-    "max-length": 26,
+    "max-length": 26
   },
   "network#eth": {
     "interface": "eth*",
@@ -72,20 +92,26 @@
     "interval": 30
   },
   "cpu": {
-     "format": "{usage}% ",
-     "on-click": "alacritty -e glances"
+    "format": "{usage}% ",
+    "on-click": "alacritty -e glances"
   },
   "memory": {
-     "interval": 30,
-     "format": "{used:0.1f}G ",
-     "on-click": "alacritty -e htop"
+    "interval": 30,
+    "format": "{used:0.1f}G ",
+    "on-click": "alacritty -e htop"
   },
   "battery": {
     "format": "<span font='Font Awesome 5 Free 11'>{icon}</span>  {capacity}%",
     "format-alt": "<span font='Font Awesome 5 Free 11'>{icon}</span>  {time}",
-    "format-icons": ["", "", "", "", ""],
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
     "format-charging": "<span font='Font Awesome 5 Free'></span>  <span font='Font Awesome 5 Free 11'>{icon}</span>  {capacity}%",
-    "format-full":  "<span font='Font Awesome 5 Free'></span>  <span font='Font Awesome 5 Free 11'>{icon}</span>  {capacity}%",
+    "format-full": "<span font='Font Awesome 5 Free'></span>  <span font='Font Awesome 5 Free 11'>{icon}</span>  {capacity}%",
     "interval": 15,
     "states": {
       "warning": 20,
@@ -105,8 +131,11 @@
       "headphones": "",
       "handsfree": "",
       "headset": "",
-      "default": ["", ""]
-  	}
+      "default": [
+        "",
+        ""
+      ]
+    }
   },
   "clock": {
     "format": "  {:%a %d %b - %H:%M} ",
@@ -117,7 +146,10 @@
     "format": "{icon}",
     "format-alt": "{percent}% {icon}",
     "format-alt-click": "click-right",
-    "format-icons": ["", ""],
+    "format-icons": [
+      "",
+      ""
+    ],
     "on-scroll-down": "light -A 5",
     "on-scroll-up": "light -U 5",
     "tooltip": false
@@ -134,10 +166,10 @@
     "icon-size": 18,
     "spacing": 8
   },
-  "custom/sway-scratch":{
+  "custom/sway-scratch": {
     "interval": 1,
     "return-type": "json",
-    "format" : "{icon}",
+    "format": "{icon}",
     "format-icons": {
       "none": "",
       "one": "",
@@ -148,6 +180,20 @@
     "exec-if": "exit 0",
     "on-click": "swaymsg scratchpad show",
     "on-click-right": "swaymsg move window to scratchpad",
+    "tooltip": false
+  },
+  "custom/color-mode": {
+    "interval": 1,
+    "return-type": "json",
+    "format": "{icon}",
+    "format-icons": {
+      "light": "",
+      "dark": ""
+    },
+    "exec": "~/.config/waybar/modules/color-mode.sh",
+    "exec-if": "exit 0",
+    "on-click": "~/.local/bin/color_mode",
+    "on-click-right": "~/.local/bin/color_mode",
     "tooltip": false
   }
 }

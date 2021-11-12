@@ -23,11 +23,11 @@ zt(){ zinit $svn depth'3' lucid ${1/#[0-9][a-c]/wait"${1}"} "${@:2}"; }
 ztp(){ zinit depth'3' lucid ${1/#[0-9][a-c]/wait"${1}"} "${@:2}"; }
 
 zinit light-mode compile"handler" for \
-    zinit-zsh/z-a-patch-dl            \
-    zinit-zsh/z-a-as-monitor          \
-    zinit-zsh/z-a-bin-gem-node        \
-    zinit-zsh/z-a-submods             \
-    zdharma/declare-zsh
+    zdharma-continuum/z-a-patch-dl            \
+    zdharma-continuum/z-a-as-monitor          \
+    zdharma-continuum/z-a-bin-gem-node        \
+    zdharma-continuum/z-a-submods             \
+    zdharma-continuum/declare-zsh
 
 ztp atload"source ${ZSHCONF}/theme.zsh; _p9k_precmd" nocd light-mode for \
     romkatv/powerlevel10k
@@ -72,7 +72,8 @@ ztp light-mode for                  \
     zsh-vi-more/vi-motions          \
     zsh-vi-more/ex-commands         \
     zsh-vi-more/evil-registers      \
-    carlocab/tmux-nvr
+    carlocab/tmux-nvr               \
+    soimort/translate-shell
 
 ztp as"command" light-mode for \
     pick"bin/git-fuzzy"        \

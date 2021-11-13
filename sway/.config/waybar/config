@@ -150,8 +150,10 @@
       "",
       ""
     ],
-    "on-scroll-down": "light -A 5",
-    "on-scroll-up": "light -U 5",
+    "on-click": "sudo light -S 100",
+    "on-click-right": "sudo light -S 10",
+    "on-scroll-down": "sudo light -A 5",
+    "on-scroll-up": "sudo light -U 5",
     "tooltip": false
   },
   "idle_inhibitor": {

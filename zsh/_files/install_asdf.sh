@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ASDF_URL="https://github.com/asdf-vm/asdf.git"
+ASDF_URL="git@github.com:asdf-vm/asdf.git"
 ASDF_PATH="${AG_CONFIG}/asdf"
 DIRENV_URL="https://direnv.net/install.sh"
 

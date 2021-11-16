@@ -298,6 +298,7 @@ endif
       autocmd FileType dbui nmap <buffer> W <Plug>(DBUI_SaveQuery)
       autocmd FileType sql setlocal omnifunc=vim_dadbod_completion#omni
     "}}}
+
   "}}}
 "}}}
 

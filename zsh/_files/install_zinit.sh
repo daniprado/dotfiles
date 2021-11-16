@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ZINIT_URL="https://github.com/zdharma/zinit.git"
+ZINIT_URL="git@github.com:zdharma-continuum/zinit.git"
 ZINIT_PATH="${AG_CONFIG}/zsh/zinit"
 ZINIT_BIN="${ZINIT_PATH}/bin"
 

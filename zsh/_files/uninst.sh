@@ -2,7 +2,7 @@
 
 source ${AG_SRC:-~/dotfiles}/script/_files/common.sh
 
-LOCS=( "${AG_CACHE}/zsh" "${AG_CONFIG}/telegram" "${AG_SSH}/sockets" )
+LOCS=( "${AG_CONFIG}/telegram" "${AG_SSH}/sockets" )
 remove "${LOCS[@]}"
 
 ASDF_PATH="${AG_CONFIG}/asdf"

@@ -8,7 +8,8 @@ BROOTCOMP_URL="https://dystroy.org/broot/download/completion/_broot"
   rm br broot || echo "Broot not present"; \
   wget "${BROOT_URL}"; \
   chmod +x broot; \
-  broot --install)
+  broot --install; \
+  sed -i '/^source.*launcher\/bash\/br$/d;N;/^\n$/d;P;D' ${AG_DOTFILES}/zsh/.zshrc
 
 (cd ${AG_CONFIG}/zsh/completions; \
   rm _br _broot || echo "Broot autocomplete not present"; \

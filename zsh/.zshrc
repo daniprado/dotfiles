@@ -67,6 +67,3 @@ gpgconf --launch gpg-agent
 source ${ZSHCONF}/alias.zsh
 
 (( ! ${+functions[p10k]} )) || p10k finalize
-
-
-source /home/dani/.config/broot/launcher/bash/br

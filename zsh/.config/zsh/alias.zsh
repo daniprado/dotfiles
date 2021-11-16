@@ -72,6 +72,7 @@ if type "duf" >/dev/null; then
 fi
 
 alias venv="python -m venv ."
+alias renv="rm lib lib64 include bin pyvenv.cfg"
 alias src="source ./bin/activate"
 alias json="python -m json.tool"
 alias cal='noglob cal'

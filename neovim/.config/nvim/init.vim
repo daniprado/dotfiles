@@ -63,7 +63,6 @@ endif
     Plug 'voldikss/vim-floaterm', { 'on': ['FloatermNew', 'FloatermRepl'] }    "Terminal
     Plug 'windwp/vim-floaterm-repl', { 'on': ['FloatermNew', 'FloatermRepl'] } "Execute selection on terminal
     Plug 'famiu/bufdelete.nvim', { 'on': ['Bdelete', 'Bwipeout'] }             "Close buffer without changing layout
-    Plug 'jghauser/mkdir.nvim'                                                 "Create folders needed on save
     Plug 'nacro90/numb.nvim'                                                   "Previews destination line on jump
     Plug 'lewis6991/gitsigns.nvim'                                             "Git visual tools
   "}}}
@@ -116,7 +115,7 @@ endif
 
   "LSP {{{
     Plug 'neovim/nvim-lspconfig'                                               "LSP support
-    Plug 'kabouzeid/nvim-lspinstall'                                           "Commands to install LSP servers
+    Plug 'williamboman/nvim-lsp-installer'                                     "Commands to install LSP servers
     Plug 'ray-x/lsp_signature.nvim'                                            "Show signature helper on autocomplete
     " Plug 'norcalli/snippets.nvim'                                              "Snippets
   "}}}
@@ -126,8 +125,9 @@ endif
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-path'
-    Plug 'ray-x/cmp-treesitter'
-    Plug 'onsails/lspkind-nvim'
+    Plug 'hrsh7th/cmp-cmdline'
+    Plug 'hrsh7th/cmp-nvim-lsp-document-symbol'
+    Plug 'onsails/lspkind-nvim'                                                "Autocomplete icons
     Plug 'andersevenrud/compe-tmux', !empty($NVIM_TMUX) ? {} : { 'on': [] }    "Autocomplete for tmux
     Plug 'windwp/nvim-autopairs'                                               "Autocomplete on bracket-type chars
   "}}}
@@ -315,8 +315,8 @@ endif
       db_path = vim.fn.stdpath("data") .. "/neoclip.sqlite3",
       on_paste = { set_reg = true, },
       keys = {
-        i = { select = '<cr>', paste = '<c-v>', paste_behind = '<c-s-v>', },
-        n = { select = '<cr>', paste = 'p', paste_behind = 'P', },
+        i = { select = '<cr>', paste = '<cr>', paste_behind = '<c-s-v>', },
+        n = { select = '<cr>', paste = '<cr>', paste_behind = '<c-s-v>', },
       },
     })
 
@@ -325,33 +325,17 @@ endif
     require('telescope').load_extension('repo')
     require('telescope').load_extension('neoclip')
 
-    require('lspinstall').setup()
-    local function make_config()
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities.textDocument.completion.completionItem.snippetSupport = true
-      return {
-        capabilities = capabilities,
-        on_attach = function(client, bufnr)
-                      local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-                      buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-                      require('lsp_signature').on_attach({
-                        bind = true,
-                        floating_window = true,
-                        fix_pos = true,
-                        hint_enable = true,
-                        handler_opts = { border = "shadow" }
-                      })
-                    end,
-      }
-    end
-    local function setup_servers()
-      local servers = require('lspinstall').installed_servers()
-      for _, lsp in ipairs(servers) do
-        require('lspconfig')[lsp].setup(make_config())
-      end
-    end
-    setup_servers()
-    require('lspinstall').post_install_hook = function () setup_servers() vim.cmd("bufdo e") end
+    local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+    local lsp_installer = require("nvim-lsp-installer")
+    lsp_installer.settings({
+        ui = { icons = { server_installed = "✓", server_pending = "➜", server_uninstalled = "✗" } }
+    })
+    lsp_installer.on_server_ready(function(server)
+        local opts = {
+          capabilities = capabilities
+        }
+        server:setup(opts)
+    end)
 
     require('nvim-autopairs').setup({
       check_ts = true,
@@ -390,7 +374,8 @@ endif
     }
 
     -- require('snippets').use_suggested_mappings()
-    require('lspkind').init({
+    local lspkind = require('lspkind')
+    lspkind.init({
         with_text = true,
         preset = 'codicons',
         symbol_map = {
@@ -400,7 +385,6 @@ endif
           Struct = "פּ", Event = "", Operator = "", TypeParameter = ""
         },
     })
-    local lspkind = require('lspkind')
     local cmp = require('cmp')
     cmp.setup({
       mapping = {
@@ -410,7 +394,6 @@ endif
         ['<cr>'] = cmp.mapping.confirm({ select = true }),
       },
       sources = {
-        { name = 'treesitter' },
         { name = 'nvim_lsp' },
         { name = 'tmux' },
         { name = 'path' },
@@ -424,6 +407,20 @@ endif
         end
       }
     })
+    cmp.setup.cmdline(':', {
+        sources = cmp.config.sources({
+          { name = 'path' }
+        }, {
+          { name = 'cmdline' }
+        })
+      })
+    cmp.setup.cmdline('/', {
+        sources = cmp.config.sources({
+          { name = 'nvim_lsp_document_symbol' }
+        }, {
+          { name = 'buffer' }
+        })
+      })
     local cmp_autopairs = require('nvim-autopairs.completion.cmp')
     cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
 

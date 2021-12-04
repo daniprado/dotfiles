@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FZF_URL="git@github.com:junegunn/fzf.git"
+FZF_URL="https://github.com/junegunn/fzf.git"
 FZF_PATH="${AG_CONFIG}/fzf"
 
 clone_repo "${FZF_URL}" "${FZF_PATH}" "--depth 1"

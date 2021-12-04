@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BUKU_URL="git@github.com:jarun/buku.git"
+BUKU_URL="https://github.com/jarun/buku.git"
 BUKU_PATH="${AG_TEMP}/buku"
 
 PIPX_PKGS=( "buku" )

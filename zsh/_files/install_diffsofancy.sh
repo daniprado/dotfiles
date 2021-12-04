@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DSF_URL="git@github.com:so-fancy/diff-so-fancy.git"
+DSF_URL="https://github.com/so-fancy/diff-so-fancy.git"
 DSF_PATH="${AG_SHARE}/diff-so-fancy"
 
 clone_repo ${DSF_URL} ${DSF_PATH}

@@ -14,17 +14,25 @@ RIPGREP_URL="https://github.com/BurntSushi/ripgrep/releases/download/${RIPGREP_V
 RIPGREP_REPO="https://copr.fedorainfracloud.org/coprs/carlwgeorge/ripgrep/repo/epel-7/carlwgeorge-ripgrep-epel-7.repo"
 
 if [[ ! -z "${AG_INSTALL}" ]]; then
-  pkg_install "exa" "exa" "exa" "-"
-  pkg_install "bat" "bat" "bat" "-"
 
-  type "yum" >/dev/null && sudo yum-config-manager --add-repo=${RIPGREP_REPO}
-  pkg_install "ripgrep" "ripgrep" "-" "ripgrep"
-fi
+  if ! type exa >/dev/null; then
+    pkg_install "exa" "exa" "exa" "-"
+  fi
 
-if ! type rg >/dev/null; then
-  (cd ${AG_TEMP} && \
-    curl -LO ${RIPGREP_URL} && \
-    sudo dpkg -i ${RIPGREP_PKG})
+  if ! type exa >/dev/null; then
+    pkg_install "bat" "bat" "bat" "-"
+  fi
+
+  if ! type rg >/dev/null; then
+    type "yum" >/dev/null && sudo yum-config-manager --add-repo=${RIPGREP_REPO}
+    pkg_install "ripgrep" "ripgrep" "-" "ripgrep"
+
+    if type "apt" >/dev/null; then
+      (cd ${AG_TEMP} && \
+        curl -LO ${RIPGREP_URL} && \
+        sudo dpkg -i ${RIPGREP_PKG})
+    fi
+  fi
 fi
 
 if ! type exa >/dev/null; then

@@ -20,7 +20,7 @@ if [[ ! -z "${AG_INSTALL}" ]]; then
 fi
 
 curl ${GETPIP_URL} -o ${GETPIP_PATH} && python ${GETPIP_PATH}
-(cd ~; pip install --user pipx)
+(cd ${HOME}; pip install --user pipx)
 
 if [[ -f "./script/install.sh" ]]; then
   ./script/install.sh

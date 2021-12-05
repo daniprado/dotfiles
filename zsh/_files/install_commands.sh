@@ -1,7 +1,7 @@
 #!/bin/bash
 
-EXA_VERSION="v0.10.0"
-BAT_VERSION="v0.18.2"
+EXA_VERSION="v0.10.1"
+BAT_VERSION="v0.18.3"
 RIPGREP_VERSION="13.0.0"
 
 EXA_FILE="exa-linux-x86_64-${EXA_VERSION}.zip"
@@ -19,26 +19,28 @@ if [[ ! -z "${AG_INSTALL}" ]]; then
 
   type "yum" >/dev/null && sudo yum-config-manager --add-repo=${RIPGREP_REPO}
   pkg_install "ripgrep" "ripgrep" "-" "ripgrep"
+fi
 
-  if type "apt" >/dev/null; then
-    (cd ${AG_TEMP}; curl -LO ${RIPGREP_URL}; sudo dpkg -i ${RIPGREP_PKG})
+if ! type rg >/dev/null; then
+  (cd ${AG_TEMP} && \
+    curl -LO ${RIPGREP_URL} && \
+    sudo dpkg -i ${RIPGREP_PKG})
+fi
 
-  elif type "yum" >/dev/null; then
-    if ! type exa >/dev/null; then
-      (cd ${AG_TEMP}; \
-        curl -LO "${EXA_URL}"; \
-        unzip ./${EXA_FILE}; \
-        chmod +x ./bin/exa; \
-        mv bin/exa ${AG_BIN})
-    fi
-    if ! type bat >/dev/null; then
-      (cd ${AG_TEMP}; \
-        curl -LO "${BAT_URL}"; \
-        tar xzvf ${BAT_FOLDER}.tar.gz; \
-        chmod +x ./${BAT_FOLDER}/bat; \
-        mv ./${BAT_FOLDER}/bat ${AG_BIN})
-    fi
-  fi
+if ! type exa >/dev/null; then
+  (cd ${AG_TEMP} && \
+    curl -LO "${EXA_URL}" && \
+    unzip ./${EXA_FILE} && \
+    chmod +x ./bin/exa && \
+    mv bin/exa ${AG_BIN})
+fi
+
+if ! type bat >/dev/null; then
+  (cd ${AG_TEMP} && \
+    curl -LO "${BAT_URL}" && \
+    tar xzvf ${BAT_FOLDER}.tar.gz && \
+    chmod +x ./${BAT_FOLDER}/bat && \
+    mv ./${BAT_FOLDER}/bat ${AG_BIN})
 fi
 
 exit 0

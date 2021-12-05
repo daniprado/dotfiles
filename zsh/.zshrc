@@ -4,8 +4,6 @@ if [[ -r "${XDG_CACHE_HOME}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
 fi
 
 source ${ZSHCONF}/zinit.zsh
-source ${ZSHCONF}/fzf.zsh
-source ${ZSHCONF}/asdf.zsh
 source ${ZSHCONF}/functions.zsh
 
 setopt autocd no_hup print_exit_value
@@ -64,6 +62,8 @@ export GPG_TTY="$(tty)"
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 gpgconf --launch gpg-agent
 
+source ${ZSHCONF}/fzf.zsh
+source ${ZSHCONF}/asdf.zsh
 source ${ZSHCONF}/alias.zsh
 
 (( ! ${+functions[p10k]} )) || p10k finalize

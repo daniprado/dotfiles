@@ -16,6 +16,8 @@ if [[ "${ZSH_BIN}" != *"${SHELL}" ]]; then
   exe "chsh --shell ${ZSH_BIN}"
 fi
 
+exe "git config --global pull.rebase false"
+
 exe "(cd ${CURR_PATH}; ./install_commands.sh)"
 exe "(cd ${CURR_PATH}; ./install_zinit.sh)"
 exe "(cd ${CURR_PATH}; ./install_fzf.sh)"

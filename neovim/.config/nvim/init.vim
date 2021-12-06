@@ -125,7 +125,6 @@ endif
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-path'
-    Plug 'hrsh7th/cmp-cmdline'
     Plug 'hrsh7th/cmp-nvim-lsp-document-symbol'
     Plug 'onsails/lspkind-nvim'                                                "Autocomplete icons
     Plug 'andersevenrud/compe-tmux', !empty($NVIM_TMUX) ? {} : { 'on': [] }    "Autocomplete for tmux
@@ -407,20 +406,6 @@ endif
         end
       }
     })
-    cmp.setup.cmdline(':', {
-        sources = cmp.config.sources({
-          { name = 'path' }
-        }, {
-          { name = 'cmdline' }
-        })
-      })
-    cmp.setup.cmdline('/', {
-        sources = cmp.config.sources({
-          { name = 'nvim_lsp_document_symbol' }
-        }, {
-          { name = 'buffer' }
-        })
-      })
     local cmp_autopairs = require('nvim-autopairs.completion.cmp')
     cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
 

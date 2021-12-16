@@ -13,7 +13,7 @@ if [[ ! -z "${AG_INSTALL}" ]]; then
   if type "pacman" >/dev/null; then
     sudo pacman -S python python-venv
   elif type "apt" >/dev/null; then
-    sudo apt install python-is-python3 python-venv
+    sudo apt install python-is-python3 python3-venv
   elif type "yum" >/dev/null; then
     sudo yum install python python-venv
   fi

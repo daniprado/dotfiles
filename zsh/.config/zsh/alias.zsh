@@ -41,9 +41,8 @@ if type "nvr-tmux" >/dev/null; then
 fi
 export VISUAL="${EDITOR}"
 
-alias gfz="git fuzzy"
 BAT_PATH="~/.local/bin/bat"
-if type "batcat" >/dev/null && [[ ! -f "${BAT_PATH}" ]]; then
+if type "batcat" >/dev/null && [[ ! -e "${BAT_PATH}" ]]; then
   ln -s /usr/bin/batcat "${BAT_PATH}"
 fi
 if type "bat" >/dev/null; then
@@ -57,8 +56,6 @@ if type "rg" >/dev/null; then
   alias grep="rg"
 fi
 
-alias wg="sudo wg"
-
 if type "trash-put" >/dev/null; then
   alias rm="trash-put"
 fi
@@ -71,11 +68,17 @@ if type "duf" >/dev/null; then
   alias df="duf"
 fi
 
+if type "podman" >/dev/null; then
+  alias docker="podman"
+fi
+
+alias gfz="git fuzzy"
+alias wg="sudo wg"
 alias venv="python -m venv ."
 alias renv="rm lib lib64 include bin pyvenv.cfg"
 alias src="source ./bin/activate"
 alias json="python -m json.tool"
-alias cal='noglob cal'
+alias cal="noglob cal"
 
 AGALIAS_PATH="${HOME}/.config/zsh/ag-alias.zsh"
 if [[ -f "${AGALIAS_PATH}" ]]; then

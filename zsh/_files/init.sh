@@ -10,6 +10,7 @@ PIPX_PKGS=( "trash-cli" "telegram-send" "sshtunnel" "bpytop" "asciinema" )
 pipx_install "${PIPX_PKGS[@]}"
 
 pkg_install "fd" "fd-find" "fd"
+pkg_install "tmate"
 
 ZSH_BIN=$(which zsh)
 if [[ "${ZSH_BIN}" != *"${SHELL}" ]]; then

@@ -30,11 +30,10 @@ endif
   "}}}
 
   "Libraries {{{
-    Plug 'nvim-lua/popup.nvim'                                                 "Lua libraries
-    Plug 'nvim-lua/plenary.nvim'                                               "Lua libraries
-    Plug 'kyazdani42/nvim-web-devicons'                                        "Lua libraries
-    Plug 'tami5/sqlite.lua'                                                    "Lua libraries
-    Plug 'rktjmp/lush.nvim'                                                    "Colorscheme Lua lib
+    Plug 'nvim-lua/plenary.nvim'                                               "Lua libraries (2)
+    Plug 'kyazdani42/nvim-web-devicons'                                        "Lua libraries (3)
+    Plug 'tami5/sqlite.lua'                                                    "Lua libraries (4)
+    Plug 'rktjmp/lush.nvim'                                                    "Colorscheme Lua lib (5)
   "}}}
 
   "Visual {{{
@@ -50,12 +49,13 @@ endif
     "Themes {{{
       Plug 'AlessandroYorba/Alduin'
       Plug 'jnurmine/zenburn'
-      Plug 'ellisonleao/gruvbox.nvim'
+      Plug 'ellisonleao/gruvbox.nvim'                                          "(5) TreeSitter & startify support
       Plug 'ishan9299/nvim-solarized-lua'
     "}}}
   "}}}
 
   "General {{{
+    Plug 'mhinz/vim-startify'                                                  "Start screen
     Plug 'lambdalisue/suda.vim', { 'on': ['SudaRead', 'SudaWrite'] }           "Open/Save file as root
     Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }                         "Edit history on current buffer
     Plug 'machakann/vim-highlightedyank'                                       "Highlight yakend text
@@ -64,7 +64,7 @@ endif
     Plug 'windwp/vim-floaterm-repl', { 'on': ['FloatermNew', 'FloatermRepl'] } "Execute selection on terminal
     Plug 'famiu/bufdelete.nvim', { 'on': ['Bdelete', 'Bwipeout'] }             "Close buffer without changing layout
     Plug 'nacro90/numb.nvim'                                                   "Previews destination line on jump
-    Plug 'lewis6991/gitsigns.nvim'                                             "Git visual tools
+    Plug 'lewis6991/gitsigns.nvim'                                             "(2) Git visual tools
   "}}}
 
   "View & Navigation {{{
@@ -78,9 +78,7 @@ endif
 
   "Motion & Objects {{{
     Plug 'phaazon/hop.nvim'                                                    "Hop motions
-    Plug 'svermeulen/vim-subversive'                                           "Substitute motions
     Plug 'tpope/vim-commentary'                                                "Comment motions
-    Plug 'adelarsq/vim-matchit'                                                "Extended %
     Plug 'matze/vim-move'                                                      "Move lines or selected blocks
     Plug 'tpope/vim-jdaddy'                                                    "Json!
     Plug 'tpope/vim-surround'                                                  "Bracket objects
@@ -92,14 +90,13 @@ endif
   "Tmux {{{
     Plug 'christoomey/vim-tmux-navigator'                                      "Navigate between tmux & vim panels
     Plug 'roxma/vim-tmux-clipboard', !empty($NVIM_TMUX) ? {} : { 'on': [] }    "Share yank/clipboard between tmux & vim
-    Plug 'tmux-plugins/vim-tmux', !empty($NVIM_TMUX) ? {} : { 'on': [] }       "Support for tmux.conf editing
   "}}}
 
   "Telescope {{{
-    Plug 'nvim-telescope/telescope.nvim'                                       "search popups!
+    Plug 'nvim-telescope/telescope.nvim'                                       "(2) search popups!
     Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }          "
-    Plug 'cljoly/telescope-repo.nvim'                                          "
-    Plug 'AckslD/nvim-neoclip.lua'                                             "
+    Plug 'cljoly/telescope-repo.nvim'                                          "(2) Jump to any repo
+    Plug 'AckslD/nvim-neoclip.lua'                                             "(4)
   "}}}
 
   "Treesitter {{{
@@ -110,14 +107,13 @@ endif
     Plug 'JoosepAlviste/nvim-ts-context-commentstring'                         "Change commentstring based on treesitter
     Plug 'nvim-treesitter/nvim-treesitter-refactor'                            "Highlight and navigate based on treesitter
     Plug 'haringsrob/nvim_context_vt'                                          "Shows context on code blocks
-    Plug 'mfussenegger/nvim-ts-hint-textobject'
+    Plug 'mfussenegger/nvim-treehopper'
   "}}}
 
   "LSP {{{
     Plug 'neovim/nvim-lspconfig'                                               "LSP support
     Plug 'williamboman/nvim-lsp-installer'                                     "Commands to install LSP servers
     Plug 'ray-x/lsp_signature.nvim'                                            "Show signature helper on autocomplete
-    " Plug 'norcalli/snippets.nvim'                                              "Snippets
   "}}}
 
   "CMP {{{
@@ -126,8 +122,9 @@ endif
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-path'
     Plug 'hrsh7th/cmp-nvim-lsp-document-symbol'
+    Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
     Plug 'onsails/lspkind-nvim'                                                "Autocomplete icons
-    Plug 'andersevenrud/compe-tmux', !empty($NVIM_TMUX) ? {} : { 'on': [] }    "Autocomplete for tmux
+    Plug 'andersevenrud/cmp-tmux', !empty($NVIM_TMUX) ? {} : { 'on': [] }      "Autocomplete for tmux
     Plug 'windwp/nvim-autopairs'                                               "Autocomplete on bracket-type chars
   "}}}
 
@@ -136,11 +133,6 @@ endif
     Plug 'tpope/vim-dotenv'                                                    "Load environment vars
     Plug 'kristijanhusak/vim-dadbod-ui', { 'on': 'DBUIToggle' }                "Simple UI for dadbod
     Plug 'kristijanhusak/vim-dadbod-completion', { 'on': 'DBUIToggle' }        "Autocomplete for dadbod
-  "}}}
-
-  "Ansible {{{
-    Plug 'pearofducks/ansible-vim'                                             "Ansible tools
-    Plug 'b4b4r07/vim-ansible-vault', { 'on': ['AnsibleVaultDecrypt', 'AnsibleVaultEncrypt']}
   "}}}
 
   "VimWiki {{{
@@ -225,6 +217,25 @@ endif
     "}}}
 
     "General {{{
+
+      function! s:gitModified()
+          let files = systemlist('git ls-files -m 2>/dev/null')
+          return map(files, "{'line': v:val, 'path': v:val}")
+      endfunction
+      function! s:gitUntracked()
+          let files = systemlist('git ls-files -o --exclude-standard 2>/dev/null')
+          return map(files, "{'line': v:val, 'path': v:val}")
+      endfunction
+      let g:startify_lists = [
+              \ { 'type': 'files',     'header': ['   MRU']            },
+              \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+              \ { 'type': 'sessions',  'header': ['   Sessions']       },
+              \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+              \ { 'type': function('s:gitModified'),  'header': ['   git modified']},
+              \ { 'type': function('s:gitUntracked'), 'header': ['   git untracked']},
+              \ { 'type': 'commands',  'header': ['   Commands']       },
+              \ ]
+
       let g:suda_smart_edit = 1
 
       let g:floaterm_keymap_toggle = '<C-M-t>'
@@ -267,23 +278,6 @@ endif
       set foldexpr=nvim_treesitter#foldexpr()
     "}}}
 
-    "Ansible {{{
-      let g:ansible_unindent_after_newline = 1
-      let g:ansible_yamlKeyName = 'yamlKey'
-      let g:ansible_attribute_highlight = "ob"
-      let g:ansible_name_highlight = 'd'
-      let g:ansible_extra_keywords_highlight = 1
-      let g:ansible_normal_keywords_highlight = 'Constant'
-      let g:ansible_with_keywords_highlight = 'Constant'
-      let g:ansible_template_syntaxes = { '*.rb.j2': 'ruby' }
-      let g:ansible_goto_role_paths = './roles,../_common/roles'
-
-      autocmd BufRead vault.yml :AnsibleVaultDecrypt
-      autocmd BufWrite vault.yml :AnsibleVaultEncrypt
-      autocmd BufRead,BufNewFile */playbooks/*.yml set filetype=yaml.ansible
-      autocmd BufRead,BufNewFile */roles/*.yml set filetype=yaml.ansible
-    "}}}
-
     "Database {{{
       let g:db_ui_show_help = 0
       let g:db_ui_disable_mappings = 1
@@ -307,15 +301,18 @@ endif
     require('numb').setup()
     require('gitsigns').setup()
     require('rooter').setup({ echo = false })
+    require('hop').setup()
     require('neoclip').setup({
       content_spec_colunm = true,
       history = 1000,
       enable_persistant_history = true,
       db_path = vim.fn.stdpath("data") .. "/neoclip.sqlite3",
       on_paste = { set_reg = true, },
-      keys = {
-        i = { select = '<cr>', paste = '<cr>', paste_behind = '<c-s-v>', },
-        n = { select = '<cr>', paste = '<cr>', paste_behind = '<c-s-v>', },
+      telescope = {
+        keys = {
+          i = { select = '<CR>', paste = '<CR>', paste_behind = '<C-S-v>', },
+          n = { select = '<CR>', paste = '<CR>', paste_behind = '<C-S-v>', },
+        },
       },
     })
 
@@ -327,13 +324,13 @@ endif
     local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
     local lsp_installer = require("nvim-lsp-installer")
     lsp_installer.settings({
-        ui = { icons = { server_installed = "✓", server_pending = "➜", server_uninstalled = "✗" } }
+      ui = { icons = { server_installed = "✓", server_pending = "➜", server_uninstalled = "✗" } }
     })
     lsp_installer.on_server_ready(function(server)
-        local opts = {
-          capabilities = capabilities
-        }
-        server:setup(opts)
+      local opts = {
+        capabilities = capabilities
+      }
+      server:setup(opts)
     end)
 
     require('nvim-autopairs').setup({
@@ -388,9 +385,9 @@ endif
     cmp.setup({
       mapping = {
         ['<C-j>'] = cmp.mapping.scroll_docs(-4), ['<C-k>'] = cmp.mapping.scroll_docs(4),
-        ['<C-space>'] = cmp.mapping.complete(), ['<C-enter>'] = cmp.mapping.close(),
-        ['<tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
-        ['<cr>'] = cmp.mapping.confirm({ select = true }),
+        ['<C-SPACE>'] = cmp.mapping.complete(), ['<C-ENTER>'] = cmp.mapping.close(),
+        ['<TAB>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
+        ['<CR>'] = cmp.mapping.confirm({ select = true }),
       },
       sources = {
         { name = 'nvim_lsp' },
@@ -398,13 +395,14 @@ endif
         { name = 'path' },
         { name = 'buffer' },
         { name = 'autopairs' },
+        { name = 'nvim_lsp_signature_help' },
       },
       formatting = {
         format = function(entry, vim_item)
           vim_item.kind = lspkind.presets.default[vim_item.kind]
           return vim_item
         end
-      }
+      },
     })
     local cmp_autopairs = require('nvim-autopairs.completion.cmp')
     cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
@@ -462,7 +460,7 @@ EOF
 "}}}
 
 "Functions {{{
-  au VimResized * exe "normal! \<c-w>="
+  au VimResized * exe "normal! \<C-w>="
 
   com! FormatXML :%!python3 -c "import xml.dom.minidom, sys; print(xml.dom.minidom.parse(sys.stdin).toprettyxml())"
 
@@ -486,127 +484,124 @@ EOF
 "}}}
 
 "Shortcuts {{{
-  let mapleader = "\<space>"
-  let g:mapleader = "\<space>"
+  let mapleader = "\<SPACE>"
+  let g:mapleader = "\<SPACE>"
 
-  cnoremap <expr> %%      getcmdtype() == ':' ? expand('%:h').'/' : '%%'         "Expand HOME path on command
-  inoremap <expr><tab>    pumvisible() ? "\<C-n>" : "\<tab>"|                    "
-  inoremap <expr><S-tab>  pumvisible() ? "\<C-p>" : "\<S-tab>"|                  "
+  cnoremap <EXPR> %%      getcmdtype() == ':' ? expand('%:h').'/' : '%%'         "Expand HOME path on command
+  inoremap <EXPR><TAB>    pumvisible() ? "\<C-n>" : "\<TAB>"|                    "
+  inoremap <EXPR><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"|                  "
   nnoremap <C-M-V>        "+gP|                                                  "
   inoremap <C-M-V>        <C-R>+|                                                "
   cnoremap <C-M-V>        <C-R>+|                                                "Copy & Paste
   vmap     <C-c>          "+yi|                                                  "shortcuts
-  xnoremap "+y            y:call system("wl-copy", @")<cr>|                      "
+  xnoremap "+y            y:call system("wl-copy", @")<CR>|                      "
 
   cmap w!!                SudaWrite|                                             "Write as root
   cmap e!!                SudaRead|                                              "Read as root
 
-  nnoremap <C-a>          <cmd>exec "normal! ggVG"<cr>|                          "Select all text in buffer
-  nnoremap <C-n>          <cmd>bnext<cr>|                                        "Focus next buffer
-  nnoremap <C-m>          <cmd>bprevious<cr>|                                    "Focus previous buffer
-  nnoremap <C-w>f         <cmd>ZoomWinTabToggle<cr>|                             "Get current focus full-size
-  nnoremap <C-w>k         <cmd>TmuxNavigateUp<cr>|                               "
-  nnoremap <C-w>j         <cmd>TmuxNavigateDown<cr>|                             "TMUX
-  nnoremap <C-w>h         <cmd>TmuxNavigateLeft<cr>|                             "
-  nnoremap <C-w>l         <cmd>TmuxNavigateRight<cr>|                            "
+  nnoremap <C-a>          <CMD>exec "normal! ggVG"<CR>|                          "Select all text in buffer
+  nnoremap <C-n>          <CMD>bnext<CR>|                                        "Focus next buffer
+  nnoremap <C-m>          <CMD>bprevious<CR>|                                    "Focus previous buffer
+  nnoremap <C-w>f         <CMD>ZoomWinTabToggle<CR>|                             "Get current focus full-size
+  nnoremap <C-w>k         <CMD>TmuxNavigateUp<CR>|                               "
+  nnoremap <C-w>j         <CMD>TmuxNavigateDown<CR>|                             "TMUX
+  nnoremap <C-w>h         <CMD>TmuxNavigateLeft<CR>|                             "
+  nnoremap <C-w>l         <CMD>TmuxNavigateRight<CR>|                            "
 
-  nnoremap <leader>v      <C-v>|                                                 "Cursor visual mode
-  nmap     <leader>R      <cmd>source $MYVIMRC<cr>|                              "Reload config
-  nnoremap <leader>ip     <cmd>set invpaste paste?<cr>|                          "Toggle paste modes
-  nmap     <leader>c      <cmd>IndentBlanklineToggle<cr>|                        "Show empty lines as they were indented
-  nnoremap <leader>ln     <cmd>set relativenumber!<cr>|                          "Toggle line numbers relative/absolute
-  nnoremap <Leader>lh     <cmd>call<SID>LongLineHLToggle()<cr>|                  "Highlight text above col 80
-  nnoremap <leader>p      <cmd>Telescope neoclip<cr>|                            "Yank stack
-  nnoremap <leader>u      <cmd>UndotreeToggle<cr>|                               "Open change history for buffer
-  nnoremap <leader>h      <cmd>cd<cr>|                                           "Switch CWD to $home directory
-  nnoremap <leader>cwd    <cmd>cd %:p:h<cr>:pwd<cr>|                             "Switch CWD to the directory of the open buffer
-  nnoremap <leader>"      <cmd>Telescope registers theme=get_dropdown<cr>|       "List of registers
-  nnoremap <leader>:      <cmd>Telescope command_history theme=get_dropdown<cr>| "List of executed commands
-  nnoremap <leader>/      <cmd>Telescope search_history theme=get_dropdown<cr>|  "List of executed searches
-  nnoremap <leader><tab>  <cmd>Telescope commands<cr>|                           "List of possible commands
-  nnoremap <leader><S-tab> <cmd>Telescope keymaps<cr>|                           "List of possible shortcuts
-  nnoremap <leader><M-tab> <cmd>Telescope help_tags<cr>|                         "List of help topics
-  nnoremap <leader>j      <cmd>%!jq '.'<cr>|                                     "Format as json
-  nnoremap <leader>x      <cmd>FormatXML<cr>|                                    "Format as XML
-  nnoremap <leader>dt     <cmd>diffthis<cr>|                                     "Activate diff on buffer
-  nnoremap <leader>do     <cmd>diffoff<cr>|                                      "Deactivate diff on buffer
+  nnoremap <LEADER>v      <C-v>|                                                 "Cursor visual mode
+  nmap     <LEADER>R      <CMD>source $MYVIMRC<CR>|                              "Reload config
+  nnoremap <LEADER>ip     <CMD>set invpaste paste?<CR>|                          "Toggle paste modes
+  nmap     <LEADER>c      <CMD>IndentBlanklineToggle<CR>|                        "Show empty lines as they were indented
+  nnoremap <LEADER>ln     <CMD>set relativenumber!<CR>|                          "Toggle line numbers relative/absolute
+  nnoremap <LEADER>lh     <CMD>call<SID>LongLineHLToggle()<CR>|                  "Highlight text above col 80
+  nnoremap <LEADER>p      <CMD>Telescope neoclip<CR>|                            "Yank stack
+  nnoremap <LEADER>u      <CMD>UndotreeToggle<CR>|                               "Open change history for buffer
+  nnoremap <LEADER>h      <CMD>cd<CR>|                                           "Switch CWD to $home directory
+  nnoremap <LEADER>cwd    <CMD>cd %:p:h<CR>:pwd<CR>|                             "Switch CWD to the directory of the open buffer
+  nnoremap <LEADER>"      <CMD>Telescope registers theme=get_dropdown<CR>|       "List of registers
+  nnoremap <LEADER>:      <CMD>Telescope command_history theme=get_dropdown<CR>| "List of executed commands
+  nnoremap <LEADER>/      <CMD>Telescope search_history theme=get_dropdown<CR>|  "List of executed searches
+  nnoremap <LEADER><TAB>  <CMD>Telescope commands<CR>|                           "List of possible commands
+  nnoremap <LEADER><S-TAB> <CMD>Telescope keymaps<CR>|                           "List of possible shortcuts
+  nnoremap <LEADER><M-TAB> <CMD>Telescope help_tags<CR>|                         "List of help topics
+  nnoremap <LEADER>j      <CMD>%!jq '.'<CR>|                                     "Format as json
+  nnoremap <LEADER>x      <CMD>FormatXML<CR>|                                    "Format as XML
+  nnoremap <LEADER>dt     <CMD>diffthis<CR>|                                     "Activate diff on buffer
+  nnoremap <LEADER>do     <CMD>diffoff<CR>|                                      "Deactivate diff on buffer
 
-  nnoremap <leader>fl     <cmd>Telescope current_buffer_fuzzy_find<cr>|          "
-  nnoremap <leader>fh     <cmd>Telescope oldfiles<cr>|                           "
-  nnoremap <leader>ff     <cmd>FloatermNew broot<cr>|                            "Open files
-  nnoremap <leader>fif    <cmd>Telescope live_grep<cr>|                          "
-  nnoremap <leader>fb     <cmd>Telescope buffers theme=get_dropdown layout_config.width=0. layout_config.height=0.2<cr>
-  nnoremap <leader>F      <cmd>Telescope builtin theme=get_dropdown layout_config.height=085 previewer=false<cr>
+  nnoremap <LEADER>fl     <CMD>Telescope current_buffer_fuzzy_find<CR>|          "
+  nnoremap <LEADER>fh     <CMD>Telescope oldfiles<CR>|                           "
+  nnoremap <LEADER>ff     <CMD>FloatermNew broot<CR>|                            "Open files
+  nnoremap <LEADER>fif    <CMD>Telescope live_grep<CR>|                          "
+  nnoremap <LEADER>fb     <CMD>Telescope buffers theme=get_dropdown layout_config.width=0. layout_config.height=0.2<CR>
+  nnoremap <LEADER>F      <CMD>Telescope builtin theme=get_dropdown layout_config.height=085 previewer=false<CR>
 
-  nnoremap <leader>t      <cmd>FloatermNew<cr>|                                  "
-  vnoremap <leader>t      :FloatermNew<cr>|                                      "
-  vnoremap <leader>ts     :FloatermSend<cr>|                                     "
-  nnoremap <leader>tc     <cmd>FloatermRepl<cr>|                                 "Open terminals
-  vnoremap <leader>tc     :FloatermRepl<cr>|                                     "
-  nnoremap <leader>tp     <cmd>FloatermNew python<cr>|                           "
-  vnoremap <leader>tp     :FloatermNew python<cr>|                               "
-  nnoremap <leader>tb     <cmd>FloatermNew bpytop<cr>|                           "
+  nnoremap <LEADER>t      <CMD>FloatermNew<CR>|                                  "
+  vnoremap <LEADER>t      :FloatermNew<CR>|                                      "
+  vnoremap <LEADER>ts     :FloatermSend<CR>|                                     "
+  nnoremap <LEADER>tc     <CMD>FloatermRepl<CR>|                                 "Open terminals
+  vnoremap <LEADER>tc     :FloatermRepl<CR>|                                     "
+  nnoremap <LEADER>tp     <CMD>FloatermNew python<CR>|                           "
+  vnoremap <LEADER>tp     :FloatermNew python<CR>|                               "
+  nnoremap <LEADER>tb     <CMD>FloatermNew bpytop<CR>|                           "
 
-  nnoremap <leader>gb     <cmd>Gitsigns toggle_current_line_blame<cr>|           "Activate blame per line
-  nnoremap <leader>gc     <cmd>Telescope git_commits<cr>|                        "List of repository commits
-  nnoremap <leader>gC     <cmd>Telescope git_bcommits<cr>|                       "List of file commits
-  nnoremap <leader>gst    <cmd>Telescope git_status theme=get_dropdown layout_config.height=0.2<cr>
-  nnoremap <leader>gR     <cmd>Telescope repo list<cr>|                          "List system repositories
-  nnoremap <leader>tg     <cmd>FloatermNew lazygit<cr>|                          "Open lazygit term
+  nnoremap <LEADER>gb     <CMD>Gitsigns toggle_current_line_blame<CR>|           "Activate blame per line
+  nnoremap <LEADER>gc     <CMD>Telescope git_commits<CR>|                        "List of repository commits
+  nnoremap <LEADER>gC     <CMD>Telescope git_bcommits<CR>|                       "List of file commits
+  nnoremap <LEADER>gst    <CMD>Telescope git_status theme=get_dropdown layout_config.height=0.2<CR>
+  nnoremap <LEADER>gR     <CMD>Telescope repo list<CR>|                          "List system repositories
+  nnoremap <LEADER>tg     <CMD>FloatermNew lazygit<CR>|                          "Open lazygit term
 
-  nnoremap <leader>wr     <cmd>Telescope lsp_references theme=get_dropdown<cr>|  "LSP references inside file
-  nnoremap <leader>wi     <cmd>Telescope treesitter<cr>|                         "Treesitter references inside file
-  nnoremap <leader>ws     <cmd>Telescope lsp_document_symbols<cr>|               "LSP symbols inside file
-  nnoremap <leader>wd     <cmd>Telescope lsp_workspace_diagnostics theme=get_dropdown layout_config.width=0.7<cr>
+  nnoremap <LEADER>wr     <CMD>Telescope lsp_references theme=get_dropdown<CR>|  "LSP references inside file
+  nnoremap <LEADER>wi     <CMD>Telescope treesitter<CR>|                         "Treesitter references inside file
+  nnoremap <LEADER>ws     <CMD>Telescope lsp_document_symbols<CR>|               "LSP symbols inside file
+  nnoremap <LEADER>wd     <CMD>Telescope lsp_workspace_diagnostics theme=get_dropdown layout_config.width=0.7<CR>
 
-  nnoremap <leader>ax     <cmd>AnsibleVaultDecrypt<cr>|                          "Decrypt an Ansible vault
-  nnoremap <leader>aX     <cmd>AnsibleVaultEncrypt<cr>|                          "Encrypt a file using Ansible vault
-  nnoremap <leader>bd     <cmd>DBUIToggle<cr>|                                   "Activate/deactivate DB-UI
-  vnoremap <leader><enter> :DB<cr>|                                              "Execute query
+  nnoremap <LEADER>ax     <CMD>AnsibleVaultDecrypt<CR>|                          "Decrypt an Ansible vault
+  nnoremap <LEADER>aX     <CMD>AnsibleVaultEncrypt<CR>|                          "Encrypt a file using Ansible vault
+  nnoremap <LEADER>bd     <CMD>DBUIToggle<CR>|                                   "Activate/deactivate DB-UI
+  vnoremap <LEADER><ENTER> :DB<CR>|                                              "Execute query
   " nmap gqaj             Pretifies JSON under cursor
   " nmap gwaj             Takes the JSON object on the clipboard and extends it into the JSON object under the cursor.
 
-  nnoremap <M-g>s         <cmd>lua require"gitsigns".stage_hunk()<cr>|           "
-  nnoremap <M-g>u         <cmd>lua require"gitsigns".undo_stage_hunk()<cr>|      "
-  nnoremap <M-g>r         <cmd>lua require"gitsigns".reset_hunk()<cr>|           "Gitsigns
-  nnoremap <M-g>R         <cmd>lua require"gitsigns".reset_buffer()<cr>|         "
-  nnoremap <M-g>p         <cmd>lua require"gitsigns".preview_hunk()<cr>|         "
+  nnoremap <M-g>s         <CMD>lua require"gitsigns".stage_hunk()<CR>|           "
+  nnoremap <M-g>u         <CMD>lua require"gitsigns".undo_stage_hunk()<CR>|      "
+  nnoremap <M-g>r         <CMD>lua require"gitsigns".reset_hunk()<CR>|           "Gitsigns
+  nnoremap <M-g>R         <CMD>lua require"gitsigns".reset_buffer()<CR>|         "
+  nnoremap <M-g>p         <CMD>lua require"gitsigns".preview_hunk()<CR>|         "
 
-  nnoremap <M-h>          <cmd>lua vim.lsp.buf.hover()<cr>|                      "LSP commands
-  nnoremap <M-f>          <cmd>lua vim.lsp.buf.formatting()<cr>|                 "
-  nnoremap <M-a>          <cmd>lua vim.lsp.buf.code_action()<cr>|                "
+  nnoremap <M-h>          <CMD>lua vim.lsp.buf.hover()<CR>|                      "LSP commands
+  nnoremap <M-f>          <CMD>lua vim.lsp.buf.formatting()<CR>|                 "
+  nnoremap <M-a>          <CMD>lua vim.lsp.buf.code_action()<CR>|                "
 
-  " inoremap <M-n>          <cmd>lua return require('snippets').expand_or_advance(1)<cr>|  "Next snippet
-  " inoremap <M-m>          <cmd>lua return require('snippets').advance_snippet(-1)<cr>|   "Previous snippet
+  " inoremap <M-n>          <CMD>lua return require('snippets').expand_or_advance(1)<CR>|  "Next snippet
+  " inoremap <M-m>          <CMD>lua return require('snippets').advance_snippet(-1)<CR>|   "Previous snippet
 
 "}}}
 
 " Text objects & Motions {{{
-  onoremap ie             <cmd>exec "normal! ggVG"<cr>|                          "Text object for whole buffer
-  onoremap iv             <cmd>exec "normal! HVL"<cr>|                           "Text object for whole view
-  xnoremap iz             <cmd>FastFoldUpdate<cr><esc>:<c-u>normal! ]zv[z<cr>|   "Text object for inside fold
-  xnoremap az             <cmd>FastFoldUpdate<cr><esc>:<c-u>normal! ]zV[z<cr>]   "Text object for arround fold
-  xnoremap ih             <cmd>lua require('gitsigns').select_hunk()<cr>|        "Text object for inside hunk (git mod.)
-  onoremap ih             <cmd>lua require('gitsigns').select_hunk()<cr>|        "Text object for inside hunk (git mod.)
+  onoremap ie             <CMD>exec "normal! ggVG"<CR>|                          "Text object for whole buffer
+  onoremap iv             <CMD>exec "normal! HVL"<CR>|                           "Text object for whole view
+  xnoremap iz             <CMD>FastFoldUpdate<CR><ESC>:<C-u>normal! ]zv[z<CR>|   "Text object for inside fold
+  xnoremap az             <CMD>FastFoldUpdate<CR><ESC>:<C-u>normal! ]zV[z<CR>]   "Text object for arround fold
+  xnoremap ih             <CMD>lua require('gitsigns').select_hunk()<CR>|        "Text object for inside hunk (git mod.)
+  onoremap ih             <CMD>lua require('gitsigns').select_hunk()<CR>|        "Text object for inside hunk (git mod.)
   " onoremap [iIaA] [nl_] (){}B[]<>t'`",.;:+-=~_*#/|\&$a Text objects for any of those (t=tag, a=argument)
   " onoremap [ia] iI        Text objects for indentation level
   " onoremap [ia]j          Text objects for Json
-  nmap s                  <plug>(SubversiveSubstitute)                           "Replace next text object with yank content
-  nmap sL                 <plug>(SubversiveSubstituteLine)                       "Replace line with yank content
-  nmap sS                 <plug>(SubversiveSubstituteToEndOfLine)                "Replase till EOL with yank content
-  " nmap [cdy]s             Change,delete,add surround: accepts text object + 1 or 2 brackets
 
-  nnoremap <M-w>          <cmd>HopWord<cr>|                                      "
-  omap     <silent>m      :<C-U>lua require('tsht').nodes()<cr>|                 "Treesitter hop!
-  vnoremap <silent>m      :lua require('tsht').nodes()<cr>|                      "
+  nnoremap <M-w>          <CMD>HopWord<CR>|                                      "
+  nnoremap <M-p>          <CMD>HopPattern<CR>|                                   "
+  omap     <silent>m      :<C-U>lua require('tsht').nodes()<CR>|                 "Treesitter hop!
+  vnoremap <silent>m      :lua require('tsht').nodes()<CR>|                      "
 
-  nnoremap <M-g>n         <cmd>lua require"gitsigns.actions".next_hunk()<cr>|    "Next git modified chunk
-  nnoremap <M-g>b         <cmd>lua require"gitsigns.actions".prev_hunk()<cr>|    "Previous git modified chunk
+  nnoremap <M-g>n         <CMD>lua require"gitsigns.actions".next_hunk()<CR>|    "Next git modified chunk
+  nnoremap <M-g>b         <CMD>lua require"gitsigns.actions".prev_hunk()<CR>|    "Previous git modified chunk
 
-  nnoremap <M-s>          <cmd>ISwap<cr>|                                        "Swap list elements
-  nnoremap <M-e>          <cmd>lua vim.lsp.diagnostic.goto_next()<cr>|           "
-  nnoremap <M-S-e>        <cmd>lua vim.lsp.diagnostic.goto_prev()<cr>|           " LSP Motions
-  nnoremap <M-i>          <cmd>lua vim.lsp.buf.implementation()<cr>|             "
-  nnoremap <M-t>          <cmd>lua vim.lsp.buf.type_definition()<cr>|            "
-  nnoremap <M-S-d>        <cmd>lua vim.lsp.buf.declaration()<cr>|                "
+  nnoremap <M-s>          <CMD>ISwap<CR>|                                        "Swap list elements
+  nnoremap <M-e>          <CMD>lua vim.lsp.diagnostic.goto_next()<CR>|           "
+  nnoremap <M-S-e>        <CMD>lua vim.lsp.diagnostic.goto_prev()<CR>|           " LSP Motions
+  nnoremap <M-i>          <CMD>lua vim.lsp.buf.implementation()<CR>|             "
+  nnoremap <M-t>          <CMD>lua vim.lsp.buf.type_definition()<CR>|            "
+  nnoremap <M-S-d>        <CMD>lua vim.lsp.buf.declaration()<CR>|                "
 "}}}

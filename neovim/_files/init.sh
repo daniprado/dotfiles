@@ -9,7 +9,7 @@ NVIM_PATH="https://github.com/neovim/neovim/releases/download/${NVIM_VERSION}/${
 FOLDERS=( "${AG_SHARE}/nvim" "${AG_CONFIG}/nvim" "${AG_CACHE}/nvim" )
 create_folders "${FOLDERS[@]}"
 
-PIP_PACKAGES=( "pynvim" )
+PIP_PACKAGES=( "pynvim" "tasklib" )
 pip_install "${PIP_PACKAGES[@]}"
 
 PIPX_PACKAGES=( "neovim-remote" )

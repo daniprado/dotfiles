@@ -85,5 +85,3 @@ if [[ -f "${AGALIAS_PATH}" ]]; then
   source "${AGALIAS_PATH}"
 fi
 
-
-

@@ -79,6 +79,7 @@ alias renv="rm lib lib64 include bin pyvenv.cfg"
 alias src="source ./bin/activate"
 alias json="python -m json.tool"
 alias cal="noglob cal"
+alias wshowkeys="wshowkeys -t 2 -a bottom -a right -m 100"
 
 AGALIAS_PATH="${HOME}/.config/zsh/ag-alias.zsh"
 if [[ -f "${AGALIAS_PATH}" ]]; then

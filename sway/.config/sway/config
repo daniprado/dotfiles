@@ -1,64 +1,53 @@
-set $config ~/.config
+set {
+  $config ~/.config
 
-set $mod Mod4
+  $mod Mod4
 
-set $left h
-set $down j
-set $up k
-set $right l
+  $left h
+  $down j
+  $up k
+  $right l
 
-seat seat0 xcursor_theme Papirus-Dark 24
+  $browser    'vivaldi-stable --enable-features=UseOzonePlatform --ozone-platform=wayland --gtk-version=4'
+  $term       alacritty
+  $editor     ~/.local/bin/nvim_sway
+  $screenshot ~/Media/Pictures/Screenshot
+  $wallpaper  ~/.local/share/pictures
+
+  $lightred    #4a3637
+  $red         #d17b49
+  $darkgreen   #7b8748
+  $darkyellow  #af865a
+  $darkblue    #535c5c
+  $darkmagenta #775759
+  $darkcyan    #6d715e
+  $white       #c0b18b
+  $mediumgrey  #4a3637
+  $darkred     #d17b49
+  $green       #7b8748
+  $yellow      #af865a
+  $blue        #535c5c
+  $magenta     #775759
+  $cyan        #6d715e
+  $darkwhite   #c0b18b
+  $background  #1f1f1f
+  $background2 #4a3637
+}
+
+swaynag_command swaynagmode
+popup_during_fullscreen leave_fullscreen
+focus_follows_mouse always
+
+seat seat0 xcursor_theme Papirus-Dark 22
 font pango:System DejaVu Sans Extralight 10
 
-set $browser 'vivaldi-stable --enable-features=UseOzonePlatform --ozone-platform=wayland'
-set $term alacritty
-set $telegram telegram-desktop
-set $editor ~/.local/bin/nvim_sway
-set $screenshot ~/Media/Pictures/Screenshot
-set $wallpaper ~/.local/share/pictures
-
-set $lightred    #4a3637
-set $red         #d17b49
-set $darkgreen   #7b8748
-set $darkyellow  #af865a
-set $darkblue    #535c5c
-set $darkmagenta #775759
-set $darkcyan    #6d715e
-set $white       #c0b18b
-set $mediumgrey  #4a3637
-set $darkred     #d17b49
-set $green       #7b8748
-set $yellow      #af865a
-set $blue        #535c5c
-set $magenta     #775759
-set $cyan        #6d715e
-set $darkwhite   #c0b18b
-set $background  #1f1f1f
-set $background2 #4a3637
-
-# xwayland disable
-swaynag_command swaynagmode
-floating_modifier $mod
-default_border pixel 2
-default_floating_border none
-hide_edge_borders smart
-popup_during_fullscreen smart
 floating_maximum_size 1024 x 768
 floating_minimum_size 80 x 60
+floating_modifier $mod
 
-smart_gaps on
-gaps inner 4
-gaps outer 5
-
-exec swayidle -w \
-  timeout 600 'swaylock' \
-  timeout 300 'swaymsg "output * dpms off"' \
-    resume 'swaymsg "output * dpms on"' \
-  before-sleep 'swaylock'
-
-bar {
-  swaybar_command waybar
-}
+default_border pixel 2
+default_floating_border pixel 1
+hide_edge_borders smart
 
 #                       BORDER      BACKGROUND  TEXT        INDICATOR    CHILD_BORDER
 client.focused          $background $background $darkyellow $background2 $background2
@@ -67,6 +56,20 @@ client.unfocused        $background $background $yellow     $background2 $backgr
 client.urgent           $darkred    $mediumgrey $background $darkred     $darkred
 client.placeholder      $darkred    $mediumgrey $background $darkred     $darkred
 client.background       $background
+
+smart_gaps on
+gaps inner 3
+gaps outer 4
+
+exec swayidle -w \
+  timeout 600 'swaylock' \
+  timeout 300 'swaymsg "output * dpms off"' \
+  resume 'swaymsg "output * dpms on"' \
+  before-sleep 'swaylock'
+
+bar {
+  swaybar_command waybar
+}
 
 exec ~/.config/sway/script/fade.py
 

@@ -499,109 +499,109 @@ EOF
   cmap w!!                SudaWrite|                                             "Write as root
   cmap e!!                SudaRead|                                              "Read as root
 
-  nnoremap <C-a>          <CMD>exec "normal! ggVG"<CR>|                          "Select all text in buffer
-  nnoremap <C-n>          <CMD>bnext<CR>|                                        "Focus next buffer
-  nnoremap <C-m>          <CMD>bprevious<CR>|                                    "Focus previous buffer
-  nnoremap <C-w>f         <CMD>ZoomWinTabToggle<CR>|                             "Get current focus full-size
-  nnoremap <C-w>k         <CMD>TmuxNavigateUp<CR>|                               "
-  nnoremap <C-w>j         <CMD>TmuxNavigateDown<CR>|                             "TMUX
-  nnoremap <C-w>h         <CMD>TmuxNavigateLeft<CR>|                             "
-  nnoremap <C-w>l         <CMD>TmuxNavigateRight<CR>|                            "
+  nnoremap <C-a>          <cmd>exec "normal! ggVG"<CR>|                          "Select all text in buffer
+  nnoremap <C-n>          <cmd>bnext<CR>|                                        "Focus next buffer
+  nnoremap <C-m>          <cmd>bprevious<CR>|                                    "Focus previous buffer
+  nnoremap <C-w>f         <cmd>ZoomWinTabToggle<CR>|                             "Get current focus full-size
+  nnoremap <C-w>k         <cmd>TmuxNavigateUp<CR>|                               "
+  nnoremap <C-w>j         <cmd>TmuxNavigateDown<CR>|                             "TMUX
+  nnoremap <C-w>h         <cmd>TmuxNavigateLeft<CR>|                             "
+  nnoremap <C-w>l         <cmd>TmuxNavigateRight<CR>|                            "
 
-  nnoremap <LEADER>v      <C-v>|                                                 "Cursor visual mode
-  nmap     <LEADER>R      <CMD>source $MYVIMRC<CR>|                              "Reload config
-  nnoremap <LEADER>ip     <CMD>set invpaste paste?<CR>|                          "Toggle paste modes
-  nmap     <LEADER>c      <CMD>IndentBlanklineToggle<CR>|                        "Show empty lines as they were indented
-  nnoremap <LEADER>ln     <CMD>set relativenumber!<CR>|                          "Toggle line numbers relative/absolute
-  nnoremap <LEADER>lh     <CMD>call<SID>LongLineHLToggle()<CR>|                  "Highlight text above col 80
-  nnoremap <LEADER>p      <CMD>Telescope neoclip<CR>|                            "Yank stack
-  nnoremap <LEADER>u      <CMD>UndotreeToggle<CR>|                               "Open change history for buffer
-  nnoremap <LEADER>h      <CMD>cd<CR>|                                           "Switch CWD to $home directory
-  nnoremap <LEADER>cwd    <CMD>cd %:p:h<CR>:pwd<CR>|                             "Switch CWD to the directory of the open buffer
-  nnoremap <LEADER>"      <CMD>Telescope registers theme=get_dropdown<CR>|       "List of registers
-  nnoremap <LEADER>:      <CMD>Telescope command_history theme=get_dropdown<CR>| "List of executed commands
-  nnoremap <LEADER>/      <CMD>Telescope search_history theme=get_dropdown<CR>|  "List of executed searches
-  nnoremap <LEADER><TAB>  <CMD>Telescope commands<CR>|                           "List of possible commands
-  nnoremap <LEADER><S-TAB> <CMD>Telescope keymaps<CR>|                           "List of possible shortcuts
-  nnoremap <LEADER><M-TAB> <CMD>Telescope help_tags<CR>|                         "List of help topics
-  nnoremap <LEADER>j      <CMD>%!jq '.'<CR>|                                     "Format as json
-  nnoremap <LEADER>x      <CMD>FormatXML<CR>|                                    "Format as XML
-  nnoremap <LEADER>dt     <CMD>diffthis<CR>|                                     "Activate diff on buffer
-  nnoremap <LEADER>do     <CMD>diffoff<CR>|                                      "Deactivate diff on buffer
+  nnoremap <leader>v      <C-v>|                                                 "Cursor visual mode
+  nmap     <leader>R      <cmd>source $MYVIMRC<CR>|                              "Reload config
+  nnoremap <leader>ip     <cmd>set invpaste paste?<CR>|                          "Toggle paste modes
+  nmap     <leader>c      <cmd>IndentBlanklineToggle<CR>|                        "Show empty lines as they were indented
+  nnoremap <leader>ln     <cmd>set relativenumber!<CR>|                          "Toggle line numbers relative/absolute
+  nnoremap <leader>lh     <cmd>call<SID>LongLineHLToggle()<CR>|                  "Highlight text above col 80
+  nnoremap <leader>lb     <cmd>lua require"gitsigns".toggle_current_line_blame()<CR>|
+  nnoremap <leader>p      <cmd>Telescope neoclip<CR>|                            "Yank stack
+  nnoremap <leader>u      <cmd>UndotreeToggle<CR>|                               "Open change history for buffer
+  nnoremap <leader>h      <cmd>cd<CR>|                                           "Switch CWD to $home directory
+  nnoremap <leader>cwd    <cmd>cd %:p:h<CR>:pwd<CR>|                             "Switch CWD to the directory of the open buffer
+  nnoremap <leader>"      <cmd>Telescope registers theme=get_dropdown<CR>|       "List of registers
+  nnoremap <leader>:      <cmd>Telescope command_history theme=get_dropdown<CR>| "List of executed commands
+  nnoremap <leader>/      <cmd>Telescope search_history theme=get_dropdown<CR>|  "List of executed searches
+  nnoremap <leader><TAB>  <cmd>Telescope commands<CR>|                           "List of possible commands
+  nnoremap <leader><S-TAB> <cmd>Telescope keymaps<CR>|                           "List of possible shortcuts
+  nnoremap <leader><M-TAB> <cmd>Telescope help_tags<CR>|                         "List of help topics
+  nnoremap <leader>j      <cmd>%!jq '.'<CR>|                                     "Format as json
+  nnoremap <leader>x      <cmd>FormatXML<CR>|                                    "Format as XML
+  nnoremap <leader>dt     <cmd>diffthis<CR>|                                     "Activate diff on buffer
+  nnoremap <leader>do     <cmd>diffoff<CR>|                                      "Deactivate diff on buffer
 
-  nnoremap <LEADER>fl     <CMD>Telescope current_buffer_fuzzy_find<CR>|          "
-  nnoremap <LEADER>fh     <CMD>Telescope oldfiles<CR>|                           "
-  nnoremap <LEADER>ff     <CMD>FloatermNew broot<CR>|                            "Open files
-  nnoremap <LEADER>fif    <CMD>Telescope live_grep<CR>|                          "
-  nnoremap <LEADER>fb     <CMD>Telescope buffers theme=get_dropdown layout_config.width=0. layout_config.height=0.2<CR>
-  nnoremap <LEADER>F      <CMD>Telescope builtin theme=get_dropdown layout_config.height=085 previewer=false<CR>
+  nnoremap <leader>fl     <cmd>Telescope current_buffer_fuzzy_find<CR>|          "
+  nnoremap <leader>fh     <cmd>Telescope oldfiles<CR>|                           "
+  nnoremap <leader>ff     <cmd>FloatermNew broot<CR>|                            "Open files
+  nnoremap <leader>fif    <cmd>Telescope live_grep<CR>|                          "
+  nnoremap <leader>fb     <cmd>Telescope buffers theme=get_dropdown layout_config.width=0. layout_config.height=0.2<CR>
+  nnoremap <leader>F      <cmd>Telescope builtin theme=get_dropdown layout_config.height=085 previewer=false<CR>
 
-  nnoremap <LEADER>t      <CMD>FloatermNew<CR>|                                  "
-  vnoremap <LEADER>t      :FloatermNew<CR>|                                      "
-  vnoremap <LEADER>ts     :FloatermSend<CR>|                                     "
-  nnoremap <LEADER>tc     <CMD>FloatermRepl<CR>|                                 "Open terminals
-  vnoremap <LEADER>tc     :FloatermRepl<CR>|                                     "
-  nnoremap <LEADER>tp     <CMD>FloatermNew python<CR>|                           "
-  vnoremap <LEADER>tp     :FloatermNew python<CR>|                               "
-  nnoremap <LEADER>tb     <CMD>FloatermNew bpytop<CR>|                           "
+  nnoremap <leader>t      <cmd>FloatermNew<CR>|                                  "
+  vnoremap <leader>t      :FloatermNew<CR>|                                      "
+  vnoremap <leader>ts     :FloatermSend<CR>|                                     "
+  nnoremap <leader>tc     <cmd>FloatermRepl<CR>|                                 "Open terminals
+  vnoremap <leader>tc     :FloatermRepl<CR>|                                     "
+  nnoremap <leader>tp     <cmd>FloatermNew python<CR>|                           "
+  vnoremap <leader>tp     :FloatermNew python<CR>|                               "
+  nnoremap <leader>tb     <cmd>FloatermNew bpytop<CR>|                           "
 
-  nnoremap <LEADER>gb     <CMD>Gitsigns toggle_current_line_blame<CR>|           "Activate blame per line
-  nnoremap <LEADER>gc     <CMD>Telescope git_commits<CR>|                        "List of repository commits
-  nnoremap <LEADER>gC     <CMD>Telescope git_bcommits<CR>|                       "List of file commits
-  nnoremap <LEADER>gst    <CMD>Telescope git_status theme=get_dropdown layout_config.height=0.2<CR>
-  nnoremap <LEADER>gR     <CMD>Telescope repo list<CR>|                          "List system repositories
-  nnoremap <LEADER>tg     <CMD>FloatermNew lazygit<CR>|                          "Open lazygit term
+  nnoremap <leader>gc     <cmd>Telescope git_commits<CR>|                        "List of repository commits
+  nnoremap <leader>gC     <cmd>Telescope git_bcommits<CR>|                       "List of file commits
+  nnoremap <leader>gst    <cmd>Telescope git_status theme=get_dropdown layout_config.height=0.2<CR>
+  nnoremap <leader>gR     <cmd>Telescope repo list<CR>|                          "List system repositories
+  nnoremap <leader>tg     <cmd>FloatermNew lazygit<CR>|                          "Open lazygit term
 
-  nnoremap <LEADER>wr     <CMD>Telescope lsp_references theme=get_dropdown<CR>|  "LSP references inside file
-  nnoremap <LEADER>wi     <CMD>Telescope treesitter<CR>|                         "Treesitter references inside file
-  nnoremap <LEADER>ws     <CMD>Telescope lsp_document_symbols<CR>|               "LSP symbols inside file
-  nnoremap <LEADER>wd     <CMD>Telescope lsp_workspace_diagnostics theme=get_dropdown layout_config.width=0.7<CR>
+  nnoremap <leader>wr     <cmd>Telescope lsp_references theme=get_dropdown<CR>|  "LSP references inside file
+  nnoremap <leader>wi     <cmd>Telescope treesitter<CR>|                         "Treesitter references inside file
+  nnoremap <leader>ws     <cmd>Telescope lsp_document_symbols<CR>|               "LSP symbols inside file
+  nnoremap <leader>wd     <cmd>Telescope lsp_workspace_diagnostics theme=get_dropdown layout_config.width=0.7<CR>
 
-  nnoremap <LEADER>ax     <CMD>AnsibleVaultDecrypt<CR>|                          "Decrypt an Ansible vault
-  nnoremap <LEADER>aX     <CMD>AnsibleVaultEncrypt<CR>|                          "Encrypt a file using Ansible vault
-  nnoremap <LEADER>bd     <CMD>DBUIToggle<CR>|                                   "Activate/deactivate DB-UI
-  vnoremap <LEADER><ENTER> :DB<CR>|                                              "Execute query
+  nnoremap <leader>ax     <cmd>AnsibleVaultDecrypt<CR>|                          "Decrypt an Ansible vault
+  nnoremap <leader>aX     <cmd>AnsibleVaultEncrypt<CR>|                          "Encrypt a file using Ansible vault
+  nnoremap <leader>bd     <cmd>DBUIToggle<CR>|                                   "Activate/deactivate DB-UI
+  vnoremap <leader><ENTER> :DB<CR>|                                              "Execute query
   " nmap gqaj             Pretifies JSON under cursor
   " nmap gwaj             Takes the JSON object on the clipboard and extends it into the JSON object under the cursor.
 
-  nnoremap <M-g>s         <CMD>lua require"gitsigns".stage_hunk()<CR>|           "
-  nnoremap <M-g>u         <CMD>lua require"gitsigns".undo_stage_hunk()<CR>|      "
-  nnoremap <M-g>r         <CMD>lua require"gitsigns".reset_hunk()<CR>|           "Gitsigns
-  nnoremap <M-g>R         <CMD>lua require"gitsigns".reset_buffer()<CR>|         "
-  nnoremap <M-g>p         <CMD>lua require"gitsigns".preview_hunk()<CR>|         "
+  nnoremap <M-g>s         <cmd>lua require"gitsigns".stage_hunk()<CR>|           "
+  nnoremap <M-g>u         <cmd>lua require"gitsigns".undo_stage_hunk()<CR>|      "
+  nnoremap <M-g>r         <cmd>lua require"gitsigns".reset_hunk()<CR>|           "Gitsigns
+  nnoremap <M-g>R         <cmd>lua require"gitsigns".reset_buffer()<CR>|         "
+  nnoremap <M-g>p         <cmd>lua require"gitsigns".preview_hunk()<CR>|         "
 
-  nnoremap <M-h>          <CMD>lua vim.lsp.buf.hover()<CR>|                      "LSP commands
-  nnoremap <M-f>          <CMD>lua vim.lsp.buf.formatting()<CR>|                 "
-  nnoremap <M-a>          <CMD>lua vim.lsp.buf.code_action()<CR>|                "
+  nnoremap <M-h>          <cmd>lua vim.lsp.buf.hover()<CR>|                      "LSP commands
+  nnoremap <M-f>          <cmd>lua vim.lsp.buf.formatting()<CR>|                 "
+  nnoremap <M-a>          <cmd>lua vim.lsp.buf.code_action()<CR>|                "
 
-  " inoremap <M-n>          <CMD>lua return require('snippets').expand_or_advance(1)<CR>|  "Next snippet
-  " inoremap <M-m>          <CMD>lua return require('snippets').advance_snippet(-1)<CR>|   "Previous snippet
+  " inoremap <M-n>          <cmd>lua return require('snippets').expand_or_advance(1)<CR>|  "Next snippet
+  " inoremap <M-m>          <cmd>lua return require('snippets').advance_snippet(-1)<CR>|   "Previous snippet
 
 "}}}
 
 " Text objects & Motions {{{
-  onoremap ie             <CMD>exec "normal! ggVG"<CR>|                          "Text object for whole buffer
-  onoremap iv             <CMD>exec "normal! HVL"<CR>|                           "Text object for whole view
-  xnoremap iz             <CMD>FastFoldUpdate<CR><ESC>:<C-u>normal! ]zv[z<CR>|   "Text object for inside fold
-  xnoremap az             <CMD>FastFoldUpdate<CR><ESC>:<C-u>normal! ]zV[z<CR>]   "Text object for arround fold
-  xnoremap ih             <CMD>lua require('gitsigns').select_hunk()<CR>|        "Text object for inside hunk (git mod.)
-  onoremap ih             <CMD>lua require('gitsigns').select_hunk()<CR>|        "Text object for inside hunk (git mod.)
+  onoremap ie             <cmd>exec "normal! ggVG"<CR>|                          "Text object for whole buffer
+  onoremap iv             <cmd>exec "normal! HVL"<CR>|                           "Text object for whole view
+  xnoremap iz             <cmd>FastFoldUpdate<CR><ESC>:<C-u>normal! ]zv[z<CR>|   "Text object for inside fold
+  xnoremap az             <cmd>FastFoldUpdate<CR><ESC>:<C-u>normal! ]zV[z<CR>]   "Text object for arround fold
+  xnoremap ih             <cmd>lua require('gitsigns').select_hunk()<CR>|        "Text object for inside hunk (git mod.)
+  onoremap ih             <cmd>lua require('gitsigns').select_hunk()<CR>|        "Text object for inside hunk (git mod.)
   " onoremap [iIaA] [nl_] (){}B[]<>t'`",.;:+-=~_*#/|\&$a Text objects for any of those (t=tag, a=argument)
   " onoremap [ia] iI        Text objects for indentation level
   " onoremap [ia]j          Text objects for Json
 
-  nnoremap <M-w>          <CMD>HopWord<CR>|                                      "
-  nnoremap <M-p>          <CMD>HopPattern<CR>|                                   "
+  nnoremap <M-w>          <cmd>HopWord<CR>|                                      "
+  nnoremap <M-p>          <cmd>HopPattern<CR>|                                   "
   omap     <silent>m      :<C-U>lua require('tsht').nodes()<CR>|                 "Treesitter hop!
   vnoremap <silent>m      :lua require('tsht').nodes()<CR>|                      "
 
-  nnoremap <M-g>n         <CMD>lua require"gitsigns.actions".next_hunk()<CR>|    "Next git modified chunk
-  nnoremap <M-g>b         <CMD>lua require"gitsigns.actions".prev_hunk()<CR>|    "Previous git modified chunk
+  nnoremap <M-g>n         <cmd>lua require"gitsigns.actions".next_hunk()<CR>|    "Next git modified chunk
+  nnoremap <M-g>b         <cmd>lua require"gitsigns.actions".prev_hunk()<CR>|    "Previous git modified chunk
 
-  nnoremap <M-s>          <CMD>ISwap<CR>|                                        "Swap list elements
-  nnoremap <M-e>          <CMD>lua vim.lsp.diagnostic.goto_next()<CR>|           "
-  nnoremap <M-S-e>        <CMD>lua vim.lsp.diagnostic.goto_prev()<CR>|           " LSP Motions
-  nnoremap <M-i>          <CMD>lua vim.lsp.buf.implementation()<CR>|             "
-  nnoremap <M-t>          <CMD>lua vim.lsp.buf.type_definition()<CR>|            "
-  nnoremap <M-S-d>        <CMD>lua vim.lsp.buf.declaration()<CR>|                "
+  nnoremap <M-s>          <cmd>ISwap<CR>|                                        "Swap list elements
+  nnoremap <M-e>          <cmd>lua vim.lsp.diagnostic.goto_next()<CR>|           "
+  nnoremap <M-S-e>        <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>|           " LSP Motions
+  nnoremap <M-i>          <cmd>lua vim.lsp.buf.implementation()<CR>|             "
+  nnoremap <M-t>          <cmd>lua vim.lsp.buf.type_definition()<CR>|            "
+  nnoremap <M-S-d>        <cmd>lua vim.lsp.buf.declaration()<CR>|                "
 "}}}

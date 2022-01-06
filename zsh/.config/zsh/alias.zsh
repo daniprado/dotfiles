@@ -24,27 +24,28 @@ fi
 
 alias vi="vim"
 export EDITOR="vim"
-if type "nvim" >/dev/null; then
+# Min Neovim version is 0.5.0
+[[ $(nvim --version | grep -m 1 "NVIM" | cut -d'.' -f2) -ge 5 ]] 2>/dev/null
+if [[ $? -eq 0 ]]; then
   alias vim="nvim"
-  alias gvim="NVIM_GUI=1 nvim-qt"
-  export EDITOR="nvim-qt"
-fi
-if type "nvr" >/dev/null; then
-  export EDITOR="nvr -s --servername ${HOME}/tmp/nvimsocket_$(curr_dk)"
-  alias nvim="${EDITOR}"
-  alias nvim-qt="NVIM_GUI=1 NVR_CMD=nvim-qt ${EDITOR}"
-fi
-if type "nvr-tmux" >/dev/null; then
-  export EDITOR="nvr-tmux -s --servername ${HOME}/tmp/nvimsocket_$(curr_dk)"
-  alias nvim="${EDITOR}"
-  alias nvim-qt="NVIM_GUI=1 NVR_CMD=nvim-qt ${EDITOR}"
-fi
-export VISUAL="${EDITOR}"
+  [[ ! "${SSH_TTY}" ]] && alias gvim="NVIM_GUI=1 nvim-qt"
+  [[ ! "${SSH_TTY}" ]] && export EDITOR="nvim-qt"
+  [[ "${SSH_TTY}" ]] && export EDITOR="nvim"
 
-BAT_PATH="~/.local/bin/bat"
-if type "batcat" >/dev/null && [[ ! -e "${BAT_PATH}" ]]; then
-  ln -s /usr/bin/batcat "${BAT_PATH}"
+  if type "nvr" >/dev/null; then
+    export EDITOR="nvr -s --servername ${TMP}/nvimsocket_$(curr_dk)"
+    alias nvim="${EDITOR}"
+    [[ ! "${SSH_TTY}" ]] && alias nvim-qt="NVIM_GUI=1 NVR_CMD=nvim-qt ${EDITOR}"
+  fi
+
+  if type "nvr-tmux" >/dev/null; then
+    export EDITOR="nvr-tmux -s --servername ${TMP}/nvimsocket_$(curr_dk)"
+    alias nvim="${EDITOR}"
+    [[ ! "${SSH_TTY}" ]] && alias nvim-qt="NVIM_GUI=1 NVR_CMD=nvim-qt ${EDITOR}"
+  fi
 fi
+[[ ! "${SSH_TTY}" ]] && export VISUAL="${EDITOR}"
+
 if type "bat" >/dev/null; then
   alias cat="bat"
   export PAGER="bat"
@@ -77,6 +78,7 @@ alias wg="sudo wg"
 alias venv="python -m venv ."
 alias renv="rm lib lib64 include bin pyvenv.cfg"
 alias src="source ./bin/activate"
+alias senv="venv && src"
 alias json="python -m json.tool"
 alias cal="noglob cal"
 alias wshowkeys="wshowkeys -t 2 -a bottom -a right -m 100"

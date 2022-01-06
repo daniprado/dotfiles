@@ -227,20 +227,19 @@ endif
           return map(files, "{'line': v:val, 'path': v:val}")
       endfunction
       let g:startify_lists = [
-              \ { 'type': 'files',     'header': ['   MRU']            },
-              \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
-              \ { 'type': 'sessions',  'header': ['   Sessions']       },
-              \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-              \ { 'type': function('s:gitModified'),  'header': ['   git modified']},
-              \ { 'type': function('s:gitUntracked'), 'header': ['   git untracked']},
-              \ { 'type': 'commands',  'header': ['   Commands']       },
+              \ { 'type': 'files',                    'header': ['   MRU']            },
+              \ { 'type': 'sessions',                 'header': ['   Sessions']       },
+              \ { 'type': 'bookmarks',                'header': ['   Bookmarks']      },
+              \ { 'type': function('s:gitModified'),  'header': ['   git modified']   },
+              \ { 'type': function('s:gitUntracked'), 'header': ['   git untracked']  },
+              \ { 'type': 'commands',                 'header': ['   Commands']       },
               \ ]
 
       let g:suda_smart_edit = 1
 
       let g:floaterm_keymap_toggle = '<C-M-t>'
-      let g:floaterm_keymap_next = '<C-M-j>'
-      let g:floaterm_keymap_prev = '<C-M-k>'
+      let g:floaterm_keymap_next = '<C-M-n>'
+      let g:floaterm_keymap_prev = '<C-M-m>'
       let g:floaterm_width = 0.8
       let g:floaterm_height = 0.8
       let g:floaterm_opener = 'edit'
@@ -307,9 +306,12 @@ endif
       history = 1000,
       enable_persistant_history = true,
       db_path = vim.fn.stdpath("data") .. "/neoclip.sqlite3",
-      on_paste = { set_reg = true, },
-      telescope = {
-        keys = {
+      preview = true,
+      -- FIXME Check why this does not work
+      content_spec_colunm = false,
+      on_paste = { set_reg = false, },
+      keys = {
+        telescope = {
           i = { select = '<CR>', paste = '<CR>', paste_behind = '<C-S-v>', },
           n = { select = '<CR>', paste = '<CR>', paste_behind = '<C-S-v>', },
         },
@@ -369,7 +371,6 @@ endif
       },
     }
 
-    -- require('snippets').use_suggested_mappings()
     local lspkind = require('lspkind')
     lspkind.init({
         with_text = true,
@@ -434,10 +435,10 @@ endif
         custom_areas = {
           right = function()
                     local result = {}
-                    local error = vim.lsp.diagnostic.get_count(0, [[Error]])
-                    local warning = vim.lsp.diagnostic.get_count(0, [[Warning]])
-                    local info = vim.lsp.diagnostic.get_count(0, [[Information]])
-                    local hint = vim.lsp.diagnostic.get_count(0, [[Hint]])
+                    local error = vim.diagnostic.get(0, [[Error]])
+                    local warning = vim.diagnostic.get(0, [[Warning]])
+                    local info = vim.diagnostic.get(0, [[Information]])
+                    local hint = vim.diagnostic.get(0, [[Hint]])
                     if error ~= 0 then
                       table.insert(result, {text = "  " .. error, guifg = "#EC5241"})
                     end
@@ -557,8 +558,6 @@ EOF
   nnoremap <leader>ws     <cmd>Telescope lsp_document_symbols<CR>|               "LSP symbols inside file
   nnoremap <leader>wd     <cmd>Telescope lsp_workspace_diagnostics theme=get_dropdown layout_config.width=0.7<CR>
 
-  nnoremap <leader>ax     <cmd>AnsibleVaultDecrypt<CR>|                          "Decrypt an Ansible vault
-  nnoremap <leader>aX     <cmd>AnsibleVaultEncrypt<CR>|                          "Encrypt a file using Ansible vault
   nnoremap <leader>bd     <cmd>DBUIToggle<CR>|                                   "Activate/deactivate DB-UI
   vnoremap <leader><ENTER> :DB<CR>|                                              "Execute query
   " nmap gqaj             Pretifies JSON under cursor
@@ -573,9 +572,6 @@ EOF
   nnoremap <M-h>          <cmd>lua vim.lsp.buf.hover()<CR>|                      "LSP commands
   nnoremap <M-f>          <cmd>lua vim.lsp.buf.formatting()<CR>|                 "
   nnoremap <M-a>          <cmd>lua vim.lsp.buf.code_action()<CR>|                "
-
-  " inoremap <M-n>          <cmd>lua return require('snippets').expand_or_advance(1)<CR>|  "Next snippet
-  " inoremap <M-m>          <cmd>lua return require('snippets').advance_snippet(-1)<CR>|   "Previous snippet
 
 "}}}
 
@@ -596,11 +592,11 @@ EOF
   vnoremap <silent>m      :lua require('tsht').nodes()<CR>|                      "
 
   nnoremap <M-g>n         <cmd>lua require"gitsigns.actions".next_hunk()<CR>|    "Next git modified chunk
-  nnoremap <M-g>b         <cmd>lua require"gitsigns.actions".prev_hunk()<CR>|    "Previous git modified chunk
+  nnoremap <M-g>m         <cmd>lua require"gitsigns.actions".prev_hunk()<CR>|    "Previous git modified chunk
 
   nnoremap <M-s>          <cmd>ISwap<CR>|                                        "Swap list elements
-  nnoremap <M-e>          <cmd>lua vim.lsp.diagnostic.goto_next()<CR>|           "
-  nnoremap <M-S-e>        <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>|           " LSP Motions
+  nnoremap <M-e>          <cmd>lua vim.diagnostic.goto_next()<CR>|               "
+  nnoremap <M-S-e>        <cmd>lua vim.diagnostic.goto_prev()<CR>|               " LSP Motions
   nnoremap <M-i>          <cmd>lua vim.lsp.buf.implementation()<CR>|             "
   nnoremap <M-t>          <cmd>lua vim.lsp.buf.type_definition()<CR>|            "
   nnoremap <M-S-d>        <cmd>lua vim.lsp.buf.declaration()<CR>|                "

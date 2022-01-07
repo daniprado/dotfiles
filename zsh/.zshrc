@@ -64,3 +64,4 @@ source ${ZSHCONF}/asdf.zsh
 source ${ZSHCONF}/alias.zsh
 
 (( ! ${+functions[p10k]} )) || p10k finalize
+

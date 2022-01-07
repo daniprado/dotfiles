@@ -21,6 +21,7 @@ exe "git config --global pull.rebase false"
 
 exe "(cd ${CURR_PATH}; ./install_commands.sh)"
 exe "(cd ${CURR_PATH}; ./install_zinit.sh)"
+exe "(cd ${CURR_PATH}; ./install_gpg.sh)"
 exe "(cd ${CURR_PATH}; ./install_fzf.sh)"
 exe "(cd ${CURR_PATH}; ./install_diffsofancy.sh)"
 exe "(cd ${CURR_PATH}; ./install_broot.sh)"

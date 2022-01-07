@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [[ $(type /usr/bin/pinentry-qt) && ! "${SSH_TTY}" ]]; then
+  exec /usr/bin/pinentry-qt "$@"
+elif type /usr/bin/pinentry-curses; then
+  exec /usr/bin/pinentry-curses "$@"
+else
+  exec /usr/bin/pinentry "$@"
+fi
+

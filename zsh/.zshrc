@@ -57,11 +57,10 @@ if [[ "${TERM}" == (screen*|tmux*|xterm*) ]]; then
   add-zsh-hook -Uz precmd xterm_title_precmd
 fi
 
-source ${ZSHCONF}/gpg-init.zsh
-
 source ${ZSHCONF}/fzf.zsh
 source ${ZSHCONF}/asdf.zsh
 source ${ZSHCONF}/alias.zsh
+source ${ZSHCONF}/gpg-init.zsh
 
 (( ! ${+functions[p10k]} )) || p10k finalize
 

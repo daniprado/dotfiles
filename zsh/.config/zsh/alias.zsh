@@ -4,6 +4,7 @@ alias tmux="NVIM_TMUX=1 tmux -2"
 alias ssh="TERM=xterm-256color ssh"
 
 alias _='sudo'
+alias __='sudo --preserve-env=SSH_AUTH_SOCK'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'

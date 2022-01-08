@@ -8,7 +8,11 @@ set {
   $up k
   $right l
 
-  $browser    'vivaldi-stable --enable-features=UseOzonePlatform --ozone-platform=wayland --gtk-version=4'
+  # Electron will fix "the á problem" in 02/2022
+  $electron_mods ''
+  #$electron_mods '--enable-features=UseOzonePlatform --ozone-platform=wayland --gtk-version=4'
+
+  $browser    'vivaldi-stable $electron_mods'
   $term       alacritty
   $editor     ~/.local/bin/nvim_sway
   $screenshot ~/Media/Pictures/Screenshot
@@ -38,7 +42,7 @@ swaynag_command swaynagmode
 popup_during_fullscreen leave_fullscreen
 focus_follows_mouse always
 
-seat seat0 xcursor_theme Papirus-Dark 22
+seat seat0 xcursor_theme default 22
 font pango:System DejaVu Sans Extralight 10
 
 floating_maximum_size 1024 x 768
@@ -59,7 +63,7 @@ client.background       $background
 
 smart_gaps on
 gaps inner 3
-gaps outer 4
+gaps outer 3
 
 exec swayidle -w \
   timeout 600 'swaylock' \

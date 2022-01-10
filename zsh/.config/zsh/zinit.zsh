@@ -22,14 +22,14 @@ fi
 zt(){ zinit $svn depth'3' lucid ${1/#[0-9][a-c]/wait"${1}"} "${@:2}"; }
 ztp(){ zinit depth'3' lucid ${1/#[0-9][a-c]/wait"${1}"} "${@:2}"; }
 
-zinit light-mode compile"handler" for \
+zinit light-mode compile'handler' for \
     zdharma-continuum/z-a-patch-dl            \
     zdharma-continuum/z-a-as-monitor          \
     zdharma-continuum/z-a-bin-gem-node        \
     zdharma-continuum/z-a-submods             \
     zdharma-continuum/declare-zsh
 
-ztp atload"source ${ZSHCONF}/theme.zsh; _p9k_precmd" nocd light-mode for \
+ztp atload'source ${ZSHCONF}/theme.zsh; _p9k_precmd' nocd light-mode for \
     romkatv/powerlevel10k
 
 zinit wait lucid light-mode for \
@@ -47,13 +47,13 @@ zinit wait lucid light-mode for \
 
 cmd_tempos(){ zinit wait lucid light-mode for OMZ::lib/key-bindings.zsh }
 
-ztp light-mode for                                                   \
-        zsh-users/zsh-syntax-highlighting                           \
-    atload'!_zsh_autosuggest_start'                                 \
-        zsh-users/zsh-autosuggestions                               \
-    blockf                                                          \
-        zsh-users/zsh-completions                                   \
-    as"completion"                                                  \
+ztp light-mode for                           \
+        zsh-users/zsh-syntax-highlighting    \
+    atload'!_zsh_autosuggest_start'          \
+        zsh-users/zsh-autosuggestions        \
+    blockf                                   \
+        zsh-users/zsh-completions            \
+    as'completion'                           \
         OMZP::pip
 
 zt light-mode for                   \
@@ -75,35 +75,45 @@ ztp light-mode for                  \
     carlocab/tmux-nvr               \
     soimort/translate-shell
 
-ztp as"command" light-mode for \
-    pick"bin/git-fuzzy"        \
+ztp as'command' light-mode for \
+    pick'bin/git-fuzzy'        \
         bigH/git-fuzzy         \
     sbin'diff-so-fancy'        \
         so-fancy/diff-so-fancy \
     sbin'httpstat.sh -> hcurl' \
         b4b4r07/httpstat
 
-zt light-mode for                        \
-    trigger-load'!docker' as'completion' \
-        OMZP::docker                     \
-    trigger-load'!docker-compose'        \
-        OMZP::docker-compose             \
-    trigger-load'!man'                   \
-        ael-code/zsh-colored-man-pages   \
-    trigger-load'!copyfile'              \
-        OMZP::copyfile                   \
-    trigger-load'!copybuffer'            \
-        OMZP::copybuffer                 \
-    trigger-load'!copydir'               \
-        OMZP::copydir
+zt light-mode for                      \
+    trigger-load'!man'                 \
+        ael-code/zsh-colored-man-pages \
+    trigger-load'!copyfile'            \
+        OMZP::copyfile                 \
+    trigger-load'!copybuffer'          \
+        OMZP::copybuffer               \
+    trigger-load'!copydir'             \
+        OMZP::copydir                  \
+    trigger-load'!terraform'           \
+        OMZP::terraform                \
+    trigger-load'!helm'                \
+        OMZP::helm
 
-# if type "rg" >/dev/null; then
-#     ztp as"completion" light-mode for \
-#         OMZP::ripgrep
-# fi
+zt light-mode as'complete' for               \
+    trigger-load'!docker'                    \
+        OMZP::docker/_docker                 \
+    trigger-load'!docker-compose'            \
+        OMZP::docker-compose/_docker-compose \
+    trigger-load'!terraform'                 \
+        OMZP::terraform/_terraform           \
+    trigger-load'!helm'                      \
+        OMZP::helm
+
+if type "rg" >/dev/null; then
+    ztp light-mode as'completion' for \
+        OMZP::ripgrep/_ripgrep
+fi
 
 if type "bat" >/dev/null; then
-    ztp from"gh-r" atclone'cp **/*.zsh _bat' atpull'%atclone' light-mode for \
+    ztp from'gh-r' atclone'cp **/*.zsh _bat' atpull'%atclone' light-mode for \
         @sharkdp/bat
 fi
 
@@ -113,7 +123,7 @@ if type "exa" >/dev/null; then
 fi
 
 if type "fd" >/dev/null; then
-    ztp from"gh-r" atclone'cp **/_fd _fd' atpull'%atclone' light-mode for \
+    ztp from'gh-r' atclone'cp **/_fd _fd' atpull'%atclone' light-mode for \
         @sharkdp/fd
 fi
 

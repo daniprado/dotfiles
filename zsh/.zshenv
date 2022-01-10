@@ -17,9 +17,9 @@ DIRSTACKFILE="${ZSHCACHE}/dirs"
 DIRSTACKSIZE=20
 
 typeset -U path
-path=(~/.local/bin ~/.go/bin /snap/bin /usr/share/icons/Papirus-Dark ~/.local/share/fonts $path[@])
+path=(~/.local/bin ~/.go/bin /snap/bin ~/.local/share/fonts $path[@])
 
-export GPG_TTY=$(tty)
+export WLR_NO_HARDWARE_CURSORS=1
 export _Z_DATA="${HOME}/.cache/z"
 
 # export ZSH_TMUX_AUTOSTART=true

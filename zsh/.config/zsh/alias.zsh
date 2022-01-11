@@ -26,26 +26,22 @@ fi
 alias vi="vim"
 export EDITOR="vim"
 # Min Neovim version is 0.5.0
-[[ $(nvim --version | grep -m 1 "NVIM" | cut -d'.' -f2) -ge 5 ]] 2>/dev/null
-if [[ $? -eq 0 ]]; then
+if [[ $(nvim --version | grep -m 1 "NVIM" | cut -d'.' -f2) -ge 5 ]] 2>/dev/null; then
   alias vim="nvim"
-  [[ ! "${SSH_TTY}" ]] && alias gvim="NVIM_GUI=1 nvim-qt"
-  [[ ! "${SSH_TTY}" ]] && export EDITOR="nvim-qt"
-  [[ "${SSH_TTY}" ]] && export EDITOR="nvim"
+  if [[ -n "${WAYLAND_DISPLAY}" ]]; then
+    alias gvim="NVIM_GUI=1 nvim-qt"
+    export EDITOR="nvim-qt"
+  else
+    export EDITOR="nvim"
+  fi
 
   if type "nvr" >/dev/null; then
     export EDITOR="nvr -s --servername ${TMP}/nvimsocket_$(curr_dk)"
     alias nvim="${EDITOR}"
-    [[ ! "${SSH_TTY}" ]] && alias nvim-qt="NVIM_GUI=1 NVR_CMD=nvim-qt ${EDITOR}"
-  fi
-
-  if type "nvr-tmux" >/dev/null; then
-    export EDITOR="nvr-tmux -s --servername ${TMP}/nvimsocket_$(curr_dk)"
-    alias nvim="${EDITOR}"
-    [[ ! "${SSH_TTY}" ]] && alias nvim-qt="NVIM_GUI=1 NVR_CMD=nvim-qt ${EDITOR}"
+    [[ -n "${WAYLAND_DISPLAY}" ]] && alias nvim-qt="NVIM_GUI=1 NVR_CMD=nvim-qt ${EDITOR}"
   fi
 fi
-[[ ! "${SSH_TTY}" ]] && export VISUAL="${EDITOR}"
+[[ -n "${WAYLAND_DISPLAY}" ]] && export VISUAL="${EDITOR}"
 
 if type "bat" >/dev/null; then
   alias cat="bat"
@@ -54,38 +50,20 @@ else
   export PAGER="/usr/bin/cat"
 fi
 
-if type "rg" >/dev/null; then
-  alias grep="rg"
-fi
+type "rg" >/dev/null && alias grep="rg"
+type "trash-put" >/dev/null && alias rm="trash-put"
+type "bpytop" >/dev/null && alias btop="bpytop"
+type "duf" >/dev/null && alias df="duf"
+type "wshowkeys" >/dev/null && alias wshowkeys="wshowkeys -t 2 -a bottom -a right -m 100"
+type "podman" >/dev/null && alias docker="podman"
+type "wg" >/dev/null alias wg="sudo wg"
 
-if type "trash-put" >/dev/null; then
-  alias rm="trash-put"
-fi
-
-if type "bpytop" >/dev/null; then
-  alias btop="bpytop"
-fi
-
-if type "duf" >/dev/null; then
-  alias df="duf"
-fi
-
-if type "podman" >/dev/null; then
-  alias docker="podman"
-fi
-
-alias gfz="git fuzzy"
-alias wg="sudo wg"
 alias venv="python -m venv ."
-alias renv="rm lib lib64 include bin pyvenv.cfg"
 alias src="source ./bin/activate"
 alias senv="venv && src"
+alias renv="rm -rf lib lib64 include bin pyvenv.cfg"
 alias json="python -m json.tool"
 alias cal="noglob cal"
-alias wshowkeys="wshowkeys -t 2 -a bottom -a right -m 100"
 
 AGALIAS_PATH="${HOME}/.config/zsh/ag-alias.zsh"
-if [[ -f "${AGALIAS_PATH}" ]]; then
-  source "${AGALIAS_PATH}"
-fi
-
+[[ -f "${AGALIAS_PATH}" ]] && source "${AGALIAS_PATH}"

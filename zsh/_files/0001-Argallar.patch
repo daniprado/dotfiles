@@ -1,33 +1,20 @@
 diff --git a/segments/lan_ip.sh b/segments/lan_ip.sh
-index fe97dad..a6bf2c8 100755
+index fe97dad..cca3cfb 100755
 --- a/segments/lan_ip.sh
 +++ b/segments/lan_ip.sh
-@@ -13,7 +13,8 @@ run_segment() {
- 	else
+@@ -14,6 +14,7 @@ run_segment() {
  		# Get the names of all attached NICs.
  		all_nics="$(ip addr show | cut -d ' ' -f2 | tr -d :)"
--		all_nics=(${all_nics[@]//lo/})	 # Remove lo interface.
-+		all_nics=(${all_nics[@]//lo/})	   # Remove lo interface.
-+		all_nics=(${all_nics[@]//docker/}) # Remove docker interface.
+ 		all_nics=(${all_nics[@]//lo/})	 # Remove lo interface.
++		all_nics=(${all_nics[@]//docker/})	 # Remove docker interface.
  
  		for nic in "${all_nics[@]}"; do
  			# Parse IP address for the NIC.
 diff --git a/themes/default.sh b/themes/default.sh
-index b7c5ae5..c43f119 100644
+index 526ea4c..e91c292 100644
 --- a/themes/default.sh
 +++ b/themes/default.sh
-@@ -12,8 +12,8 @@ else
- 	TMUX_POWERLINE_SEPARATOR_RIGHT_THIN="❯"
- fi
- 
--TMUX_POWERLINE_DEFAULT_BACKGROUND_COLOR=${TMUX_POWERLINE_DEFAULT_BACKGROUND_COLOR:-'235'}
--TMUX_POWERLINE_DEFAULT_FOREGROUND_COLOR=${TMUX_POWERLINE_DEFAULT_FOREGROUND_COLOR:-'255'}
-+TMUX_POWERLINE_DEFAULT_BACKGROUND_COLOR=${TMUX_POWERLINE_DEFAULT_BACKGROUND_COLOR:-'0'}
-+TMUX_POWERLINE_DEFAULT_FOREGROUND_COLOR=${TMUX_POWERLINE_DEFAULT_FOREGROUND_COLOR:-'0'}
- 
- TMUX_POWERLINE_DEFAULT_LEFTSIDE_SEPARATOR=${TMUX_POWERLINE_DEFAULT_LEFTSIDE_SEPARATOR:-$TMUX_POWERLINE_SEPARATOR_RIGHT_BOLD}
- TMUX_POWERLINE_DEFAULT_RIGHTSIDE_SEPARATOR=${TMUX_POWERLINE_DEFAULT_RIGHTSIDE_SEPARATOR:-$TMUX_POWERLINE_SEPARATOR_LEFT_BOLD}
-@@ -23,37 +23,39 @@ TMUX_POWERLINE_DEFAULT_RIGHTSIDE_SEPARATOR=${TMUX_POWERLINE_DEFAULT_RIGHTSIDE_SE
+@@ -52,37 +52,39 @@ fi
  
  if [ -z $TMUX_POWERLINE_LEFT_STATUS_SEGMENTS ]; then
  	TMUX_POWERLINE_LEFT_STATUS_SEGMENTS=(
@@ -38,10 +25,10 @@ index b7c5ae5..c43f119 100644
 -		"lan_ip 24 255 ${TMUX_POWERLINE_SEPARATOR_RIGHT_THIN}" \
 -		"wan_ip 24 255" \
 -		"vcs_branch 29 88" \
--		"vcs_compare 60 255" \
--		"vcs_staged 64 255" \
--		"vcs_modified 9 255" \
--		"vcs_others 245 0" \
+-		#"vcs_compare 60 255" \
+-		#"vcs_staged 64 255" \
+-		#"vcs_modified 9 255" \
+-		#"vcs_others 245 0" \
 +		"tmux_session_info 236 7" \
 +		# "mode_indicator 2 7" \
 +		# "hostname 236 11" \
@@ -62,7 +49,7 @@ index b7c5ae5..c43f119 100644
 -		#"earthquake 3 0" \
 -		"pwd 89 211" \
 -		#"macos_notification_count 29 255" \
--		"mailcount 9 255" \
+-		#"mailcount 9 255" \
 -		"now_playing 234 37" \
 -		#"cpu 240 136" \
 -		"load 237 167" \

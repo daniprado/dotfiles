@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-ZINIT_HOME=${ZSHCONF}/zinit
+ZINIT_HOME=${ZSHSHARE}/zinit
 ZPFX=${ZINIT_HOME}/polaris
 declare -A ZINIT
 ZINIT[HOME_DIR]=${ZINIT_HOME}
@@ -13,117 +13,113 @@ ZINIT[COMPINIT_OPTS]="-C"
 ZINIT[MUTE_WARNINGS]="1"
 ZINIT[OPTIMIZE_OUT_DISK_ACCESSES]="1"
 
-source ${ZSHCONF}/zinit/bin/zinit.zsh
+source ${ZINIT_HOME}/bin/zinit.zsh
 
 svn=""
-if type "svn" >/dev/null; then
-    svn="svn"
-fi
-zt(){ zinit $svn depth'3' lucid ${1/#[0-9][a-c]/wait"${1}"} "${@:2}"; }
-ztp(){ zinit depth'3' lucid ${1/#[0-9][a-c]/wait"${1}"} "${@:2}"; }
+# type "svn" >/dev/null && svn="svn"
 
-zinit light-mode compile'handler' for \
-    zdharma-continuum/z-a-patch-dl            \
-    zdharma-continuum/z-a-as-monitor          \
-    zdharma-continuum/z-a-bin-gem-node        \
-    zdharma-continuum/z-a-submods             \
-    zdharma-continuum/declare-zsh
+zt(){ zinit $svn depth'1' reset light-mode lucid "${@}"; }
+ztp(){ zinit depth'1' reset light-mode lucid "${@}"; }
 
-ztp atload'source ${ZSHCONF}/theme.zsh; _p9k_precmd' nocd light-mode for \
-    romkatv/powerlevel10k
+ztp for                                                 \
+  nocd atload"source ${ZSHCONF}/theme.zsh; _p9k_precmd" \
+      romkatv/powerlevel10k                             \
+      zdharma-continuum/z-a-bin-gem-node
 
-zinit wait lucid light-mode for \
-    OMZ::lib/functions.zsh      \
-    OMZ::lib/clipboard.zsh      \
-	OMZ::lib/correction.zsh     \
-	OMZ::lib/completion.zsh     \
-    atload"
-        # FIXME
-        if type 'exa' >/dev/null; then
-            alias lsa='exa --long --all --modified --git --group'
-        fi
-    "                           \
-	OMZ::lib/directories.zsh
+ztp wait'0' for                                                 \
+  atload'alias lsa="exa --long --all --modified --git --group"' \
+      OMZL::directories.zsh                                     \
+      OMZP::git                                                 \
+  atload'!_zsh_autosuggest_start'                               \
+      zsh-users/zsh-autosuggestions                             \
+      OMZL::clipboard.zsh                                       \
+      zsh-vi-more/vi-motions                                    \
+      djui/alias-tips                                           \
+  pick'asdf.sh'                                                 \
+      @asdf-vm/asdf                                             \
+  as'completion' blockf                                         \
+      OMZP::ripgrep/_ripgrep
 
-cmd_tempos(){ zinit wait lucid light-mode for OMZ::lib/key-bindings.zsh }
+DIRENV_VER="*linux-amd64*"
+DUF_VER="*linux_x86_64*"
+BROOT_VER="*x86_64-linux*"
 
-ztp light-mode for                           \
-        zsh-users/zsh-syntax-highlighting    \
-    atload'!_zsh_autosuggest_start'          \
-        zsh-users/zsh-autosuggestions        \
-    blockf                                   \
-        zsh-users/zsh-completions            \
-    as'completion'                           \
-        OMZP::pip
+ztp wait'0' as'command' for                              \
+  sbin'jq' from'gh-r'                                    \
+  atclone'cp jq* jq' atpull'%atclone'                    \
+      stedolan/jq                                        \
+  sbin'direnv' from'gh-r' bpick"${DIRENV_VER}"           \
+  atclone'./direnv hook zsh >zhook.zsh' atpull'%atclone' \
+  src='zhook.zsh' mv'direnv* -> direnv'                  \
+      direnv/direnv                                      \
+  sbin'**/fd' from'gh-r'                                 \
+  atclone"cp **/fd.1 ${ZSHMAN_1}" atpull'%atclone'       \
+      @sharkdp/fd                                        \
+  sbin'diff-so-fancy'                                    \
+      so-fancy/diff-so-fancy
 
-zt light-mode for                   \
-    OMZP::git                       \
-    OMZP::git-auto-fetch            \
-    OMZP::alias-finder              \
-    OMZP::tmux                      \
-    OMZP::cp
+ztp wait'0' as'command' for              \
+  sbin'bin/exa' from'gh-r'               \
+  trigger-load'!ls;!lsa;!lst;!exa'       \
+  atclone"
+    cp **/exa.zsh _exa; \
+    cp **/exa.1 ${ZSHMAN_1}; \
+    cp **/exa*.5 ${ZSHMAN}/man5
+  " atpull'%atclone'                     \
+      ogham/exa                          \
+  sbin'**/bat' from'gh-r'                \
+  trigger-load'!cat;!bat'                \
+  atclone"
+    cp **/bat.zsh _bat; \
+    cp **/bat.1 ${ZSHMAN_1}
+  " atpull'%atclone'                     \
+      @sharkdp/bat                       \
+  sbin'broot' from'gh-r'                 \
+  trigger-load'!br;!broot'               \
+  atclone"
+    cp **/${BROOT_VER}/broot broot; cp **/br*.1 ${ZSHMAN_1}; \
+    ./broot --print-shell-function zsh >zhook.zsh; \
+    ./broot --set-install-state installed
+  " atpull'%atclone' src='zhook.zsh'     \
+      Canop/broot                        \
+  sbin'duf' from'gh-r' bpick"${DUF_VER}" \
+  trigger-load'!df;!duf'                 \
+      muesli/duf                         \
+  trigger-load'!hcurl'                   \
+      b4b4r07/httpstat                   \
+  trigger-load'!you-get'                 \
+      soimort/you-get
 
-ztp light-mode for                  \
-    rupa/z                          \
-    djui/alias-tips                 \
-    b4b4r07/zsh-vimode-visual       \
-    mrkmg/borgbackup-zsh-completion \
-    zsh-vi-more/vi-quote            \
-    zsh-vi-more/vi-motions          \
-    zsh-vi-more/ex-commands         \
-    zsh-vi-more/evil-registers      \
-    carlocab/tmux-nvr               \
-    soimort/translate-shell
+zt wait'0' for                                        \
+  trigger-load'!man'                                  \
+      ael-code/zsh-colored-man-pages                  \
+  has'tmux' trigger-load'!tmux'                       \
+      OMZP::tmux                                      \
+  trigger-load'!cpv'                                  \
+      OMZP::cp                                        \
+  trigger-load'!copyfile'                             \
+      OMZP::copyfile                                  \
+  trigger-load'!copybuffer'                           \
+      OMZP::copybuffer                                \
+  trigger-load'!copydir'                              \
+      OMZP::copydir                                   \
+  trigger-load'!trans'                                \
+  atclone"cp **/trans.1 ${ZSHMAN_1}" atpull'%atclone' \
+      soimort/translate-shell                         \
+  has'terraform' trigger-load'!terraform;!tf'         \
+      OMZP::terraform                                 \
+  has'helm' trigger-load'!helm'                       \
+      OMZP::helm                                      \
+  has'pip' trigger-load'!pip'                         \
+  as'completion' blockf                               \
+      OMZP::pip/_pip                                  \
+  has'docker-compose' trigger-load'!docker-compose'   \
+  as'completion' blockf                               \
+      OMZP::docker-compose/_docker-compose
 
-ztp as'command' light-mode for \
-    pick'bin/git-fuzzy'        \
-        bigH/git-fuzzy         \
-    sbin'diff-so-fancy'        \
-        so-fancy/diff-so-fancy \
-    sbin'httpstat.sh -> hcurl' \
-        b4b4r07/httpstat
-
-zt light-mode for                      \
-    trigger-load'!man'                 \
-        ael-code/zsh-colored-man-pages \
-    trigger-load'!copyfile'            \
-        OMZP::copyfile                 \
-    trigger-load'!copybuffer'          \
-        OMZP::copybuffer               \
-    trigger-load'!copydir'             \
-        OMZP::copydir                  \
-    trigger-load'!terraform'           \
-        OMZP::terraform                \
-    trigger-load'!helm'                \
-        OMZP::helm
-
-zt light-mode as'complete' for               \
-    trigger-load'!docker'                    \
-        OMZP::docker/_docker                 \
-    trigger-load'!docker-compose'            \
-        OMZP::docker-compose/_docker-compose \
-    trigger-load'!terraform'                 \
-        OMZP::terraform/_terraform           \
-    trigger-load'!helm'                      \
-        OMZP::helm
-
-if type "rg" >/dev/null; then
-    ztp light-mode as'completion' for \
-        OMZP::ripgrep/_ripgrep
-fi
-
-if type "bat" >/dev/null; then
-    ztp from'gh-r' atclone'cp **/*.zsh _bat' atpull'%atclone' light-mode for \
-        @sharkdp/bat
-fi
-
-if type "exa" >/dev/null; then
-    ztp atclone'cp **/*.zsh _exa' atpull'%atclone' light-mode for \
-        ogham/exa
-fi
-
-if type "fd" >/dev/null; then
-    ztp from'gh-r' atclone'cp **/_fd _fd' atpull'%atclone' light-mode for \
-        @sharkdp/fd
-fi
-
+ztp wait'1' for                        \
+      OMZL::completion.zsh             \
+  blockf atpull'zinit creinstall -q .' \
+      zsh-users/zsh-completions        \
+  atinit'zicompinit; zicdreplay'       \
+      zsh-users/zsh-syntax-highlighting

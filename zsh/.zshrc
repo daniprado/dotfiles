@@ -12,29 +12,13 @@ setopt auto_pushd pushd_silent pushd_to_home pushd_ignore_dups pushd_minus
 unsetopt beep notify
 ttyctl -f
 
-autoload -Uz compinit && compinit
-autoload -Uz promptinit && promptinit
-autoload -U +X bashcompinit && bashcompinit
-
 zle -N zle-expand-alias
 zle -N fif
+zle -N fifall
 zle -N cal
-zle -N zd
 zle -N tree
-zle -N zcd
 zle -N gzt
 zle -N cmd_tempos
-
-for file in ${ZSHCONF}/completions/*.*sh; do
-  source $file
-done
-eval "$(register-python-argcomplete pipx)"
-zstyle ':completion:*' completer _complete _ignored _approximate
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' matcher-list ''
-zstyle ':completion:*' verbose true
-zstyle :compinstall filename '${HOME}/.zshrc'
-zstyle ':completion:*' rehash true
 
 bindkey -v
 bindkey '^ ' autosuggest-accept
@@ -47,6 +31,7 @@ bindkey '^h' backward-delete-char
 bindkey '^w' backward-kill-word
 bindkey '^e' cmd_tempos
 
+# Reload last visited location
 if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
   dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
   [[ -d $dirstack[1] ]] && cd $dirstack[1]
@@ -57,10 +42,13 @@ if [[ "${TERM}" == (screen*|tmux*|xterm*) ]]; then
   add-zsh-hook -Uz precmd xterm_title_precmd
 fi
 
+# Single NVim instance while inside tmux session
+if [ -z "$TMUX" ]; then
+  export NVIM_LISTEN_ADDRESS="${TMP}/nvimsocket_$(curr_dk)"
+fi
+
 source ${ZSHCONF}/fzf.zsh
-source ${ZSHCONF}/asdf.zsh
 source ${ZSHCONF}/alias.zsh
 source ${ZSHCONF}/gpg-init.zsh
 
 (( ! ${+functions[p10k]} )) || p10k finalize
-

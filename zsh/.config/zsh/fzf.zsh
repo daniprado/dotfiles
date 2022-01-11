@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-FZF_HOME=${XDG_CONFIG_HOME}/fzf
+FZF_HOME=${XDG_SHARE_HOME}/fzf
 
 export FZF_COMPLETION_TRIGGER='~~'
 export FZF_TMUX=1

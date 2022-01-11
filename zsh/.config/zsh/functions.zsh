@@ -16,11 +16,6 @@ function cal() {
   python3 -c "from math import *; print($*);"
 }
 
-function zd() {
-  dest=$(z -l "$1" | fzf --tac | tr -s ' ' | cut -d ' ' -f 2)
-  if [ ! -z "$dest" ]; then cd $dest; fi
-}
-
 function fif() {
   if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
   rg --files-with-matches --hidden --iglob !.git --iglob !.cache --iglob !.nvm --iglob !.npm --no-messages "$1" | fzf --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || rg --ignore-case --pretty --context 10 '$1' {}"
@@ -29,26 +24,6 @@ function fif() {
 function fifall() {
   if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
   rg --files-with-matches --hidden --iglob !.git --iglob !.cache --iglob !.nvm --iglob !.npm --no-messages "$1"
-}
-
-function br {
-    f=$(mktemp)
-    (
-	set +e
-	broot --outcmd "$f" "$@"
-	code=$?
-	if [ "$code" != 0 ]; then
-	    rm -f "$f"
-	    exit "$code"
-	fi
-    )
-    code=$?
-    if [ "$code" != 0 ]; then
-	return "$code"
-    fi
-    d=$(<"$f")
-    rm -f "$f"
-    eval "$d"
 }
 
 function tree() {
@@ -74,3 +49,16 @@ function curr_dk() {
   fi
 }
 
+# TODO Tratar de entender esto...
+function cmd_tempos() {
+  if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
+    function zle-line-init() {
+      echoti smkx
+    }
+    function zle-line-finish() {
+      echoti rmkx
+    }
+    zle -N zle-line-init
+    zle -N zle-line-finish
+  fi
+}

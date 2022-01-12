@@ -34,6 +34,7 @@ ztp wait'0' for                                                 \
       zsh-users/zsh-autosuggestions                             \
       OMZL::clipboard.zsh                                       \
       zsh-vi-more/vi-motions                                    \
+      hlissner/zsh-autopair                                     \
       djui/alias-tips                                           \
   pick'asdf.sh'                                                 \
       @asdf-vm/asdf                                             \
@@ -94,11 +95,12 @@ ztp wait'0' as'command' for              \
 
 # Min Neovim version is 0.6.0
 CURR_NVIM_VER=$(nvim --version | grep -m 1 "NVIM" | cut -d'.' -f2)
-ztp wait'0' as'command' for                 \
-  load"[[ ${CURR_NVIM_VER} -lt 6 ]]"        \
-  sbin'nvim.appimage -> nvim'               \
-  from'gh-r' ver'stable' bpick"${NVIM_VER}" \
-      neovim/neovim
+if [[ ${CURR_NVIM_VER} -lt 6 ]]; then
+  ztp wait'0' as'command' for                 \
+    sbin'nvim.appimage -> nvim'               \
+    from'gh-r' ver'stable' bpick"${NVIM_VER}" \
+        neovim/neovim
+fi
 
 zt wait'0' for                                        \
   trigger-load'!man'                                  \
@@ -116,6 +118,8 @@ zt wait'0' for                                        \
   trigger-load'!trans'                                \
   atclone"cp **/trans.1 ${ZSHMAN_1}" atpull'%atclone' \
       soimort/translate-shell                         \
+  trigger-load'!gi;!gii'                              \
+      voronkovich/gitignore.plugin.zsh                \
   has'terraform' trigger-load'!terraform;!tf'         \
       OMZP::terraform                                 \
   has'helm' trigger-load'!helm'                       \

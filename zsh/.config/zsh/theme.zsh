@@ -33,7 +33,7 @@ typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
   typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
     command_execution_time  # duration of the last command
     background_jobs         # presence of background jobs
-    # direnv                  # direnv status (https://direnv.net/)
+    direnv                  # direnv status (https://direnv.net/)
     asdf                    # asdf version manager (https://github.com/asdf-vm/asdf)
     # anaconda                # conda environment (https://conda.io/)
     # pyenv                   # python environment (https://github.com/pyenv/pyenv)
@@ -94,7 +94,7 @@ typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
   typeset -g POWERLEVEL9K_MODE=nerdfont-complete
   typeset -g POWERLEVEL9K_ICON_PADDING=moderate
   # POWERLEVEL9K_STATUS_ICON_BEFORE_CONTENT=false
-  # POWERLEVEL9K_DIR_NOT_WRITABLE_ICON_BEFORE_CONTENT=false
+  POWERLEVEL9K_DIR_NOT_WRITABLE_ICON_BEFORE_CONTENT=true
   typeset -g POWERLEVEL9K_ICON_BEFORE_CONTENT=
   typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
 
@@ -143,7 +143,11 @@ typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
   typeset -g POWERLEVEL9K_PROMPT_CHAR_LEFT_{LEFT,RIGHT}_WHITESPACE=
 
   ##################################[ dir: current directory ]##################################
-  typeset -g POWERLEVEL9K_DIR_BACKGROUND=004
+  if [[ -n "${SSH_TTY}" ]]; then
+    typeset -g POWERLEVEL9K_DIR_BACKGROUND=099
+  else
+    typeset -g POWERLEVEL9K_DIR_BACKGROUND=004
+  fi
   typeset -g POWERLEVEL9K_DIR_FOREGROUND=016
   typeset -g POWERLEVEL9K_SHORTEN_STRATEGY=truncate_to_unique
   typeset -g POWERLEVEL9K_SHORTEN_DELIMITER=
@@ -306,16 +310,16 @@ typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
   # typeset -g POWERLEVEL9K_BACKGROUND_JOBS_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
   #######################[ direnv: direnv status (https://direnv.net/) ]########################
-  # typeset -g POWERLEVEL9K_DIRENV_FOREGROUND=3
-  # typeset -g POWERLEVEL9K_DIRENV_BACKGROUND=0
-  # typeset -g POWERLEVEL9K_DIRENV_VISUAL_IDENTIFIER_EXPANSION='⭐'
+  typeset -g POWERLEVEL9K_DIRENV_FOREGROUND=3
+  typeset -g POWERLEVEL9K_DIRENV_BACKGROUND=0
+  typeset -g POWERLEVEL9K_DIRENV_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
   ################[ asdf: asdf version manager (https://github.com/asdf-vm/asdf) ]###############
-  #typeset -g POWERLEVEL9K_ASDF_FOREGROUND=0
-  #typeset -g POWERLEVEL9K_ASDF_BACKGROUND=7
-  #typeset -g POWERLEVEL9K_ASDF_SOURCES=(shell local global)
-  #typeset -g POWERLEVEL9K_ASDF_PROMPT_ALWAYS_SHOW=false
-  #typeset -g POWERLEVEL9K_ASDF_SHOW_SYSTEM=true
+  typeset -g POWERLEVEL9K_ASDF_FOREGROUND=0
+  typeset -g POWERLEVEL9K_ASDF_BACKGROUND=7
+  typeset -g POWERLEVEL9K_ASDF_SOURCES=(shell local global)
+  typeset -g POWERLEVEL9K_ASDF_PROMPT_ALWAYS_SHOW=false
+  typeset -g POWERLEVEL9K_ASDF_SHOW_SYSTEM=true
   ## typeset -g POWERLEVEL9K_ASDF_NODEJS_SHOW_ON_UPGLOB='*.js|package.json'
   #typeset -g POWERLEVEL9K_ASDF_SHOW_ON_UPGLOB=
   #typeset -g POWERLEVEL9K_ASDF_RUBY_FOREGROUND=0
@@ -397,9 +401,9 @@ typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
   # typeset -g POWERLEVEL9K_NNN_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
   ###########################[ vim_shell: vim shell indicator (:sh) ]###########################
-  # typeset -g POWERLEVEL9K_VIM_SHELL_FOREGROUND=0
-  # typeset -g POWERLEVEL9K_VIM_SHELL_BACKGROUND=2
-  # typeset -g POWERLEVEL9K_VIM_SHELL_VISUAL_IDENTIFIER_EXPANSION='⭐'
+  typeset -g POWERLEVEL9K_VIM_SHELL_FOREGROUND=0
+  typeset -g POWERLEVEL9K_VIM_SHELL_BACKGROUND=2
+  typeset -g POWERLEVEL9K_VIM_SHELL_VISUAL_IDENTIFIER_EXPANSION='V'
 
   ######[ midnight_commander: midnight commander shell (https://midnight-commander.org/) ]######
   # typeset -g POWERLEVEL9K_MIDNIGHT_COMMANDER_FOREGROUND=3
@@ -660,7 +664,7 @@ typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
   ## typeset -g POWERLEVEL9K_TERRAFORM_DEFAULT_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
   ##############[ kubecontext: current kubernetes context (https://kubernetes.io/) ]#############
-  #typeset -g POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl|helm|kubens|kubectx|oc|istioctl|kogito'
+  typeset -g POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl|helm|kubens|kubectx|oc|istioctl|kogito'
   ##   typeset -g POWERLEVEL9K_KUBECONTEXT_TEST_FOREGROUND=0
   ##   typeset -g POWERLEVEL9K_KUBECONTEXT_TEST_BACKGROUND=2
   ##   typeset -g POWERLEVEL9K_KUBECONTEXT_TEST_VISUAL_IDENTIFIER_EXPANSION='⭐'
@@ -669,16 +673,16 @@ typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
   #    # '*prod*'  PROD    # These values are examples that are unlikely
   #    # '*test*'  TEST    # to match your needs. Customize them as needed.
   #    '*'       DEFAULT)
-  #typeset -g POWERLEVEL9K_KUBECONTEXT_DEFAULT_FOREGROUND=7
-  #typeset -g POWERLEVEL9K_KUBECONTEXT_DEFAULT_BACKGROUND=5
+  typeset -g POWERLEVEL9K_KUBECONTEXT_DEFAULT_FOREGROUND=7
+  typeset -g POWERLEVEL9K_KUBECONTEXT_DEFAULT_BACKGROUND=5
   ## typeset -g POWERLEVEL9K_KUBECONTEXT_DEFAULT_VISUAL_IDENTIFIER_EXPANSION='⭐'
-  #typeset -g POWERLEVEL9K_KUBECONTEXT_DEFAULT_CONTENT_EXPANSION=
+  typeset -g POWERLEVEL9K_KUBECONTEXT_DEFAULT_CONTENT_EXPANSION=
   #POWERLEVEL9K_KUBECONTEXT_DEFAULT_CONTENT_EXPANSION+='${P9K_KUBECONTEXT_CLOUD_CLUSTER:-${P9K_KUBECONTEXT_NAME}}'
-  #POWERLEVEL9K_KUBECONTEXT_DEFAULT_CONTENT_EXPANSION+='${${:-/$P9K_KUBECONTEXT_NAMESPACE}:#/default}'
+  POWERLEVEL9K_KUBECONTEXT_DEFAULT_CONTENT_EXPANSION+='${${:-/$P9K_KUBECONTEXT_NAMESPACE}:#/default}'
 
 
   ##[ aws: aws profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) ]#
-  #typeset -g POWERLEVEL9K_AWS_SHOW_ON_COMMAND='aws|awless|terraform|pulumi'
+  typeset -g POWERLEVEL9K_AWS_SHOW_ON_COMMAND='aws|awless|terraform|pulumi'
   ##   typeset -g POWERLEVEL9K_AWS_TEST_FOREGROUND=28
   ##   typeset -g POWERLEVEL9K_AWS_TEST_VISUAL_IDENTIFIER_EXPANSION='⭐'
   ##   typeset -g POWERLEVEL9K_AWS_TEST_CONTENT_EXPANSION='> ${P9K_CONTENT} <'
@@ -686,28 +690,28 @@ typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
   #    # '*prod*'  PROD    # These values are examples that are unlikely
   #    # '*test*'  TEST    # to match your needs. Customize them as needed.
   #    '*'       DEFAULT)
-  ## typeset -g POWERLEVEL9K_AWS_DEFAULT_FOREGROUND=7
-  ## typeset -g POWERLEVEL9K_AWS_DEFAULT_BACKGROUND=1
+  typeset -g POWERLEVEL9K_AWS_DEFAULT_FOREGROUND=7
+  typeset -g POWERLEVEL9K_AWS_DEFAULT_BACKGROUND=1
   ## typeset -g POWERLEVEL9K_AWS_DEFAULT_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
   #[ aws_eb_env: aws elastic beanstalk environment (https://aws.amazon.com/elasticbeanstalk/) ]#
-  # typeset -g POWERLEVEL9K_AWS_EB_ENV_FOREGROUND=2
-  # typeset -g POWERLEVEL9K_AWS_EB_ENV_BACKGROUND=0
+  typeset -g POWERLEVEL9K_AWS_EB_ENV_FOREGROUND=2
+  typeset -g POWERLEVEL9K_AWS_EB_ENV_BACKGROUND=0
   # typeset -g POWERLEVEL9K_AWS_EB_ENV_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
   ##########[ azure: azure account name (https://docs.microsoft.com/en-us/cli/azure) ]##########
   typeset -g POWERLEVEL9K_AZURE_SHOW_ON_COMMAND='az|terraform|pulumi'
-  # typeset -g POWERLEVEL9K_AZURE_FOREGROUND=7
-  # typeset -g POWERLEVEL9K_AZURE_BACKGROUND=4
+  typeset -g POWERLEVEL9K_AZURE_FOREGROUND=7
+  typeset -g POWERLEVEL9K_AZURE_BACKGROUND=4
   # typeset -g POWERLEVEL9K_AZURE_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
   ###########[ gcloud: google cloud account and project (https://cloud.google.com/) ]###########
-  #typeset -g POWERLEVEL9K_GCLOUD_SHOW_ON_COMMAND='gcloud|gcs'
-  ## typeset -g POWERLEVEL9K_GCLOUD_FOREGROUND=7
-  ## typeset -g POWERLEVEL9K_GCLOUD_BACKGROUND=4
-  #typeset -g POWERLEVEL9K_GCLOUD_PARTIAL_CONTENT_EXPANSION='${P9K_GCLOUD_PROJECT_ID//\%/%%}'
-  #typeset -g POWERLEVEL9K_GCLOUD_COMPLETE_CONTENT_EXPANSION='${P9K_GCLOUD_PROJECT_NAME//\%/%%}'
-  #typeset -g POWERLEVEL9K_GCLOUD_REFRESH_PROJECT_NAME_SECONDS=60
+  typeset -g POWERLEVEL9K_GCLOUD_SHOW_ON_COMMAND='gcloud|gcs'
+  typeset -g POWERLEVEL9K_GCLOUD_FOREGROUND=7
+  typeset -g POWERLEVEL9K_GCLOUD_BACKGROUND=4
+  typeset -g POWERLEVEL9K_GCLOUD_PARTIAL_CONTENT_EXPANSION='${P9K_GCLOUD_PROJECT_ID//\%/%%}'
+  typeset -g POWERLEVEL9K_GCLOUD_COMPLETE_CONTENT_EXPANSION='${P9K_GCLOUD_PROJECT_NAME//\%/%%}'
+  typeset -g POWERLEVEL9K_GCLOUD_REFRESH_PROJECT_NAME_SECONDS=60
   ## typeset -g POWERLEVEL9K_GCLOUD_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
   ##[ google_app_cred: google application credentials (https://cloud.google.com/docs/authentication/production) ]#
@@ -725,8 +729,8 @@ typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
   #typeset -g POWERLEVEL9K_GOOGLE_APP_CRED_DEFAULT_CONTENT_EXPANSION='${P9K_GOOGLE_APP_CRED_PROJECT_ID//\%/%%}'
 
   ###############################[ public_ip: public IP address ]###############################
-  # typeset -g POWERLEVEL9K_PUBLIC_IP_FOREGROUND=7
-  # typeset -g POWERLEVEL9K_PUBLIC_IP_BACKGROUND=0
+  typeset -g POWERLEVEL9K_PUBLIC_IP_FOREGROUND=7
+  typeset -g POWERLEVEL9K_PUBLIC_IP_BACKGROUND=0
   # typeset -g POWERLEVEL9K_PUBLIC_IP_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
   #########################[ vpn_ip: virtual private network indicator ]#########################
@@ -764,8 +768,12 @@ typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
   # typeset -g POWERLEVEL9K_WIFI_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
   ####################################[ time: current time ]####################################
-  # typeset -g POWERLEVEL9K_TIME_FOREGROUND=0
-  # typeset -g POWERLEVEL9K_TIME_BACKGROUND=7
+  typeset -g POWERLEVEL9K_TIME_FOREGROUND=0
+  if [[ -n "${SSH_TTY}" ]]; then
+    typeset -g POWERLEVEL9K_TIME_BACKGROUND=9
+  else
+    typeset -g POWERLEVEL9K_TIME_BACKGROUND=7
+  fi
   typeset -g POWERLEVEL9K_TIME_FORMAT='%D{%H:%M:%S}'
   typeset -g POWERLEVEL9K_TIME_UPDATE_ON_COMMAND=false
   # typeset -g POWERLEVEL9K_TIME_VISUAL_IDENTIFIER_EXPANSION='⭐'

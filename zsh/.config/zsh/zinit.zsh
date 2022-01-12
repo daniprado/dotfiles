@@ -87,17 +87,18 @@ ztp wait'0' as'command' for              \
   trigger-load'!df;!duf'                 \
       muesli/duf                         \
   trigger-load'!hcurl'                   \
+  sbin'httpstat.sh -> hcurl'             \
       b4b4r07/httpstat                   \
   trigger-load'!you-get'                 \
       soimort/you-get
 
 # Min Neovim version is 0.6.0
-if [[ $(nvim --version | grep -m 1 "NVIM" | cut -d'.' -f2) -lt 6 ]] 2>/dev/null; then
-  ztp wait'0' as'command' for                 \
-    sbin'nvim.appimage -> nvim'               \
-    from'gh-r' ver'stable' bpick"${NVIM_VER}" \
+CURR_NVIM_VER=$(nvim --version | grep -m 1 "NVIM" | cut -d'.' -f2)
+ztp wait'0' as'command' for                 \
+  load"[[ ${CURR_NVIM_VER} -lt 6 ]]"        \
+  sbin'nvim.appimage -> nvim'               \
+  from'gh-r' ver'stable' bpick"${NVIM_VER}" \
       neovim/neovim
-fi
 
 zt wait'0' for                                        \
   trigger-load'!man'                                  \

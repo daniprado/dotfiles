@@ -74,6 +74,8 @@ endif
 
   "Telescope {{{
     Plug 'nvim-telescope/telescope.nvim'                                       "(2) search popups!
+    Plug 'nvim-telescope/telescope-file-browser.nvim'                          "
+    Plug 'nvim-telescope/telescope-frecency.nvim'                              "(4)
     Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }          "
     Plug 'cljoly/telescope-repo.nvim'                                          "(2) Jump to any repo
     Plug 'AckslD/nvim-neoclip.lua'                                             "(4)
@@ -388,8 +390,9 @@ endif
   nnoremap <leader><M-TAB> <cmd>Telescope help_tags<CR>|                          "List of help topics
   nnoremap <leader>fb      <cmd>Telescope buffers theme=get_dropdown layout_config.width=0. layout_config.height=0.2<CR>
   nnoremap <leader>fl      <cmd>Telescope current_buffer_fuzzy_find<CR>|          "
-  nnoremap <leader>fh      <cmd>Telescope oldfiles<CR>|                           "
+  nnoremap <leader>fh      <Cmd>lua require('telescope').extensions.frecency.frecency()<CR>|
   nnoremap <leader>ff      <cmd>FloatermNew broot<CR>|                            "Open files
+  nnoremap <leader>fF      <cmd>Telescope file_browser<CR>|                       "Open files
   nnoremap <leader>fif     <cmd>Telescope live_grep<CR>|                          "
   nnoremap <leader>F       <cmd>Telescope builtin theme=get_dropdown layout_config.height=085 previewer=false<CR>
 

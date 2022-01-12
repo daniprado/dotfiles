@@ -73,7 +73,33 @@
     },
   })
 
-  require('telescope').setup({defaults = { prompt_prefix="🔍 ", }, })
+  local fb_actions = require "telescope".extensions.file_browser.actions
+  require('telescope').setup({
+    defaults = { prompt_prefix="🔍 ", },
+    extensions = {
+      frecency = {
+        db_root = vim.fn.stdpath("data"),
+        show_scores = true,
+        show_unindexed = true,
+        ignore_patterns = {"*.git/*", "*/tmp/*"},
+        disable_devicons = false,
+        workspaces = {
+          ["projects"] = "~/Projects",
+          ["conf"]    = vim.fn.stdpath("config"),
+          ["wiki"]    = vim.fn.stdpath("data") .. "/vimwiki",
+        },
+      },
+      file_browser = {
+        theme = "ivy",
+        mappings = {
+          i = {
+            ["<C-h>"] = fb_actions.goto_home_dir,
+          },
+          n = {},
+        },
+      },
+    },
+  })
   require('telescope').load_extension('fzf')
   require('telescope').load_extension('repo')
   require('telescope').load_extension('neoclip')

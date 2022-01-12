@@ -34,6 +34,6 @@ export TMUX_PLUGIN_MANAGER_PATH="${XDG_SHARE_HOME}/tmux/plugins"
 
 export BORG_REMOTE_PATH="/usr/local/bin/borg1/borg1"
 
-export ASDF_DIR=/home/dani/.local/share/zsh/zinit/plugins/asdf-vm---asdf
+export ASDF_DIR=${ZSHSHARE}/zinit/plugins/asdf-vm---asdf
 export ASDF_DATA_DIR=${ASDF_DIR}
 export ASDF_CONFIG_FILE=${ASDF_DIR}/asdfrc

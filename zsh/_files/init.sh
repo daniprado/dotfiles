@@ -11,6 +11,7 @@ pipx_install "${PIPX_PKGS[@]}"
 
 pkg_install "fd" "fd-find" "fd"
 pkg_install "tmate"
+pkg_install "gawk"
 
 ZSH_BIN=$(which zsh)
 if [[ "${ZSH_BIN}" != *"${SHELL}" ]]; then

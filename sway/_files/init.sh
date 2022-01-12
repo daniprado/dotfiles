@@ -16,5 +16,6 @@ exe "openssl req -x509 -newkey rsa:4096 -sha256 -days 3650 -nodes \\
   -addext subjectAltName=DNS:localhost,DNS:localhost,IP:127.0.0.1"
 
 exe "(cd ${CURR_PATH}; ./install_ulauncher.sh)"
+exe "(cd ${CURR_PATH}; ./install_alacritty.sh)"
 
 exit 0

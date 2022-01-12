@@ -43,6 +43,7 @@ ztp wait'0' for                                                 \
 DIRENV_VER="*linux-amd64*"
 DUF_VER="*linux_x86_64*"
 BROOT_VER="*x86_64-linux*"
+NVIM_VER="nvim.appimage"
 
 ztp wait'0' as'command' for                              \
   sbin'jq' from'gh-r'                                    \
@@ -89,6 +90,14 @@ ztp wait'0' as'command' for              \
       b4b4r07/httpstat                   \
   trigger-load'!you-get'                 \
       soimort/you-get
+
+# Min Neovim version is 0.6.0
+if [[ $(nvim --version | grep -m 1 "NVIM" | cut -d'.' -f2) -lt 6 ]] 2>/dev/null; then
+  ztp wait'0' as'command' for                 \
+    sbin'nvim.appimage -> nvim'               \
+    from'gh-r' ver'stable' bpick"${NVIM_VER}" \
+      neovim/neovim
+fi
 
 zt wait'0' for                                        \
   trigger-load'!man'                                  \

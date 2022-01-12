@@ -25,8 +25,8 @@ fi
 
 alias vi="vim"
 export EDITOR="vim"
-# Min Neovim version is 0.5.0
-if [[ $(nvim --version | grep -m 1 "NVIM" | cut -d'.' -f2) -ge 5 ]] 2>/dev/null; then
+# Min Neovim version is 0.6.0
+if [[ $(/usr/bin/nvim --version | grep -m 1 "NVIM" | cut -d'.' -f2) -ge 6 ]] 2>/dev/null; then
   alias vim="nvim"
   if [[ -n "${WAYLAND_DISPLAY}" ]]; then
     alias gvim="NVIM_GUI=1 nvim-qt"

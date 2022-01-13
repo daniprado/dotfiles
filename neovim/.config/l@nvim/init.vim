@@ -186,7 +186,6 @@ endif
 "Params {{{
 
   "General config {{{
-    filetype plugin indent on
     syntax enable
 
     syntax on
@@ -223,8 +222,10 @@ endif
     set complete=.,w,b,t
 
     set completeopt=menuone,noselect
+
     set foldmethod=expr
     set foldexpr=nvim_treesitter#foldexpr()
+    autocmd FileType json,yaml,vim setlocal foldmethod=indent
 
     set undofile
     set backup
@@ -258,7 +259,7 @@ endif
     "}}}
 
     "Navigation {{{
-      let g:fastfold_savehook                               = 0
+      let g:fastfold_savehook                               = 1
 
       let g:indent_blankline_space_char                     = '.'
       let g:indent_blankline_char                           = '|'
@@ -422,7 +423,7 @@ endif
   " nmap gwaj             Takes the JSON object on the clipboard and extends it into the JSON object under the cursor.
 
   nnoremap <leader>hw      <cmd>HopWord<CR>|                                      "Hop!
-  nnoremap <leader>hp      <cmd>HopPattern<CR>|                                   "
+  nnoremap <leader>hW      <cmd>HopPattern<CR>|                                   "
   omap     <silent>m       :<C-U>lua require('tsht').nodes()<CR>|                 "Treesitter hop!
   vnoremap <silent>m       :lua require('tsht').nodes()<CR>|                      "
 

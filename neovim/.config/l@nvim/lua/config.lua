@@ -114,15 +114,15 @@
 -- Treesitter {{{
   require('twilight').setup()
   require('nvim-treesitter.configs').setup({
-      ensure_installed = "all",
-      highlight = { enable = true },
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = "<M-v>",
-          node_incremental = "<M-v>",
-          node_decremental = "<M-S-v>",
-          scope_incremental = "<M-c>",
+    ensure_installed = "all",
+    highlight = { enable = true },
+    incremental_selection = {
+      enable = true,
+      keymaps = {
+        init_selection = "<M-v>",
+        node_incremental = "<M-v>",
+        node_decremental = "<M-S-v>",
+        scope_incremental = "<M-c>",
       },
     },
     indent = { emable = true },
@@ -152,8 +152,8 @@
       move = {
         enable = true,
         set_jumps = true,
-        goto_next_start = { [")"] = "@function.outer", ["<M-)>"] = "@statement.outer", },
-        goto_previous_start = { ["("] = "@function.outer", ["<M-(>"] = "@statement.outer", },
+        goto_next_start = { ["M-)"] = "@function.outer", ["<)>"] = "@statement.outer", },
+        goto_previous_start = { ["M-("] = "@function.outer", ["<(>"] = "@statement.outer", },
       },
       swap = {
         enable = true,

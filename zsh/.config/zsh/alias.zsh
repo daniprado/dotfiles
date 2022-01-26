@@ -64,6 +64,7 @@ alias senv="venv && src"
 alias renv="rm -rf lib lib64 include bin pyvenv.cfg"
 alias json="python -m json.tool"
 alias cal="noglob cal"
+alias gzt="br -ghc :gs"
 
 AGALIAS_PATH="${HOME}/.config/zsh/ag-alias.zsh"
 [[ -f "${AGALIAS_PATH}" ]] && source "${AGALIAS_PATH}"

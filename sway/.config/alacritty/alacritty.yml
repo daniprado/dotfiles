@@ -7,6 +7,8 @@ window:
   title: ''
   gtk_theme_variant: None
 
+  opacity: 1.0
+
   padding:
     x: 2
     y: 2
@@ -79,8 +81,6 @@ bell:
   duration: 0
   color: '#ffffff'
 
-background_opacity: 1.0
-
 selection:
   semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
   save_to_clipboard: true
@@ -128,6 +128,6 @@ key_bindings:
   - {key: V, mods: Alt, chars: "\x17v"}
   - {key: S, mods: Alt, chars: "\x17s"}
   - {key: Q, mods: Alt, chars: "\x17q"}
-  - {key: D, mods: Alt, chars: "\x17d"}
+  # - {key: D, mods: Alt, chars: "\x17d"}
   - {key: Equals, mods: Alt, chars: "\x17E"}
 

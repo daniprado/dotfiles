@@ -17,8 +17,8 @@ zle -N fif
 zle -N fifall
 zle -N cal
 zle -N tree
-zle -N gzt
 zle -N cmd_tempos
+zle -N cd_dirs
 
 bindkey -v
 bindkey '^ ' autosuggest-accept
@@ -30,6 +30,7 @@ bindkey '^?' backward-delete-char
 bindkey '^h' backward-delete-char
 bindkey '^w' backward-kill-word
 bindkey '^e' cmd_tempos
+bindkey '\ed' cd_dirs
 
 # Reload last visited location
 if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then

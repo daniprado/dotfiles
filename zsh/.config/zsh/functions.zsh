@@ -30,8 +30,15 @@ function tree() {
     br -sc :pt "$@"
 }
 
-function gzt() {
-    br -ghc :gs
+function cd_dirs() {
+  local cmd="cat ~/.cache/zsh/dirs | uniq -u"
+  setopt localoptions pipefail no_aliases 2> /dev/null
+  local dir="$(eval "$cmd" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse --bind=ctrl-z:ignore $FZF_DEFAULT_OPTS $FZF_ALT_C_OPTS" $(__fzfcmd) +m)"
+  [[ -z "$dir" ]] && zle redisplay && return 0
+  zle push-line && BUFFER="cd -- ${(q)dir}" && zle accept-line
+  local ret=$?
+  unset dir && zle reset-prompt
+  return $ret
 }
 
 function timer() {

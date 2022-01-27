@@ -108,10 +108,7 @@ zt wait'0' for                                        \
       OMZP::cp                                        \
   trigger-load'!copyfile'                             \
       OMZP::copyfile                                  \
-  trigger-load'!copybuffer'                           \
       OMZP::copybuffer                                \
-  trigger-load'!copydir'                              \
-      OMZP::copydir                                   \
   trigger-load'!trans'                                \
   atclone"cp **/trans.1 ${ZSHMAN_1}" atpull'%atclone' \
       soimort/translate-shell                         \

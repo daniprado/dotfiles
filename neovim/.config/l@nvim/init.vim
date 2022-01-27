@@ -45,12 +45,10 @@ endif
     Plug 'Konfekt/FastFold'                                                    "Simplify folding and unfolding blocks
     Plug 'Konfekt/FoldText'                                                    "Show info on folded blocks
 
-    Plug 'vim-airline/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
-
+    Plug 'nvim-lualine/lualine.nvim'                                           "(3)
     Plug 'AlessandroYorba/Alduin'
     Plug 'jnurmine/zenburn'
-    Plug 'ellisonleao/gruvbox.nvim'                                            "(5) TreeSitter & startify support
+    Plug 'sainnhe/gruvbox-material'                                            "(5)
     Plug 'ishan9299/nvim-solarized-lua'
   "}}}
 
@@ -142,6 +140,7 @@ endif
     Plug 'lambdalisue/suda.vim', { 'on': ['SudaRead', 'SudaWrite'] }           "Open/Save file as root
     Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }                         "Edit history on current buffer
     Plug 'lewis6991/gitsigns.nvim'                                             "(2) Git visual tools
+    Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }          "Browser integration
   "}}}
 
   call plug#end()
@@ -185,77 +184,14 @@ endif
 
 "Params {{{
 
-  "General config {{{
-    syntax enable
-
-    syntax on
-    set ruler
-    set relativenumber                       "Line numbers are relative
-    set number                               "Display the absolute line number at the line you're on
-    set ls=2                                 "Always show status bar
-    set t_Co=256                             "256 colors on console
-    if (has("termguicolors"))
-      set termguicolors
-      hi LineNr ctermbg=NONE guibg=NONE
-    endif
-    set visualbell
-    set viewoptions=cursor,folds,slash,unix
-
-    colorscheme gruvbox
-    set background=dark
-
-    set cursorline
-    set cursorcolumn
-    set fillchars+=vert:¦                    "Improve tile division look
-    set ttyfast                              "Improve screen redrawing
-    set hidden                               "Hidde closed buffers
-    set autoread                             "Read external changes on open files
-    set ttimeoutlen=0                        "No delay between modes
-    set noshowmode
-    set clipboard=unnamed
-    set wildmode=longest:list,full           "Autocomplete behaviour
-    set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-    set incsearch                            "Incremental search
-    set showmatch                            "Show matching bracket of cursor position
-    set hlsearch                             "Show search results
-    set smartcase
-    set complete=.,w,b,t
-
-    set completeopt=menuone,noselect
-
-    set foldmethod=expr
-    set foldexpr=nvim_treesitter#foldexpr()
-    autocmd FileType json,yaml,vim setlocal foldmethod=indent
-
-    set undofile
-    set backup
-    set history=1000
-    set undoreload=1000
-    set undodir=$undodir//
-    set directory=$swpdir//
-    set backupdir=$bkdir//
-
-    set expandtab                            "Replace \t with whitespaces
-    set tabstop=4                            "# of whitespaces per \t
-    set shiftwidth=2                         "# of whitespaces per indent level
-    set softtabstop=4                        "# of whitespaces per \t
-    set autoindent
-    set scrolloff=4
-    set nu
-    set showbreak=↪\
-    set listchars=tab:→\ ,eol:↲,trail:•,extends:»,precedes:«,nbsp:‡
-    set splitbelow
-    set splitright
-    set formatoptions+=j
-  "}}}
-
   "Plugin config {{{
 
     "Visual {{{
-      let g:airline_theme                      = 'distinguished'
-      let g:airline#extensions#tabline#enabled = 0
-      let g:airline_powerline_fonts            = 1
-      let g:airline_section_x                  = '[%{&filetype}]'
+      let g:gruvbox_material_background = 'hard' "soft, medium or hard
+      let g:gruvbox_material_palette = 'mix'     "original, mix or material
+      let g:gruvbox_material_cursor = 'aqua'
+      let g:gruvbox_material_enable_italic = 1
+      let g:gruvbox_material_disable_italic_comment = 0
     "}}}
 
     "Navigation {{{
@@ -314,20 +250,84 @@ endif
 
     "Other {{{
       let g:startify_lists = [
-              \ { 'type': 'files',                    'header': ['   MRU']            },
-              \ { 'type': 'sessions',                 'header': ['   Sessions']      },
-              \ { 'type': 'bookmarks',                'header': ['   Bookmarks']      },
-              \ { 'type': function('s:gitModified'),  'header': ['   git modified']   },
-              \ { 'type': function('s:gitUntracked'), 'header': ['   git untracked']  },
-              \ { 'type': 'commands',                 'header': ['   Commands']       },
-              \ ]
+        \ { 'type': 'files',                    'header': ['   MRU']            },
+        \ { 'type': 'sessions',                 'header': ['   Sessions']       },
+        \ { 'type': 'bookmarks',                'header': ['   Bookmarks']      },
+        \ { 'type': function('s:gitModified'),  'header': ['   git modified']   },
+        \ { 'type': function('s:gitUntracked'), 'header': ['   git untracked']  },
+        \ { 'type': 'commands',                 'header': ['   Commands']       },
+      \ ]
       let g:startify_session_dir = expand(stdpath('data').'/sessions')
 
-      let g:suda_smart_edit        = 1
+      let g:suda_smart_edit = 1
     "}}}
 
   "}}}
 "}}}
+
+  "General config {{{
+    syntax enable
+
+    syntax on
+    set ruler
+    set relativenumber                       "Line numbers are relative
+    set number                               "Display the absolute line number at the line you're on
+    set ls=2                                 "Always show status bar
+    set t_Co=256                             "256 colors on console
+    if (has("termguicolors"))
+      set termguicolors
+      hi LineNr ctermbg=NONE guibg=NONE
+    endif
+    set visualbell
+    set viewoptions=cursor,folds,slash,unix
+
+    set background=dark
+    colorscheme gruvbox-material
+
+    set cursorline
+    set cursorcolumn
+    set fillchars+=vert:¦                    "Improve tile division look
+    set ttyfast                              "Improve screen redrawing
+    set hidden                               "Hidde closed buffers
+    set autoread                             "Read external changes on open files
+    set ttimeoutlen=0                        "No delay between modes
+    set noshowmode
+    set clipboard=unnamed
+    set wildmode=longest:list,full           "Autocomplete behaviour
+    set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+    set incsearch                            "Incremental search
+    set showmatch                            "Show matching bracket of cursor position
+    set hlsearch                             "Show search results
+    set smartcase
+    set complete=.,w,b,t
+
+    set completeopt=menuone,noselect
+
+    set foldmethod=expr
+    set foldexpr=nvim_treesitter#foldexpr()
+    autocmd FileType json,yaml,vim setlocal foldmethod=indent
+
+    set undofile
+    set backup
+    set history=1000
+    set undoreload=1000
+    set undodir=$undodir//
+    set directory=$swpdir//
+    set backupdir=$bkdir//
+
+    set expandtab                            "Replace \t with whitespaces
+    set tabstop=4                            "# of whitespaces per \t
+    set shiftwidth=2                         "# of whitespaces per indent level
+    set softtabstop=4                        "# of whitespaces per \t
+    set autoindent
+    set scrolloff=4
+    set nu
+    set showbreak=↪\
+    set listchars=tab:→\ ,eol:↲,trail:•,extends:»,precedes:«,nbsp:‡
+    set splitbelow
+    set splitright
+    set formatoptions+=j
+  "}}}
 
 "Shortcuts {{{
   let mapleader = "\<SPACE>"

@@ -1,4 +1,3 @@
-
 -- Visual {{{
   require('bufferline').setup({
     options = {
@@ -48,6 +47,35 @@
       },
     },
   })
+
+  require('lualine').setup {
+    options = {
+      icons_enabled = true,
+      theme = 'gruvbox-material',
+      component_separators = { left = '', right = ''},
+      section_separators = { left = '', right = ''},
+      disabled_filetypes = {},
+      always_divide_middle = true,
+    },
+    sections = {
+      lualine_a = {'mode'},
+      lualine_b = {'branch', 'diff', 'diagnostics'},
+      lualine_c = {'filename'},
+      lualine_x = {'encoding', 'fileformat', 'filetype'},
+      lualine_y = {'progress'},
+      lualine_z = {'location'}
+    },
+    inactive_sections = {
+      lualine_a = {},
+      lualine_b = {},
+      lualine_c = {'filename'},
+      lualine_x = {'location'},
+      lualine_y = {},
+      lualine_z = {}
+    },
+    tabline = {},
+    extensions = {}
+  }
 -- }}}
 
 -- Navigation {{{
@@ -114,7 +142,7 @@
 -- Treesitter {{{
   require('twilight').setup()
   require('nvim-treesitter.configs').setup({
-    ensure_installed = "all",
+    ensure_installed = "maintained",
     highlight = { enable = true },
     incremental_selection = {
       enable = true,
@@ -162,7 +190,7 @@
       },
     },
   })
-  -- }}}
+-- }}}
 
 -- LSP {{{
   local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())

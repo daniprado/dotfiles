@@ -24,8 +24,8 @@ bindkey -v
 bindkey '^ ' autosuggest-accept
 bindkey '^a' autosuggest-toggle
 bindkey '^z' zle-expand-alias
-bindkey '^K' up-history
-bindkey '^J' down-history
+bindkey '^k' up-history
+bindkey '^j' down-history
 bindkey '^?' backward-delete-char
 bindkey '^h' backward-delete-char
 bindkey '^w' backward-kill-word

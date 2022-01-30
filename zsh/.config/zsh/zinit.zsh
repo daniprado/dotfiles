@@ -125,7 +125,8 @@ zt wait'0' for                                        \
       OMZP::pip/_pip                                  \
   has'docker-compose' trigger-load'!docker-compose'   \
   as'completion' blockf                               \
-      OMZP::docker-compose/_docker-compose
+      OMZP::docker-compose/_docker-compose            \
+      daniprado/fzf-gcloud
 
 ztp wait'1' for                        \
       OMZL::completion.zsh             \

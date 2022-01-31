@@ -39,8 +39,9 @@ ztp wait'0' for                                                 \
       djui/alias-tips
 
 DIRENV_VER="*linux-amd64*"
-DUF_VER="*linux_x86_64*"
 BROOT_VER="*x86_64-linux*"
+DUF_VER="*linux_x86_64*"
+YH_VER="*linux-amd64*"
 NVIM_VER="nvim.appimage"
 
 mkdir -p ${ZSHMAN_1} ${ZSHMAN}/man5
@@ -87,6 +88,9 @@ ztp wait'0' as'command' for                              \
   trigger-load'!hcurl'                                   \
   sbin'httpstat.sh -> hcurl'                             \
       b4b4r07/httpstat                                   \
+  sbin'yh' from'gh-r' bpick"${YH_VER}"                   \
+  trigger-load'!yh;!ky'                                  \
+      andreazorzetto/yh                                  \
   trigger-load'!you-get'                                 \
       soimort/you-get
 
@@ -126,6 +130,8 @@ zt wait'0' for                                        \
   has'docker-compose' trigger-load'!docker-compose'   \
   as'completion' blockf                               \
       OMZP::docker-compose/_docker-compose            \
+  has'kubectl' trigger-load'!kubectl;!k'              \
+      OMZP::kubectl                                   \
   has'gcloud'                                         \
       daniprado/fzf-gcloud
 

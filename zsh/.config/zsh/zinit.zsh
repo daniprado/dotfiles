@@ -126,6 +126,7 @@ zt wait'0' for                                        \
   has'docker-compose' trigger-load'!docker-compose'   \
   as'completion' blockf                               \
       OMZP::docker-compose/_docker-compose            \
+  has'gcloud'                                         \
       daniprado/fzf-gcloud
 
 ztp wait'1' for                        \

@@ -59,6 +59,7 @@ endif
     Plug 'kshenoy/vim-signature'                                               "Show and manipulate marks
     Plug 'zhimsel/vim-stay'                                                    "Keeps last view of buffer/file
     Plug 'lukas-reineke/indent-blankline.nvim'                                 "Indent lines properly
+    Plug 'oberblastmeister/rooter.nvim'                                        "Jumps to project root when file is open
   "}}}
 
   "Motions & Objects {{{

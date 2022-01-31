@@ -44,7 +44,7 @@ if [[ "${TERM}" == (screen*|tmux*|xterm*) ]]; then
 fi
 
 # Single NVim instance while inside tmux session
-if [ -z "$TMUX" ]; then
+if [ ! -z "${TMUX}" ]; then
   export NVIM_LISTEN_ADDRESS="${TMP}/nvimsocket_$(curr_dk)"
 fi
 

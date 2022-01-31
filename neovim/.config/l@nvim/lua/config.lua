@@ -80,6 +80,7 @@
 
 -- Navigation {{{
   require('numb').setup()
+  require('rooter').setup({ echo = false })
 -- }}}
 
 -- Telescope {{{

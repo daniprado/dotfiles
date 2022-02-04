@@ -2,56 +2,56 @@
     "com.github.ulauncher.ulauncher-timer": {
         "id": "com.github.ulauncher.ulauncher-timer",
         "url": "https://github.com/ulauncher/ulauncher-timer",
-        "updated_at": "2021-09-06T11:23:45.661811",
+        "updated_at": "2022-02-04T08:41:17.687224",
         "last_commit": "4262fc24db08610d01ea311d2e12f22588c98886",
         "last_commit_time": "2020-11-03T07:21:30"
     },
     "com.github.rdnetto.ulauncher-sway": {
         "id": "com.github.rdnetto.ulauncher-sway",
         "url": "https://github.com/rdnetto/ulauncher-sway",
-        "updated_at": "2021-09-06T11:23:46.720528",
+        "updated_at": "2022-02-04T08:41:18.561746",
         "last_commit": "9fc141f01959fb5086518699229af97d920ca865",
         "last_commit_time": "2021-07-22T12:29:13"
     },
     "com.github.daniprado.ulauncher-clipboard": {
         "id": "com.github.daniprado.ulauncher-clipboard",
         "url": "https://github.com/daniprado/ulauncher-clipboard",
-        "updated_at": "2021-09-06T11:23:47.753143",
+        "updated_at": "2022-02-04T08:41:19.519009",
         "last_commit": "b3d1bf6e9a4d7ec19dd3d444094e661711e10ac8",
         "last_commit_time": "2021-01-19T16:11:14"
     },
     "com.github.kbialek.ulauncher-bitwarden": {
         "id": "com.github.kbialek.ulauncher-bitwarden",
         "url": "https://github.com/kbialek/ulauncher-bitwarden",
-        "updated_at": "2021-09-06T11:23:48.689248",
-        "last_commit": "aaa8f4331b4dad350f1fe4e76e64b3e9d73074d5",
-        "last_commit_time": "2020-11-14T17:09:56"
+        "updated_at": "2022-02-04T08:41:20.876338",
+        "last_commit": "21893782c598fee92e86edc364c483841df82bc5",
+        "last_commit_time": "2022-01-23T20:59:21"
     },
     "com.github.daniprado.ulauncher-ssh": {
         "id": "com.github.daniprado.ulauncher-ssh",
         "url": "https://github.com/daniprado/ulauncher-ssh",
-        "updated_at": "2021-09-06T11:23:49.560483",
+        "updated_at": "2022-02-04T08:41:21.758297",
         "last_commit": "8e1177940589d7f2c7a82f5d8a19ad52a3a38c89",
         "last_commit_time": "2021-01-18T20:45:37"
     },
     "com.github.tchar.ulauncher-albert-calculate-anything": {
         "id": "com.github.tchar.ulauncher-albert-calculate-anything",
         "url": "https://github.com/tchar/ulauncher-albert-calculate-anything",
-        "updated_at": "2021-11-16T19:54:04.772946",
+        "updated_at": "2022-02-04T08:41:23.500256",
         "last_commit": "ee0903174c8b87cd1f7c3b6c1acef10702547507",
         "last_commit_time": "2021-08-12T06:39:56"
     },
     "com.github.devkleber.ulauncher-open-link": {
         "id": "com.github.devkleber.ulauncher-open-link",
         "url": "https://github.com/DevKleber/ulauncher-open-link",
-        "updated_at": "2021-11-16T19:54:06.246412",
+        "updated_at": "2022-02-04T08:41:24.495333",
         "last_commit": "7c6eccd22a0708d82997833ff977c67f5c36abd1",
         "last_commit_time": "2021-03-13T23:02:04"
     },
     "com.github.nastuzzisamy.ulauncher-translate": {
         "id": "com.github.nastuzzisamy.ulauncher-translate",
         "url": "https://github.com/NastuzziSamy/ulauncher-translate",
-        "updated_at": "2021-11-16T19:54:07.236037",
+        "updated_at": "2022-02-04T08:41:25.370784",
         "last_commit": "f16b6eed05923e604bacafefdc40b7b7290e21da",
         "last_commit_time": "2021-03-27T11:43:48"
     }

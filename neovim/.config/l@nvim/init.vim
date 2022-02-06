@@ -382,6 +382,7 @@ endif
   nnoremap <leader>do      <cmd>diffoff<CR>|                                      "Deactivate diff on buffer
 
   nnoremap <leader>s       <cmd>Telescope session-lens search_session<CR>|        "List of saved sessions
+  nnoremap <leader>S       <cmd>SaveSession<CR>|                                  "Saves current session
   nnoremap <leader>u       <cmd>UndotreeToggle<CR>|                               "Open change history for buffer
   nnoremap <leader>p       <cmd>Telescope neoclip<CR>|                            "Yank stack
   nnoremap <leader>"       <cmd>Telescope registers theme=get_dropdown<CR>|       "List of registers
@@ -424,7 +425,6 @@ endif
   " nmap gwaj             Takes the JSON object on the clipboard and extends it into the JSON object under the cursor.
 
   nnoremap <leader>hw      <cmd>HopWord<CR>|                                      "Hop!
-  nnoremap <leader>hW      <cmd>HopPattern<CR>|                                   "
   omap     <silent>m       :<C-U>lua require('tsht').nodes()<CR>|                 "Treesitter hop!
   vnoremap <silent>m       :lua require('tsht').nodes()<CR>|                      "
 

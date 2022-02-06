@@ -221,7 +221,7 @@
 
   local lspkind = require('lspkind')
   lspkind.init({
-    with_text = true,
+    mode = 'symbol_text',
     preset = 'codicons',
     symbol_map = {
       Text = "", Method = "", Function = "", Constructor = "", Field = "ﰠ", Variable = "", Class = "ﴯ",

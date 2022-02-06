@@ -12,6 +12,9 @@ set {
   $electron_mods ''
   #$electron_mods '--enable-features=UseOzonePlatform --ozone-platform=wayland --gtk-version=4'
 
+  $locking swaylock --daemonize --show-failed-attempts --fade-in 0.2 --grace 2 --ignore-empty-password --screenshots --clock
+
+
   $browser    'vivaldi-stable $electron_mods'
   $term       alacritty
   $editor     ~/.local/bin/nvim_sway
@@ -66,10 +69,11 @@ gaps inner 3
 gaps outer 3
 
 exec swayidle -w \
-  timeout 600 'swaylock' \
+  timeout 200 'light -G > /tmp/brightness && light -S 10' resume 'light -S $([ -f /tmp/brightness ] && cat /tmp/brightness || echo 100%)' \
   timeout 300 'swaymsg "output * dpms off"' \
+  timeout 450 'exec $locking' \
   resume 'swaymsg "output * dpms on"' \
-  before-sleep 'swaylock'
+  before-sleep 'exec $locking'
 
 bar {
   swaybar_command waybar

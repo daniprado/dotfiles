@@ -2,4 +2,5 @@
 
 export NVR_CMD="nvim-qt"
 dk=$(swaymsg --type get_outputs | jq -r ".[] | select(.focused==true) | .current_workspace" | grep -v null | cut -d' ' -f1)
-nvr -s --servername ${XDG_TEMP_HOME}/nvimsocket_${dk} "$@"
+#FIXME
+nvr -s --servername ${HOME}/tmp/nvimsocket_${dk} "$@"

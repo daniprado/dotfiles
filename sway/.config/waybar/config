@@ -76,6 +76,7 @@
     "tooltip": false
   },
   "network#bandwith": {
+    "interface": "*",
     "format": " {bandwidthDownBits}  {bandwidthUpBits}",
     "interval": 2
   },

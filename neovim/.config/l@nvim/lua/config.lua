@@ -86,7 +86,7 @@
 -- Telescope {{{
   require('neoclip').setup({
     history = 1000,
-    enable_persistant_history = true,
+    enable_persistent_history = true,
     db_path = vim.fn.stdpath("data") .. "/neoclip.sqlite3",
     -- FIXME Check why these fail if changed
     enable_macro_history = false,

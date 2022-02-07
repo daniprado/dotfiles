@@ -22,7 +22,7 @@ window#waybar {
     background-color: transparent;
     color: #a89984;
     border-top: 2px solid transparent;
-    border-radius: 25%;
+    border-radius: 20%;
 }
 
 #workspaces button.focused {
@@ -75,11 +75,12 @@ window#waybar {
 
 #network {
     color: #83a598;
-    border-radius: 40%;
+    border-radius: 20%;
 }
 
-#network.bandwith {
+#bandwidth {
     color: #fabd2f;
+    background-color: #556b79;
 }
 
 #battery {

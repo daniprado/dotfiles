@@ -108,6 +108,8 @@ zt wait'0' for                                        \
       ael-code/zsh-colored-man-pages                  \
   has'tmux' trigger-load'!tmux'                       \
       OMZP::tmux                                      \
+  has'task' trigger-load'!t;!task'                    \
+      OMZP::taskwarrior                               \
   trigger-load'!cpv'                                  \
       OMZP::cp                                        \
   trigger-load'!copyfile'                             \

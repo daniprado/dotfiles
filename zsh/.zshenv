@@ -19,8 +19,9 @@ DIRSTACKSIZE=100
 KEYTIMEOUT=1
 CASE_SENSITIVE="true"
 
+GCLOUD_HOME="${XDG_SHARE_HOME}/google-cloud-sdk"
 typeset -U path
-path=(${XDG_BIN_HOME} ${XDG_SHARE_HOME}/fonts $path[@])
+path=(${XDG_BIN_HOME} ${XDG_SHARE_HOME}/fonts ${GCLOUD_HOME}/bin $path[@])
 export MANPATH=${XDG_SHARE_HOME}/man:${MANPATH}
 
 export WLR_NO_HARDWARE_CURSORS=1

@@ -8,6 +8,7 @@ LOCS=(
   "${AG_SHARE}/zsh"
   "${AG_SHARE}/fzf"
   "${AG_SHARE}/tmux"
+  "${AG_SHARE}/google-cloud-sdk"
   "${AG_BIN}/fzf*"
   "${AG_CONFIG}/telegram"
 )

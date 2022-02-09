@@ -4,7 +4,7 @@ GCLOUD_VERSION="372.0.0"
 GCLOUD_PKG="google-cloud-sdk"
 GCLOUD_FILE="${GCLOUD_PKG}-${GCLOUD_VERSION}-linux-x86_64.tar.gz"
 GCLOUD_URL="https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/${GCLOUD_FILE}"
-GCLOUD_HOME="${XDG_SHARE_HOME}/${GCLOUD_PKG}"
+GCLOUD_HOME="${AG_SHARE}/${GCLOUD_PKG}"
 
 if [[ ! -z "${AG_INSTALL}" ]]; then
 

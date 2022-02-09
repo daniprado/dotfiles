@@ -6,4 +6,8 @@
   output DP-7 mode 1920x1200 position 1050,200
   output eDP-1 mode 1920x1200 position 1050,1400
 }
+{
+  output DP-3 mode 3840x2160 position 0,0 scale 1.5
+  output eDP-1 mode 1920x1200 position 320,1440
+}
 

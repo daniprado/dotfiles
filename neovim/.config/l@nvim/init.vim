@@ -133,6 +133,7 @@ endif
   "VimWiki {{{
     Plug 'vimwiki/vimwiki'                                                     "Wiki
     Plug 'tools-life/taskwiki'                                                 "Taskwarrior integration
+    Plug 'powerman/vim-plugin-AnsiEsc'
   "}}}
 
   "Other {{{

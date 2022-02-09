@@ -18,7 +18,7 @@ if [[ ! -z "${AG_INSTALL}" ]]; then
       --usage-reporting false \
       --command-completion false \
       --path-update false \
-      --additional-components docker-credential-gcr \
+      --additional-components docker-credential-gcr kubectl\
       --quiet)
 fi
 

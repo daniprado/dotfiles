@@ -44,6 +44,10 @@ DUF_VER="*linux_x86_64*"
 YH_VER="*linux-amd64*"
 NVIM_VER="nvim.appimage"
 
+KUBECTX_REPO="https://raw.githubusercontent.com/ahmetb/kubectx"
+KUBECTX_VER="kubectx*linux_x86_64*"
+KUBENS_VER="kubens*linux_x86_64*"
+
 mkdir -p ${ZSHMAN_1} ${ZSHMAN}/man5
 
 ztp wait'0' as'command' for                              \
@@ -88,6 +92,22 @@ ztp wait'0' as'command' for                              \
   trigger-load'!hcurl'                                   \
   sbin'httpstat.sh -> hcurl'                             \
       b4b4r07/httpstat                                   \
+  trigger-load'!kubectx;!kctx' id-as'kubectx'            \
+  sbin'kubectx' from'gh-r' bpick"${KUBECTX_VER}"         \
+  atclone"
+    curl -o ${ZINIT[COMPLETIONS_DIR]}/_kubectx \
+    ${KUBECTX_REPO}/master/completion/_kubectx.zsh; \
+    zinit creinstall -q ${ZINIT[COMPLETIONS_DIR]}
+  " atpull'%atclone'                                     \
+      ahmetb/kubectx                                     \
+  trigger-load'!kubens;!kns' id-as'kubens'               \
+  sbin'kubens' from'gh-r' bpick"${KUBENS_VER}"           \
+  atclone"
+    curl -o ${ZINIT[COMPLETIONS_DIR]}/_kubens \
+    ${KUBECTX_REPO}/master/completion/_kubens.zsh; \
+    zinit creinstall -q ${ZINIT[COMPLETIONS_DIR]}
+  " atpull'%atclone'                                     \
+      ahmetb/kubectx                                     \
   sbin'yh' from'gh-r' bpick"${YH_VER}"                   \
   trigger-load'!yh;!ky'                                  \
       andreazorzetto/yh                                  \
@@ -132,14 +152,15 @@ zt wait'0' for                                        \
   has'docker-compose' trigger-load'!docker-compose'   \
   as'completion' blockf                               \
       OMZP::docker-compose/_docker-compose            \
-  has'kubectl' trigger-load'!kubectl;!k'              \
-      OMZP::kubectl                                   \
   has'gcloud'                                         \
       daniprado/fzf-gcloud
 
-ztp wait'1' for                        \
-      OMZL::completion.zsh             \
-  blockf atpull'zinit creinstall -q .' \
-      zsh-users/zsh-completions        \
-  atinit'zicompinit; zicdreplay'       \
-      zsh-users/zsh-syntax-highlighting
+ztp wait'1' for                            \
+      OMZL::completion.zsh                 \
+  blockf atpull'zinit creinstall -q .'     \
+      zsh-users/zsh-completions            \
+  atinit'zicompinit; zicdreplay'           \
+      zsh-users/zsh-syntax-highlighting    \
+  has'kubectl'                             \
+  atinit'source <(kubectl completion zsh)' \
+      OMZP::kubectl

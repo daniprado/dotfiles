@@ -12,6 +12,11 @@ pipx_install "${PIPX_PKGS[@]}"
 pkg_install "fd" "fd-find" "fd"
 pkg_install "tmate"
 pkg_install "gawk"
+pkg_install "sops"
+
+pkg_install "gcloud"
+gcloud components install kubectl
+gcloud components install docker-credential-gcr
 
 ZSH_BIN=$(which zsh)
 if [[ "${ZSH_BIN}" != *"${SHELL}" ]]; then

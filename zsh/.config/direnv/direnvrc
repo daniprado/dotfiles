@@ -1,5 +1,3 @@
 #!/usr/bin/env zsh
 
-use_asdf() {
-  source $ASDF_DIR/asdf.sh
-}
+source "$(asdf direnv hook asdf)"

@@ -123,6 +123,7 @@ if [[ ${CURR_NVIM_VER} -lt 6 ]]; then
         neovim/neovim
 fi
 
+AWS_COMPLETER_PATH=""
 zt wait'0' for                                        \
   trigger-load'!man'                                  \
       ael-code/zsh-colored-man-pages                  \
@@ -152,15 +153,23 @@ zt wait'0' for                                        \
   has'docker-compose' trigger-load'!docker-compose'   \
   as'completion' blockf                               \
       OMZP::docker-compose/_docker-compose            \
+  has'aws'                                            \
+      OMZP::aws                                       \
   has'gcloud'                                         \
       daniprado/fzf-gcloud
 
-ztp wait'1' for                            \
-      OMZL::completion.zsh                 \
-  blockf atpull'zinit creinstall -q .'     \
-      zsh-users/zsh-completions            \
-  atinit'zicompinit; zicdreplay'           \
-      zsh-users/zsh-syntax-highlighting    \
-  has'kubectl'                             \
-  atinit'source <(kubectl completion zsh)' \
+ztp wait'1' for                                      \
+      OMZL::completion.zsh                           \
+  blockf atpull'zinit creinstall -q .'               \
+      zsh-users/zsh-completions                      \
+  atinit'zicompinit; zicdreplay'                     \
+      zsh-users/zsh-syntax-highlighting              \
+  has'sops' as'null' as'sops'                        \
+  atinit'source /usr/share/zsh/site-functions/_sops' \
+      ${HOME}/.config/zsh/completions                \
+  has'az' as'null' as'az'                            \
+  atinit"source $(which az).completion.sh"           \
+      ${HOME}/.config/zsh/completions                \
+  has'kubectl'                                       \
+  atinit'source <(kubectl completion zsh)'           \
       OMZP::kubectl

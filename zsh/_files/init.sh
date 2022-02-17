@@ -12,11 +12,6 @@ pipx_install "${PIPX_PKGS[@]}"
 pkg_install "fd" "fd-find" "fd"
 pkg_install "tmate"
 pkg_install "gawk"
-pkg_install "sops"
-
-pkg_install "gcloud"
-gcloud components install kubectl
-gcloud components install docker-credential-gcr
 
 ZSH_BIN=$(which zsh)
 if [[ "${ZSH_BIN}" != *"${SHELL}" ]]; then
@@ -28,5 +23,6 @@ exe "(cd ${CURR_PATH}; ./install_zinit.sh)"
 exe "(cd ${CURR_PATH}; ./install_ripgrep.sh)"
 exe "(cd ${CURR_PATH}; ./install_fzf.sh)"
 exe "(cd ${CURR_PATH}; ./install_tmux.sh)"
+[[ ! -z INST_CLOUD ]] && exe "(cd ${CURR_PATH}; ./install_cloud.sh)"
 
 exit 0

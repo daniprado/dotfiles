@@ -37,10 +37,12 @@ if [[ $(nvim --version | grep -m 1 "NVIM" | cut -d'.' -f2) -ge 6 ]] 2>/dev/null;
 
   if type "nvr" >/dev/null; then
     export EDITOR="nvr -s --servername ${TMP}/nvimsocket_$(curr_dk)"
+    export NOSOCK_EDITOR="nvim"
     alias nvim="${EDITOR}"
     [[ -n "${WAYLAND_DISPLAY}" ]] && alias nvim-qt="NVIM_GUI=1 NVR_CMD=nvim-qt ${EDITOR}"
   fi
 fi
+[[ -z "${NOSOCK_EDITOR}" ]] && export NOSOCK_EDITOR="${EDITOR}"
 [[ -n "${WAYLAND_DISPLAY}" ]] && export VISUAL="${EDITOR}"
 
 if type "bat" >/dev/null; then
@@ -65,6 +67,9 @@ alias renv="rm -rf lib lib64 include bin pyvenv.cfg"
 alias json="python -m json.tool"
 alias cal="noglob cal"
 alias gzt="br -ghc :gs"
+alias kctx="kubectx"
+alias kns="kubens"
+alias sops="EDITOR=${NOSOCK_EDITOR} sops"
 
 AGALIAS_PATH="${HOME}/.config/zsh/ag-alias.zsh"
 [[ -f "${AGALIAS_PATH}" ]] && source "${AGALIAS_PATH}"

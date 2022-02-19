@@ -21,10 +21,7 @@ svn=""
 zt(){ zinit $svn depth'1' reset light-mode lucid "${@}"; }
 ztp(){ zinit depth'1' reset light-mode lucid "${@}"; }
 
-ztp for                                                 \
-  nocd atload"source ${ZSHCONF}/theme.zsh; _p9k_precmd" \
-      romkatv/powerlevel10k                             \
-      zdharma-continuum/z-a-bin-gem-node
+ztp for zdharma-continuum/z-a-bin-gem-node
 
 ztp wait'0' for                                                 \
       OMZL::clipboard.zsh                                       \
@@ -153,23 +150,20 @@ zt wait'0' for                                        \
   has'docker-compose' trigger-load'!docker-compose'   \
   as'completion' blockf                               \
       OMZP::docker-compose/_docker-compose            \
-  has'aws'                                            \
+  has'aws' trigger-load'!aws'                         \
       OMZP::aws                                       \
-  has'gcloud'                                         \
+  has'az' as'null' as'az' trigger-load'!az'           \
+  atinit"source $(which az).completion.sh"            \
+      ${HOME}/.config/zsh/completions                 \
+  has'gcloud' trigger-load'!gcloud'                   \
       daniprado/fzf-gcloud
 
-ztp wait'1' for                                      \
-      OMZL::completion.zsh                           \
-  blockf atpull'zinit creinstall -q .'               \
-      zsh-users/zsh-completions                      \
-  atinit'zicompinit; zicdreplay'                     \
-      zsh-users/zsh-syntax-highlighting              \
-  has'sops' as'null' as'sops'                        \
-  atinit'source /usr/share/zsh/site-functions/_sops' \
-      ${HOME}/.config/zsh/completions                \
-  has'az' as'null' as'az'                            \
-  atinit"source $(which az).completion.sh"           \
-      ${HOME}/.config/zsh/completions                \
-  has'kubectl'                                       \
-  atinit'source <(kubectl completion zsh)'           \
+ztp wait'1' for                            \
+      OMZL::completion.zsh                 \
+  blockf atpull'zinit creinstall -q .'     \
+      zsh-users/zsh-completions            \
+  atinit'zicompinit; zicdreplay'           \
+      zsh-users/zsh-syntax-highlighting    \
+  has'kubectl' trigger-load'!k;!kubectl'   \
+  atinit'source <(kubectl completion zsh)' \
       OMZP::kubectl

@@ -2,13 +2,13 @@
 
 import i3ipc
 
-transparency_val = '0.8';
-transparency_val_t = '0.7';
-opacity_val = '1';
-opacity_val_t = '0.9';
+transparency_val = '0.9'
+transparency_val_t = '0.8'
+opacity_val = '1'
+opacity_val_t = '0.95'
 
-ipc              = i3ipc.Connection()
-prev_focused     = None
+ipc = i3ipc.Connection()
+prev_focused = None
 
 for window in ipc.get_tree():
     if window.focused:

@@ -8,7 +8,7 @@
 }
 
 window#waybar {
-    background-color: #535c5c;
+    background-color: #3c3836;
     color: #a89984;
 }
 
@@ -27,12 +27,13 @@ window#waybar {
 
 #workspaces button.focused {
     font-weight: bold;
-    background-color: #556b79;
+    background-color: #458588;
     color: #282828;
 }
 
 #workspaces button.urgent {
-    background-color: #74423f;
+    background-color: #fb4934;
+    color: #282828;
 }
 
 #workspaces button:hover {
@@ -40,8 +41,8 @@ window#waybar {
     text-shadow: inherit;
 }
 #workspaces button:hover {
-    background-color: #a89984;
-    border: #6c71c4;
+    background-color: #458588;
+    border: #928374;
     color: #282828;
 }
 
@@ -59,8 +60,8 @@ window#waybar {
     padding: 0 6px;
     margin: 0 8px;
     font-weight: bold;
+    background-color: #928374;
     color: #282828;
-    background-color: #5e6547;
     border-radius: 0%;
 }
 
@@ -78,15 +79,11 @@ window#waybar {
     border-radius: 20%;
 }
 
-#bandwidth {
-    color: #fabd2f;
-    background-color: #556b79;
-}
-
 #battery {
     font-weight: bold;
-    color: #232323;
-    border-radius: 40%;
+    color: #282828;
+    background-color: #665c54;
+    border-radius: 20%;
 }
 
 #battery.charging {
@@ -104,8 +101,8 @@ window#waybar {
 }
 
 #battery.critical:not(.charging) {
-    color: #fb4934;
-    background-color: #232323;
+    color: #a89984;
+    background-color: #cc241d;
     animation-name: blink;
     animation-duration: 0.8s;
     animation-timing-function: linear;
@@ -115,7 +112,7 @@ window#waybar {
 
 #network.disconnected, #network.disabled, #network.linked {
     color: #282828;
-    background-color: #74423f;
+    background-color: #d65d0e;
 }
 
 #pulseaudio {
@@ -126,7 +123,7 @@ window#waybar {
 }
 
 #pulseaudio.muted {
-    background-color: #74423f;
+    background-color: #d65d0e;
 }
 
 #custom-sway-scratch {

@@ -22,6 +22,15 @@ font:
   normal:
     family: MesloLGS NF
     style: regular
+  bold:
+    family: MesloLGS NF
+    style: regular
+  italic:
+    family: MesloLGS NF
+    style: italic
+  bold_italic:
+    family: MesloLGS NF
+    style: italic
 
 draw_bold_text_with_bright_colors: false
 

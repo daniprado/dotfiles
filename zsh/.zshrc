@@ -1,8 +1,3 @@
-if [[ -r "${XDG_CACHE_HOME}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  printf '\n%.0s' {1..100}
-  source "${XDG_CACHE_HOME}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 source ${ZSHCONF}/zinit.zsh
 source ${ZSHCONF}/functions.zsh
 
@@ -29,7 +24,6 @@ bindkey '^j' down-history
 bindkey '^?' backward-delete-char
 bindkey '^h' backward-delete-char
 bindkey '^w' backward-kill-word
-bindkey '^e' cmd_tempos
 bindkey '\ed' cd_dirs
 
 # Reload last visited location
@@ -51,5 +45,4 @@ fi
 source ${ZSHCONF}/fzf.zsh
 source ${ZSHCONF}/alias.zsh
 source ${ZSHCONF}/gpg-init.zsh
-
-(( ! ${+functions[p10k]} )) || p10k finalize
+source ${ZSHCONF}/prompt.zsh

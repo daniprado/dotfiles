@@ -20,24 +20,24 @@ set {
   $screenshot ~/Media/Pictures/Screenshot
   $wallpaper  ~/.local/share/pictures
 
-  $lightred    #4a3637
-  $red         #d17b49
-  $darkgreen   #7b8748
-  $darkyellow  #af865a
-  $darkblue    #535c5c
-  $darkmagenta #775759
-  $darkcyan    #6d715e
-  $white       #c0b18b
-  $mediumgrey  #4a3637
-  $darkred     #d17b49
-  $green       #7b8748
-  $yellow      #af865a
-  $blue        #535c5c
-  $magenta     #775759
-  $cyan        #6d715e
-  $darkwhite   #c0b18b
-  $background  #1f1f1f
-  $background2 #4a3637
+  $lightred    #fb4934
+  $red         #cc241d
+  $darkgreen   #98971a
+  $darkyellow  #d79921
+  $darkblue    #458588
+  $darkmagenta #d65d0e
+  $darkcyan    #689d6a
+  $white       #fbf1c7
+  $mediumgrey  #665c54
+  $darkred     #cc241d
+  $green       #b8bb26
+  $yellow      #fabd2f
+  $blue        #83a598
+  $magenta     #fe8019
+  $cyan        #8ec07c
+  $darkwhite   #a89984
+  $background  #1d2021
+  $background2 #504945
 }
 
 swaynag_command swaynagmode

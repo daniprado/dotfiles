@@ -56,16 +56,6 @@ function curr_dk() {
   fi
 }
 
-# TODO Tratar de entender esto...
 function cmd_tempos() {
-  if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
-    function zle-line-init() {
-      echoti smkx
-    }
-    function zle-line-finish() {
-      echoti rmkx
-    }
-    zle -N zle-line-init
-    zle -N zle-line-finish
-  fi
+  NON_TRANSIENT_PROMPT=1 zsh
 }

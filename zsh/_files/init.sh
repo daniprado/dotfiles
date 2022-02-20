@@ -14,15 +14,20 @@ pkg_install "tmate"
 pkg_install "gawk"
 
 ZSH_BIN=$(which zsh)
-if [[ "${ZSH_BIN}" != *"${SHELL}" ]]; then
-  exe "chsh --shell ${ZSH_BIN}"
-fi
+[[ "${ZSH_BIN}" = *"${SHELL}" ]] || exe "chsh --shell ${ZSH_BIN}"
+
+OHMP_URL="https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64"
+OHMP_BIN="${AG_BIN}/oh-my-posh"
+[[ -f "${OHMP_BIN}" ]] || \
+  (cd ${AG_BIN}; \
+  wget ${OHMP_URL} -O ${OHMP_BIN}; \
+  chmod +x ${OHMP_BIN})
 
 exe "(cd ${CURR_PATH}; ./install_gpg.sh)"
 exe "(cd ${CURR_PATH}; ./install_zinit.sh)"
 exe "(cd ${CURR_PATH}; ./install_ripgrep.sh)"
 exe "(cd ${CURR_PATH}; ./install_fzf.sh)"
 exe "(cd ${CURR_PATH}; ./install_tmux.sh)"
-[[ ! -z INST_CLOUD ]] && exe "(cd ${CURR_PATH}; ./install_cloud.sh)"
+[[ -z "${INST_CLOUD}" ]] || exe "(cd ${CURR_PATH}; ./install_cloud.sh)"
 
 exit 0

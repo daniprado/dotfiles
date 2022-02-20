@@ -75,7 +75,7 @@ window#waybar {
 }
 
 #network {
-    color: #83a598;
+    color: #689d6a;
     border-radius: 20%;
 }
 
@@ -110,9 +110,14 @@ window#waybar {
     animation-direction: alternate;
 }
 
-#network.disconnected, #network.disabled, #network.linked {
+#network.disconnected, #network.disabled {
     color: #282828;
     background-color: #d65d0e;
+}
+
+#network.linked {
+    color: #282828;
+    background-color: #b16286;
 }
 
 #pulseaudio {

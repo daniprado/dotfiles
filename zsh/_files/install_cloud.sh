@@ -15,8 +15,7 @@ pipx_install "azure-cli"
 (cd ${AG_TEMP} && \
   curl -LO ${GCLOUD_URL} && \
   tar xzvf ${GCLOUD_FILE} && \
-  mv ${GCLOUD_PKG} ${GCLOUD_HOME})
-
+  mv ${GCLOUD_PKG} ${GCLOUD_HOME}) && \
 (cd ${GCLOUD_HOME} && \
   ./install.sh \
     --usage-reporting false \
@@ -28,7 +27,7 @@ pipx_install "azure-cli"
 (cd ${AG_TEMP} && \
   curl -LO ${AWS_URL} && \
   unzip -q ${AWS_FILE} && \
-  ./install \
+  ./aws/install \
     --install-dir ${AG_SHARE}/aws-cli \
     --bin-dir ${AG_BIN})
 

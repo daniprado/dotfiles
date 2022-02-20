@@ -11,6 +11,8 @@ LOCS=(
   "${AG_SHARE}/google-cloud-sdk"
   "${AG_BIN}/fzf*"
   "${AG_CONFIG}/telegram"
+  "${AG_SHARE}/aws-cli"
+  "${AG_BIN}/aws*"
 )
 remove "${LOCS[@]}"
 

@@ -207,7 +207,7 @@
           "foreground": "p:yw0", "background": "transparent",
           "invert_powerline": true, "powerline_symbol": "\ue0b2",
           "properties": {
-            "template": "\ue0b2"
+            "template": "{{ if not .Env.TMUX }}\ue0b2{{ end }}"
           }
         },
         {
@@ -215,7 +215,7 @@
           "foreground": "p:bg2", "background": "p:yw0",
           "invert_powerline": true,
           "properties": {
-            "template": "{{ .IP }}",
+            "template": "{{ if not .Env.TMUX }}{{ .IP }}{{ end }}",
             "cache_timeout": 90,
             "http_timeout": 500
           }

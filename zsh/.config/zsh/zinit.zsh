@@ -40,6 +40,7 @@ BROOT_VER="*x86_64-linux*"
 DUF_VER="*linux_x86_64*"
 YH_VER="*linux-amd64*"
 NVIM_VER="nvim.appimage"
+OHMP_VER="*-linux-amd64"
 
 KUBECTX_REPO="https://raw.githubusercontent.com/ahmetb/kubectx"
 KUBECTX_VER="kubectx*linux_x86_64*"
@@ -47,68 +48,74 @@ KUBENS_VER="kubens*linux_x86_64*"
 
 mkdir -p ${ZSHMAN_1} ${ZSHMAN}/man5
 
-ztp wait'0' as'command' for                              \
-  sbin'jq' from'gh-r'                                    \
-  atclone'cp jq* jq' atpull'%atclone'                    \
-      stedolan/jq                                        \
-  sbin'direnv' from'gh-r' bpick"${DIRENV_VER}"           \
-  atclone'./direnv hook zsh >zhook.zsh' atpull'%atclone' \
-  src='zhook.zsh' mv'direnv* -> direnv'                  \
-      direnv/direnv                                      \
-  sbin'**/fd' from'gh-r'                                 \
-  atclone"cp **/fd.1 ${ZSHMAN_1}" atpull'%atclone'       \
-      @sharkdp/fd                                        \
-  sbin'diff-so-fancy'                                    \
-      so-fancy/diff-so-fancy                             \
-  sbin'bin/exa' from'gh-r'                               \
-  trigger-load'!ls;!lsa;!lst;!exa'                       \
+ztp wait'0' as'command' for                               \
+  sbin"posh* -> oh-my-posh" from'gh-r' bpick"${OHMP_VER}" \
+      JanDeDobbeleer/oh-my-posh                           \
+  sbin'jq' from'gh-r'                                     \
+  atclone'cp jq* jq' atpull'%atclone'                     \
+      stedolan/jq                                         \
+  sbin'direnv' from'gh-r' bpick"${DIRENV_VER}"            \
+  atclone"
+    asdf plugin-add direnv; \
+    asdf install direnv latest; \
+    asdf global direnv latest; \
+    ./direnv hook zsh >zhook.zsh" atpull'%atclone'        \
+  src='zhook.zsh' mv'direnv* -> direnv'                   \
+      direnv/direnv                                       \
+  sbin'**/fd' from'gh-r'                                  \
+  atclone"cp **/fd.1 ${ZSHMAN_1}" atpull'%atclone'        \
+      @sharkdp/fd                                         \
+  sbin'diff-so-fancy'                                     \
+      so-fancy/diff-so-fancy                              \
+  sbin'bin/exa' from'gh-r'                                \
+  trigger-load'!ls;!lsa;!lst;!exa'                        \
   atclone"
     cp **/exa.zsh _exa; \
     cp **/exa.1 ${ZSHMAN_1}; \
     cp **/exa*.5 ${ZSHMAN}/man5
-  " atpull'%atclone'                                     \
-      ogham/exa                                          \
-  sbin'**/bat' from'gh-r'                                \
-  trigger-load'!cat;!bat'                                \
+  " atpull'%atclone'                                      \
+      ogham/exa                                           \
+  sbin'**/bat' from'gh-r'                                 \
+  trigger-load'!cat;!bat'                                 \
   atclone"
     cp **/bat.zsh _bat; \
     cp **/bat.1 ${ZSHMAN_1}
-  " atpull'%atclone'                                     \
-      @sharkdp/bat                                       \
-  sbin'broot' from'gh-r'                                 \
-  trigger-load'!br;!broot'                               \
+  " atpull'%atclone'                                      \
+      @sharkdp/bat                                        \
+  sbin'broot' from'gh-r'                                  \
+  trigger-load'!br;!broot'                                \
   atclone"
     cp **/${BROOT_VER}/broot broot; cp **/br*.1 ${ZSHMAN_1}; \
     ./broot --print-shell-function zsh >zhook.zsh; \
     ./broot --set-install-state installed
-  " atpull'%atclone' src='zhook.zsh'                     \
-      Canop/broot                                        \
-  sbin'duf' from'gh-r' bpick"${DUF_VER}"                 \
-  trigger-load'!df;!duf'                                 \
-      muesli/duf                                         \
-  trigger-load'!hcurl'                                   \
-  sbin'httpstat.sh -> hcurl'                             \
-      b4b4r07/httpstat                                   \
-  trigger-load'!kubectx;!kctx' id-as'kubectx'            \
-  sbin'kubectx' from'gh-r' bpick"${KUBECTX_VER}"         \
+  " atpull'%atclone' src='zhook.zsh'                      \
+      Canop/broot                                         \
+  sbin'duf' from'gh-r' bpick"${DUF_VER}"                  \
+  trigger-load'!df;!duf'                                  \
+      muesli/duf                                          \
+  trigger-load'!hcurl'                                    \
+  sbin'httpstat.sh -> hcurl'                              \
+      b4b4r07/httpstat                                    \
+  trigger-load'!kubectx;!kctx' id-as'kubectx'             \
+  sbin'kubectx' from'gh-r' bpick"${KUBECTX_VER}"          \
   atclone"
-    curl -o ${ZINIT[COMPLETIONS_DIR]}/_kubectx \
+    curl -o ${ZSHSHARE}/completions/_kubectx \
     ${KUBECTX_REPO}/master/completion/_kubectx.zsh; \
-    zinit creinstall -q ${ZINIT[COMPLETIONS_DIR]}
-  " atpull'%atclone'                                     \
-      ahmetb/kubectx                                     \
-  trigger-load'!kubens;!kns' id-as'kubens'               \
-  sbin'kubens' from'gh-r' bpick"${KUBENS_VER}"           \
+    zinit creinstall -q ${ZSHSHARE}/completions
+  " atpull'%atclone'                                      \
+      ahmetb/kubectx                                      \
+  trigger-load'!kubens;!kns' id-as'kubens'                \
+  sbin'kubens' from'gh-r' bpick"${KUBENS_VER}"            \
   atclone"
-    curl -o ${ZINIT[COMPLETIONS_DIR]}/_kubens \
+    curl -o ${ZSHSHARE}/completions/_kubens \
     ${KUBECTX_REPO}/master/completion/_kubens.zsh; \
-    zinit creinstall -q ${ZINIT[COMPLETIONS_DIR]}
-  " atpull'%atclone'                                     \
-      ahmetb/kubectx                                     \
-  sbin'yh' from'gh-r' bpick"${YH_VER}"                   \
-  trigger-load'!yh;!ky'                                  \
-      andreazorzetto/yh                                  \
-  trigger-load'!you-get'                                 \
+    zinit creinstall -q ${ZSHSHARE}/completions
+  " atpull'%atclone'                                      \
+      ahmetb/kubectx                                      \
+  sbin'yh' from'gh-r' bpick"${YH_VER}"                    \
+  trigger-load'!yh;!ky'                                   \
+      andreazorzetto/yh                                   \
+  trigger-load'!you-get'                                  \
       soimort/you-get
 
 # Min Neovim version is 0.6.0
@@ -150,13 +157,13 @@ zt wait'0' for                                        \
   has'docker-compose' trigger-load'!docker-compose'   \
   as'completion' blockf                               \
       OMZP::docker-compose/_docker-compose            \
-  has'aws' trigger-load'!aws'                         \
+  has'aws'                                            \
       OMZP::aws                                       \
-  has'az' as'null' as'az' trigger-load'!az'           \
+  has'gcloud'                                         \
+      daniprado/fzf-gcloud                            \
+  has'az' as'null' id-as'az' trigger-load'!az'        \
   atinit"source $(which az).completion.sh"            \
-      ${HOME}/.config/zsh/completions                 \
-  has'gcloud' trigger-load'!gcloud'                   \
-      daniprado/fzf-gcloud
+      ${ZSHSHARE}/completions
 
 ztp wait'1' for                            \
       OMZL::completion.zsh                 \

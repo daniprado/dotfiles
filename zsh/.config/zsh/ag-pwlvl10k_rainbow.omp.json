@@ -23,9 +23,9 @@
           "trailing_diamond": "\ue0b0",
           "foreground": "p:bg1", "background": "p:gr0",
           "background_templates": [
-            "{{ if and .SSHSession .Root }}p:or0{{ end }}",
-            "{{ if and .SSHSession (not .Root) }}p:gr0{{ end }}",
-            "{{ if and (not .SSHSession) .Root }}p:pr0{{ end }}"
+            "{{ if and .SSHSession .Root }}p:pr0{{ end }}",
+            "{{ if and .SSHSession (not .Root) }}p:or0{{ end }}",
+            "{{ if and (not .SSHSession) .Root }}p:rd0{{ end }}"
           ],
           "properties": {
             "template": "{{ if .SSHSession }} \uf817 {{ .UserName }}@{{ .HostName }}{{ end }}{{ if .Root }} \uF0E7 {{ end }}"

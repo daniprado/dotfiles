@@ -70,6 +70,7 @@ alias gzt="br -ghc :gs"
 alias kctx="kubectx"
 alias kns="kubens"
 alias sops="EDITOR=${NOSOCK_EDITOR} sops"
+alias helm="EDITOR=${NOSOCK_EDITOR} helm"
 
 AGALIAS_PATH="${HOME}/.config/zsh/ag-alias.zsh"
 [[ -f "${AGALIAS_PATH}" ]] && source "${AGALIAS_PATH}"

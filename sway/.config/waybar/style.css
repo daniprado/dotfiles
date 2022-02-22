@@ -4,7 +4,6 @@
     font-family: "DejaVuSans";
     font-size: 14px;
     min-height: 0;
-    border-radius: 5%;
 }
 
 window#waybar {
@@ -41,7 +40,7 @@ window#waybar {
     text-shadow: inherit;
 }
 #workspaces button:hover {
-    background-color: #458588;
+    background-color: #d65d0e;
     border: #928374;
     color: #282828;
 }
@@ -83,7 +82,7 @@ window#waybar {
     font-weight: bold;
     color: #282828;
     background-color: #665c54;
-    border-radius: 20%;
+    border-radius: 0%;
 }
 
 #battery.charging {
@@ -116,8 +115,9 @@ window#waybar {
 }
 
 #network.linked {
-    color: #282828;
-    background-color: #b16286;
+    color: #d79921;
+    background-color: #282828;
+    border-radius: 0%;
 }
 
 #pulseaudio {

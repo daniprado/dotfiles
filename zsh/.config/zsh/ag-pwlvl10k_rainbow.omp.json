@@ -1,5 +1,5 @@
 {
-  "$schema": "./ohmyposh-schema.json",
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
   "palette": {
       "bg0": "#1d2021", "bg1": "#282828", "bg2": "#3c3836", "bg3": "#504945",
       "bg4": "#665c54", "bg5": "#7c6f64", "bg6": "#928374",
@@ -74,24 +74,17 @@
     {
       "alignment": "right",
       "type": "prompt",
-      "filler": ". ",
+      "filler": ".",
       "segments": [
         {
           "style": "powerline", "type": "python",
           "foreground": "p:fg4", "background": "p:pr0",
           "invert_powerline": true, "powerline_symbol": "\ue0b2",
           "properties": {
-            "display_mode": "files",
-            "fetch_virtual_env": false,
-            "template": " {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} \ue235 "
-          }
-        },
-        {
-          "style": "powerline", "type": "kubectl",
-          "foreground": "p:fg4", "background": "p:bl0",
-          "invert_powerline": true, "powerline_symbol": "\ue0b2",
-          "properties": {
-            "template": " \ufd31 {{.Context}}{{if .Namespace}} :: {{.Namespace}}{{end}} "
+            "display_mode": "context",
+            "fetch_version": true,
+            "fetch_virtual_env": true,
+            "template": "\ue235 {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }}[{{ .Full }}]{{ end }}"
           }
         },
         {
@@ -99,7 +92,16 @@
           "foreground": "p:fg4", "background": "p:or0",
           "invert_powerline": true, "powerline_symbol": "\ue0b2",
           "properties": {
-            "template": "{{ .WorkspaceName }}{{ if .Version }} {{ .Version }}{{ end }}"
+            "fetch_version": true,
+            "template": "\ue77e {{ .WorkspaceName }}{{ if .Version }} {{ .Version }}{{ end }}"
+          }
+        },
+        {
+          "style": "powerline", "type": "kubectl",
+          "foreground": "p:fg4", "background": "p:bl0",
+          "invert_powerline": true, "powerline_symbol": "\ue0b2",
+          "properties": {
+            "template": "\ufd31 {{ .Context }}{{ if .Namespace }} :: {{ .Namespace }}{{ end }} "
           }
         },
         {
@@ -107,16 +109,26 @@
           "foreground": "p:fg4", "background": "p:aq0",
           "invert_powerline": true, "powerline_symbol": "\ue0b2",
           "properties": {
-            "template": " {{ .EnvironmentName }} \uf0e7"
+            "template": "\uf0e7 {{ .EnvironmentName }}"
           }
         },
+        /* {
+          "style": "powerline", "type": "command",
+          "foreground": "p:bg2", "background": "p:pr1",
+          "invert_powerline": true, "powerline_symbol": "\ue0b2",
+          "properties": {
+            "shell": "bash",
+            "command": "gcloud config configurations list --filter=\"is_active:True\" --format=\"value(properties.core.project)\"",
+            "template": "\ue7b2 {{ .Output }} "
+          }
+        },*/
         {
           "style": "powerline", "type": "aws",
           "foreground": "p:fg4", "background": "p:aq0",
           "invert_powerline": true, "powerline_symbol": "\ue0b2",
           "properties": {
             "display_default": false,
-            "template": " {{ .Profile }}{{ if .Region }}@{{ .Region }}{{ end }} \ue7ad "
+            "template": "\ue7ad {{ .Profile }}{{ if .Region }}@{{ .Region }}{{ end }}"
           }
         },
         {
@@ -132,7 +144,7 @@
           "foreground": "p:bg0", "background": "p:yw1",
           "invert_powerline": true,
           "properties": {
-            "template": " {{ .FormattedMs }} \uf252 "
+            "template": "{{ .FormattedMs }} \uf252 "
           }
         },
         {
@@ -164,7 +176,7 @@
         },
         {
           "style": "powerline", "type": "text",
-          "foreground": "p:bg0", "background": "transparent",
+          "foreground": "p:bg1", "background": "transparent",
           "invert_powerline": true, "powerline_symbol": "\ue0b2",
           "properties": {
             "template": "\ue0b2"
@@ -172,7 +184,7 @@
         },
         {
           "style": "powerline", "type": "time",
-          "foreground": "p:fg0", "background": "p:bg0",
+          "foreground": "p:yw0", "background": "p:bg1",
           "invert_powerline": true,
           "properties": {
             "template": " {{ .CurrentDate | date .Format }} \uf017 "
@@ -203,6 +215,16 @@
       "type": "rprompt",
       "segments": [
         {
+          "style": "powerline", "type": "command",
+          "foreground": "p:fg2", "background": "p:bg3",
+          "invert_powerline": true, "powerline_symbol": "\ue0b2",
+          "properties": {
+            "shell": "zsh",
+            "command": "basename $(echo ${DIRENV_DIR} | cut -d'-' -f 2)",
+            "template": "{{ if .Env.DIRENV_DIR }}\ue7a2 {{ .Output }} {{ end }}"
+          }
+        },
+        {
           "style": "powerline", "type": "text",
           "foreground": "p:yw0", "background": "transparent",
           "invert_powerline": true, "powerline_symbol": "\ue0b2",
@@ -212,10 +234,10 @@
         },
         {
           "style": "powerline", "type": "ipify",
-          "foreground": "p:bg2", "background": "p:yw0",
+          "foreground": "p:bg1", "background": "p:yw0",
           "invert_powerline": true,
           "properties": {
-            "template": "{{ if not .Env.TMUX }}{{ .IP }}{{ end }}",
+            "template": "{{ if not .Env.TMUX }}{{ .IP }} {{ end }}",
             "cache_timeout": 90,
             "http_timeout": 500
           }
@@ -224,8 +246,8 @@
     }
   ],
   "transient_prompt": {
-    "foreground": "p:gr1", "background": "transparent",
-    "template": "\u276f "
+    "foreground": "p:or0", "background": "transparent",
+    "template": "\u276f\u276f "
   },
   "console_title": false,
   "final_space": true,

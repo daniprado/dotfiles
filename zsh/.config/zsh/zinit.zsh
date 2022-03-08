@@ -168,7 +168,7 @@ zt wait'0' for                                        \
       OMZP::docker-compose/_docker-compose            \
   has'aws' trigger-load'!aws'                         \
       OMZP::aws                                       \
-  has'gcloud' trigger-load'!gcloud'                   \
+  has'gcloud'                                         \
       daniprado/fzf-gcloud                            \
   has'az' as'null' id-as'az' trigger-load'!az'        \
   atinit"source $(which az).completion.sh"            \

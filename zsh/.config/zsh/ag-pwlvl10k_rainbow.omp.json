@@ -93,7 +93,7 @@
           "invert_powerline": true, "powerline_symbol": "\ue0b2",
           "properties": {
             "fetch_version": true,
-            "template": "\ue77e {{ .WorkspaceName }}{{ if .Version }} {{ .Version }}{{ end }}"
+            "template": "\ue77e{{ if not (contains \"default\" .WorkspaceName) }} {{ .WorkspaceName }}{{ end }}{{ if .Version }} {{ .Version }}{{ end }}"
           }
         },
         {
@@ -220,7 +220,7 @@
           "invert_powerline": true, "powerline_symbol": "\ue0b2",
           "properties": {
             "shell": "zsh",
-            "command": "basename $(echo ${DIRENV_DIR} | cut -d'-' -f 2)",
+            "command": "basename $(echo ${DIRENV_DIR} | cut -c 2-)",
             "template": "{{ if .Env.DIRENV_DIR }}\ue7a2 {{ .Output }} {{ end }}"
           }
         },

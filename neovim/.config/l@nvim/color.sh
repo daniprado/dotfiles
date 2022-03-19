@@ -1,0 +1,1 @@
+/home/dani/dotfiles/sway/.config/nvim/color.sh

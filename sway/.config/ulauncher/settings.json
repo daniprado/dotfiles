@@ -7,5 +7,5 @@
     "show-indicator-icon": false,
     "show-recent-apps": "12",
     "terminal-command": "alacritty",
-    "theme-name": "argallar"
+    "theme-name": "ag-base16"
 }

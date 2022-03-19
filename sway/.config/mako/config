@@ -1,14 +1,33 @@
 font=DejaVuSans 10
-text-color=#c0c5ce
-background-color=#2b303b
-progress-color=#444444
 icons=1
 padding=2
 width=500
-border-color=#ECBE7B
 border-size=1
 border-radius=1
 icon-path=/usr/share/icons/Papirus-Dark/
 actions=1
 default-timeout=8000
 markup=1
+progress-color=#444444
+
+# %%base16_template: mako##default %%
+## Base16 Gruvbox dark, medium
+# Author: Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
+#
+# You can use these variables anywhere in the mako configuration file.
+
+background-color=#282828
+text-color=#d5c4a1
+border-color=#83a598
+
+[urgency=low]
+background-color=#282828
+text-color=#fabd2f
+border-color=#83a598
+
+[urgency=high]
+background-color=#282828
+text-color=#fb4934
+border-color=#83a598
+
+# %%base16_template_end%%

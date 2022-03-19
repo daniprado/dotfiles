@@ -46,3 +46,4 @@ source ${ZSHCONF}/fzf.zsh
 source ${ZSHCONF}/alias.zsh
 source ${ZSHCONF}/gpg-init.zsh
 source ${ZSHCONF}/prompt.zsh
+source ${ZSHCONF}/theme.zsh

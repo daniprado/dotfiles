@@ -48,7 +48,7 @@ endif
     Plug 'nvim-lualine/lualine.nvim'                                           "(3)
     Plug 'AlessandroYorba/Alduin'
     Plug 'jnurmine/zenburn'
-    Plug 'sainnhe/gruvbox-material'                                            "(5)
+    Plug 'ellisonleao/gruvbox.nvim'
     Plug 'ishan9299/nvim-solarized-lua'
   "}}}
 
@@ -189,10 +189,8 @@ endif
   "Plugin config {{{
 
     "Visual {{{
-      let g:gruvbox_material_background = 'hard' "soft, medium or hard
-      let g:gruvbox_material_palette = 'mix'     "original, mix or material
-      let g:gruvbox_material_cursor = 'aqua'
-      let g:gruvbox_material_enable_italic = 1
+      let g:gruvbox_contrast_dark = 'hard'
+      let g:gruvbox_italic = 1
       let g:gruvbox_material_disable_italic_comment = 0
     "}}}
 
@@ -284,7 +282,7 @@ endif
     set viewoptions=cursor,folds,slash,unix
 
     set background=dark
-    colorscheme gruvbox-material
+    colorscheme gruvbox
 
     set cursorline
     set cursorcolumn
@@ -421,7 +419,7 @@ endif
   vnoremap <leader><ENTER> :DB<CR>|                                               "Execute query
 
   nnoremap <leader>x       <cmd>FormatXML<CR>|                                    "Format as XML
-  nnoremap <leader>j       <cmd>%!jq '.'<CR>|                                     "Format as json
+  nnoremap <leader>j       <cmd>%!python -m json.tool<CR>|                        "Format as json
   " nmap gqaj             Pretifies JSON under cursor
   " nmap gwaj             Takes the JSON object on the clipboard and extends it into the JSON object under the cursor.
 

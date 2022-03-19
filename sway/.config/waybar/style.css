@@ -7,8 +7,8 @@
 }
 
 window#waybar {
-    background-color: #3c3836;
-    color: #a89984;
+    background-color: @base01;
+    color: @base05;
 }
 
 #window {
@@ -19,20 +19,20 @@ window#waybar {
 #workspaces button {
     padding: 0 5px;
     background-color: transparent;
-    color: #a89984;
+    color: @base05;
     border-top: 2px solid transparent;
     border-radius: 20%;
 }
 
 #workspaces button.focused {
     font-weight: bold;
-    background-color: #458588;
-    color: #282828;
+    background-color: @base0D;
+    color: @base00;
 }
 
 #workspaces button.urgent {
-    background-color: #fb4934;
-    color: #282828;
+    background-color: @base08;
+    color: @base00;
 }
 
 #workspaces button:hover {
@@ -40,9 +40,9 @@ window#waybar {
     text-shadow: inherit;
 }
 #workspaces button:hover {
-    background-color: #d65d0e;
-    border: #928374;
-    color: #282828;
+    background-color: @base0F;
+    border: @base04;
+    color: @base00;
 }
 
 #mode, #battery {
@@ -59,8 +59,8 @@ window#waybar {
     padding: 0 6px;
     margin: 0 8px;
     font-weight: bold;
-    background-color: #928374;
-    color: #282828;
+    background-color: @base04;
+    color: @base00;
     border-radius: 0%;
 }
 
@@ -69,39 +69,39 @@ window#waybar {
 }
 
 #mode {
-    color: #fb4934;
-    background-color: #282828;
+    color: @base08;
+    background-color: @base00;
 }
 
 #network {
-    color: #689d6a;
+    color: @base0C;
     border-radius: 20%;
 }
 
 #battery {
     font-weight: bold;
-    color: #282828;
-    background-color: #665c54;
+    color: @base00;
+    background-color: @base0B;
     border-radius: 0%;
 }
 
 #battery.charging {
-    background-color: #5e6547;
+    background-color: @base0B;
 }
 
 #battery.warning {
-    background-color: #fb4934;
+    background-color: @base08;
 }
 
 @keyframes blink {
     to {
-        background-color: #ffffff;
+        background-color: #FFFFFF;
     }
 }
 
 #battery.critical:not(.charging) {
-    color: #a89984;
-    background-color: #cc241d;
+    color: @base05;
+    background-color: @base08;
     animation-name: blink;
     animation-duration: 0.8s;
     animation-timing-function: linear;
@@ -110,25 +110,25 @@ window#waybar {
 }
 
 #network.disconnected, #network.disabled {
-    color: #282828;
-    background-color: #d65d0e;
+    color: @base00;
+    background-color: @base0F;
 }
 
 #network.linked {
-    color: #d79921;
-    background-color: #282828;
+    color: @base0A;
+    background-color: @base00;
     border-radius: 0%;
 }
 
 #pulseaudio {
     font-weight: bold;
-    color: #282828;
-    background-color: #5e6547;
+    color: @base00;
+    background-color: @base0B;
     border-radius: 40%;
 }
 
 #pulseaudio.muted {
-    background-color: #d65d0e;
+    background-color: @base0F;
 }
 
 #custom-sway-scratch {
@@ -137,14 +137,41 @@ window#waybar {
 }
 
 #custom-sway-scratch.none {
-    color: #535c5c;
+    color: @base0E;
 }
 
 #custom-sway-scratch.one {
-    color: #282828;
+    color: @base0F;
 }
 
 #custom-sway-scratch.many {
-    color: #fabd2f;
+    color: @base0A;
 }
 
+/* %%base16_template: waybar##default %%
+
+*
+* Base16 Gruvbox dark, medium
+* Author: Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
+*
+*/
+
+@define-color base00 #282828;
+@define-color base01 #3c3836;
+@define-color base02 #504945;
+@define-color base03 #665c54;
+@define-color base04 #bdae93;
+@define-color base05 #d5c4a1;
+@define-color base06 #ebdbb2;
+@define-color base07 #fbf1c7;
+@define-color base08 #fb4934;
+@define-color base09 #fe8019;
+@define-color base0A #fabd2f;
+@define-color base0B #b8bb26;
+@define-color base0C #8ec07c;
+@define-color base0D #83a598;
+@define-color base0E #d3869b;
+@define-color base0F #d65d0e;
+
+/* %%base16_template_end%%
+*/

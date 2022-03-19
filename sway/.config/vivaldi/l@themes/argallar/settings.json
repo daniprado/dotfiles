@@ -1,0 +1,33 @@
+{
+   "accentFromPage": false,
+   "accentOnWindow": true,
+   "accentSaturationLimit": 0.2,
+   "alpha": 0.75,
+   "backgroundImage": "",
+   "backgroundPosition": "stretch",
+   "blur": 0,
+"__schema": "%%base16_template: vivaldi##default %%
+",
+"__schema_name": "Gruvbox dark, medium",
+"__schema_author": "Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)",
+"colorAccentBg": "#a89984",
+"colorBg": "#282828",
+"colorFg": "#bdae93",
+"colorHighlightBg": "#d65d0e",
+"colorWindowBg": "#1D1E21",
+
+"__end_schema": "%%base16_template_end%%
+",
+   "contrast": 2,
+   "dimBlurred": false,
+   "engineVersion": 1,
+   "id": "9fa9f246-887a-48c5-91e2-84fec9f86893",
+   "name": "argallar",
+   "preferSystemAccent": false,
+   "radius": 4,
+   "simpleScrollbar": true,
+   "transparencyTabBar": false,
+   "transparencyTabs": false,
+   "url": "",
+   "version": 1
+}

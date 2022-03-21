@@ -9,7 +9,8 @@ confelec_path="${XDG_CONFIG_HOME}/electron-flags.conf"
 cat "${confelec_path}" > "${conf_path}"
 echo "${color_flag}" >> "${conf_path}"
 
-zip ${XDG_CONFIG_HOME}/vivaldi/themes/argallar.zip ${XDG_CONFIG_HOME}/vivaldi/themes/argallar/*
+# rm ${XDG_CONFIG_HOME}/vivaldi/themes/argallar.zip
+# zip ${XDG_CONFIG_HOME}/vivaldi/themes/argallar.zip ${XDG_CONFIG_HOME}/vivaldi/themes/argallar/*
 
 echo "Applied ${expected} to Vivaldi!"
 exit 0

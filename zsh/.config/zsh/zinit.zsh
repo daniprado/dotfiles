@@ -37,13 +37,13 @@ else
 fi
 
 OHMP_VER="posh-${KERN}-${ARCH_ALT}"
-JQ_VER="jq-${KERN}64"
 FD_VER="fd-*-${ARCH}-unknown-${KERN}-gnu.tar.gz"
 EXA_VER="exa-${KERN}-${ARCH}-*.zip"
 BAT_VER="bat-*-${ARCH}-unknown-${KERN}-gnu.tar.gz"
 KUBECTX_VER="kubectx_*_${KERN}_${ARCH}.tar.gz"
 KUBENS_VER="kubens_*_${KERN}_${ARCH}.tar.gz"
 
+JQ_VER="jq-${KERN}64"
 YH_VER="yh-${KERN}-${ARCH_ALT}.zip"
 BROOT_VER="${ARCH}-${KERN}"
 
@@ -63,28 +63,22 @@ ztp wait'0' for                                                 \
       zsh-users/zsh-autosuggestions                             \
       djui/alias-tips
 
-if [[ "${KERN}" == "linux" ]]; then
-
+if [[ "${KERN}" == "linux" && "${ARCH}" == "x86_64" ]]; then
   ztp wait'0' for                                                 \
     atload'alias lsa="exa --long --all --modified --git --group"' \
         OMZL::directories.zsh
+else
+  ztp wait'0' for OMZL::directories.zsh
+fi
+
+if [[ "${KERN}" == "linux" ]]; then
 
   ztp wait'0' as'command' for                               \
     sbin"posh* -> oh-my-posh" from'gh-r' bpick"${OHMP_VER}" \
         JanDeDobbeleer/oh-my-posh                           \
-    sbin'jq' from'gh-r' bpick"${JQ_VER}"                    \
-    atclone'cp jq* jq' atpull'%atclone'                     \
-        stedolan/jq                                         \
     sbin'**/fd' from'gh-r' bpick"${FD_VER}"                 \
     atclone"cp **/fd.1 ${ZSHMAN_1}" atpull'%atclone'        \
         @sharkdp/fd                                         \
-    trigger-load'!ls;!lsa;!lst;!exa'                        \
-    sbin'bin/exa' from'gh-r' bpick"${EXA_VER}"              \
-    atpull'%atclone' atclone"                               \
-      cp **/exa.zsh _exa;                                   \
-      cp **/exa.1 ${ZSHMAN_1};                              \
-      cp **/exa*.5 ${ZSHMAN}/man5"                          \
-        ogham/exa                                           \
     trigger-load'!cat;!bat'                                 \
     sbin'**/bat' from'gh-r' bpick"${BAT_VER}"               \
     atpull'%atclone' atclone"                               \
@@ -108,6 +102,16 @@ if [[ "${KERN}" == "linux" ]]; then
 
   if [[ "${ARCH}" == "x86_64" ]]; then
     ztp wait'0' as'command' for                        \
+      trigger-load'!ls;!lsa;!lst;!exa'                 \
+      sbin'bin/exa' from'gh-r' bpick"${EXA_VER}"       \
+      atpull'%atclone' atclone"                        \
+        cp **/exa.zsh _exa;                            \
+        cp **/exa.1 ${ZSHMAN_1};                       \
+        cp **/exa*.5 ${ZSHMAN}/man5"                   \
+          ogham/exa                                    \
+      sbin'jq' from'gh-r' bpick"${JQ_VER}"             \
+      atclone'cp jq* jq' atpull'%atclone'              \
+          stedolan/jq                                  \
       trigger-load'!br;!broot'                         \
       sbin'broot' from'gh-r'                           \
       atpull'%atclone' src='zhook.zsh' atclone"        \
@@ -120,9 +124,6 @@ if [[ "${KERN}" == "linux" ]]; then
       sbin'yh' from'gh-r' bpick"${YH_VER}"             \
           andreazorzetto/yh
   fi
-
-else
-  ztp wait'0' for OMZL::directories.zsh
 fi
 
 ztp wait'0' as'command' for                    \

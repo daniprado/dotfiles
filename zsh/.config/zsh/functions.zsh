@@ -26,9 +26,11 @@ function fifall() {
   rg --files-with-matches --hidden --iglob !.git --iglob !.cache --iglob !.nvm --iglob !.npm --no-messages "$1"
 }
 
-function tree() {
-    br -sc :pt "$@"
-}
+if type "br" >/dev/null; then
+  function tree() {
+      br -sc :pt "$@"
+  }
+fi
 
 function cd_dirs() {
   local cmd="cat ~/.cache/zsh/dirs | uniq -u"

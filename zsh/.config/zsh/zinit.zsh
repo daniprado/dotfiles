@@ -72,7 +72,6 @@ else
 fi
 
 if [[ "${KERN}" == "linux" ]]; then
-
   ztp wait'0' as'command' for                               \
     sbin"posh* -> oh-my-posh" from'gh-r' bpick"${OHMP_VER}" \
         JanDeDobbeleer/oh-my-posh                           \
@@ -148,11 +147,10 @@ ztp wait'0' as'command' for                    \
 
 # Min Neovim version is 0.7.0
 CURR_NVIM_VER=$(nvim --version | grep -m 1 "NVIM" | cut -d'.' -f2)
-NVIM_VER="nvim.appimage"
 if [[ ${CURR_NVIM_VER} -lt 7 ]]; then
-  ztp wait'0' as'command' for                 \
-    sbin'nvim.appimage -> nvim'               \
-    from'gh-r' ver'stable' bpick"${NVIM_VER}" \
+  ztp wait'0' as'command' for                   \
+    sbin'nvim.appimage -> nvim'                 \
+    from'gh-r' ver'stable' bpick"nvim.appimage" \
         neovim/neovim
 fi
 

@@ -11,11 +11,11 @@ GETPIP_PATH="${AG_TEMP}/get-pip.py"
 
 if [[ ! -z "${AG_INSTALL}" ]]; then
   if type "pacman" >/dev/null; then
-    sudo pacman -S python python-venv
+    sudo pacman -S python python-virtualenv python-pip gcc make which zsh
   elif type "apt" >/dev/null; then
-    sudo apt install python-is-python3 python3-venv
+    sudo apt install python-is-python3 python3-venv python3-pip devtools which zsh
   elif type "yum" >/dev/null; then
-    sudo yum install python python-venv
+    sudo yum install python python-venv python-pip devtools which zsh
   fi
 fi
 

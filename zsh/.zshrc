@@ -2,7 +2,7 @@ source ${ZSHCONF}/zinit.zsh
 source ${ZSHCONF}/functions.zsh
 
 setopt autocd no_hup print_exit_value
-setopt appendhistory share_history hist_ignore_all_dups
+setopt inc_append_history share_history hist_ignore_all_dups extended_history
 setopt auto_pushd pushd_silent pushd_to_home pushd_ignore_dups pushd_minus
 unsetopt beep notify
 ttyctl -f
@@ -33,17 +33,13 @@ if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
 fi
 
 autoload -Uz add-zsh-hook
-if [[ "${TERM}" == (screen*|tmux*|xterm*) ]]; then
-  add-zsh-hook -Uz precmd xterm_title_precmd
-fi
+[[ "${TERM}" == (screen*|tmux*|xterm*) ]] && add-zsh-hook -Uz precmd xterm_title_precmd
 
 # Single NVim instance while inside tmux session
-if [ ! -z "${TMUX}" ]; then
-  export NVIM_LISTEN_ADDRESS="${TMP}/nvimsocket_$(curr_dk)"
-fi
+[[ ! -z "${TMUX}" ]] && export NVIM_LISTEN_ADDRESS="${TMP}/nvimsocket_$(curr_dk)"
 
 source ${ZSHCONF}/fzf.zsh
 source ${ZSHCONF}/alias.zsh
 source ${ZSHCONF}/gpg-init.zsh
 source ${ZSHCONF}/prompt.zsh
-source ${ZSHCONF}/theme.zsh
+[[ -f "${ZSHCONF}/theme.zsh" ]] && source ${ZSHCONF}/theme.zsh

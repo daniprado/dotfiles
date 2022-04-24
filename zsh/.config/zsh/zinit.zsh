@@ -25,6 +25,34 @@ ztp(){ zinit depth'1' reset light-mode lucid "${@}"; }
 
 ztp for zdharma-continuum/z-a-bin-gem-node
 
+KERN=$(uname -s | tr A-Z a-z)
+ARCH=$(uname -m)
+[[ "${ARCH}" == "amd64" ]] && ARCH="x86_64"
+if [[ "${ARCH}" == "x86_64" ]]; then
+  ARCH_ALT="amd64"
+elif [[ "${ARCH}" == "aarch64" ]]; then
+  ARCH_ALT="arm64"
+else
+  ARCH_ALT=$"${ARCH}"
+fi
+
+OHMP_VER="posh-${KERN}-${ARCH_ALT}"
+JQ_VER="jq-${KERN}64"
+FD_VER="fd-*-${ARCH}-unknown-${KERN}-gnu.tar.gz"
+EXA_VER="exa-${KERN}-${ARCH}-*.zip"
+BAT_VER="bat-*-${ARCH}-unknown-${KERN}-gnu.tar.gz"
+KUBECTX_VER="kubectx_*_${KERN}_${ARCH}.tar.gz"
+KUBENS_VER="kubens_*_${KERN}_${ARCH}.tar.gz"
+
+YH_VER="yh-${KERN}-${ARCH_ALT}.zip"
+BROOT_VER="${ARCH}-${KERN}"
+
+DIRENV_VER="direnv.${KERN}-${ARCH_ALT}"
+DUF_VER="duf_*_${KERN}_${ARCH_ALT}.tar.gz"
+KUBECTX_REPO="https://raw.githubusercontent.com/ahmetb/kubectx"
+
+mkdir -p ${ZSHMAN_1} ${ZSHMAN}/man5
+
 ztp wait'0' for                                                 \
       OMZL::clipboard.zsh                                       \
       OMZP::git                                                 \
@@ -33,104 +61,94 @@ ztp wait'0' for                                                 \
       @asdf-vm/asdf                                             \
   atload'!_zsh_autosuggest_start'                               \
       zsh-users/zsh-autosuggestions                             \
-  atload'alias lsa="exa --long --all --modified --git --group"' \
-      OMZL::directories.zsh                                     \
       djui/alias-tips
 
-DIRENV_VER="*linux-amd64*"
-BROOT_VER="*x86_64-linux*"
-DUF_VER="*linux_x86_64*"
-YH_VER="*linux-amd64*"
-NVIM_VER="nvim.appimage"
-OHMP_VER="*-linux-amd64"
+if [[ "${KERN}" == "linux" ]]; then
 
-KUBECTX_REPO="https://raw.githubusercontent.com/ahmetb/kubectx"
-KUBECTX_VER="kubectx*linux_x86_64*"
-KUBENS_VER="kubens*linux_x86_64*"
+  ztp wait'0' for                                                 \
+    atload'alias lsa="exa --long --all --modified --git --group"' \
+        OMZL::directories.zsh
 
-mkdir -p ${ZSHMAN_1} ${ZSHMAN}/man5
+  ztp wait'0' as'command' for                               \
+    sbin"posh* -> oh-my-posh" from'gh-r' bpick"${OHMP_VER}" \
+        JanDeDobbeleer/oh-my-posh                           \
+    sbin'jq' from'gh-r' bpick"${JQ_VER}"                    \
+    atclone'cp jq* jq' atpull'%atclone'                     \
+        stedolan/jq                                         \
+    sbin'**/fd' from'gh-r' bpick"${FD_VER}"                 \
+    atclone"cp **/fd.1 ${ZSHMAN_1}" atpull'%atclone'        \
+        @sharkdp/fd                                         \
+    trigger-load'!ls;!lsa;!lst;!exa'                        \
+    sbin'bin/exa' from'gh-r' bpick"${EXA_VER}"              \
+    atpull'%atclone' atclone"                               \
+      cp **/exa.zsh _exa;                                   \
+      cp **/exa.1 ${ZSHMAN_1};                              \
+      cp **/exa*.5 ${ZSHMAN}/man5"                          \
+        ogham/exa                                           \
+    trigger-load'!cat;!bat'                                 \
+    sbin'**/bat' from'gh-r' bpick"${BAT_VER}"               \
+    atpull'%atclone' atclone"                               \
+      cp **/bat.zsh _bat;                                   \
+      cp **/bat.1 ${ZSHMAN_1}"                              \
+        @sharkdp/bat                                        \
+    trigger-load'!kubectx;!kctx' id-as'kubectx'             \
+    sbin'kubectx' from'gh-r' bpick"${KUBECTX_VER}"          \
+    atpull'%atclone' atclone"                               \
+      curl -o ${COMPLETIONS}/_kubectx                       \
+      ${KUBECTX_REPO}/master/completion/_kubectx.zsh;       \
+      zinit creinstall -q ${COMPLETIONS}"                   \
+        ahmetb/kubectx                                      \
+    trigger-load'!kubens;!kns' id-as'kubens'                \
+    sbin'kubens' from'gh-r' bpick"${KUBENS_VER}"            \
+    atpull'%atclone' atclone"                               \
+      curl -o ${COMPLETIONS}/_kubens                        \
+      ${KUBECTX_REPO}/master/completion/_kubens.zsh;        \
+      zinit creinstall -q ${COMPLETIONS}"                   \
+        ahmetb/kubectx
 
-ztp wait'0' as'command' for                        \
-  sbin"posh* -> oh-my-posh" from'gh-r'             \
-  bpick"${OHMP_VER}"                               \
-      JanDeDobbeleer/oh-my-posh                    \
-  sbin'jq' from'gh-r'                              \
-  atclone'cp jq* jq' atpull'%atclone'              \
-      stedolan/jq                                  \
-  sbin'direnv' from'gh-r' bpick"${DIRENV_VER}"     \
-  atclone"
-    asdf plugin-add direnv; \
-    asdf install direnv latest; \
-    asdf global direnv latest; \
-    ./direnv hook zsh >zhook.zsh" atpull'%atclone' \
-  src='zhook.zsh' mv'direnv* -> direnv'            \
-      direnv/direnv                                \
-  sbin'**/fd' from'gh-r'                           \
-  atclone"cp **/fd.1 ${ZSHMAN_1}" atpull'%atclone' \
-      @sharkdp/fd                                  \
-  sbin'diff-so-fancy'                              \
-      so-fancy/diff-so-fancy                       \
-  sbin'bin/exa' from'gh-r'                         \
-  trigger-load'!ls;!lsa;!lst;!exa'                 \
-  atclone"
-    cp **/exa.zsh _exa; \
-    cp **/exa.1 ${ZSHMAN_1}; \
-    cp **/exa*.5 ${ZSHMAN}/man5
-  " atpull'%atclone'                               \
-      ogham/exa                                    \
-  sbin'**/bat' from'gh-r'                          \
-  trigger-load'!cat;!bat'                          \
-  atclone"
-    cp **/bat.zsh _bat; \
-    cp **/bat.1 ${ZSHMAN_1}
-  " atpull'%atclone'                               \
-      @sharkdp/bat                                 \
-  sbin'broot' from'gh-r'                           \
-  trigger-load'!br;!broot'                         \
-  atclone"
-    cp **/${BROOT_VER}/broot broot; cp **/br*.1 ${ZSHMAN_1}; \
-    ./broot --print-shell-function zsh >zhook.zsh; \
-    ./broot --set-install-state installed
-  " atpull'%atclone' src='zhook.zsh'               \
-      Canop/broot                                  \
-  sbin'duf' from'gh-r' bpick"${DUF_VER}"           \
-  trigger-load'!df;!duf'                           \
-      muesli/duf                                   \
-  trigger-load'!hcurl'                             \
-  sbin'httpstat.sh -> hcurl'                       \
-      b4b4r07/httpstat                             \
-  trigger-load'!kubectx;!kctx' id-as'kubectx'      \
-  sbin'kubectx' from'gh-r' bpick"${KUBECTX_VER}"   \
-  atclone"
-    curl -o ${COMPLETIONS}/_kubectx \
-    ${KUBECTX_REPO}/master/completion/_kubectx.zsh; \
-    zinit creinstall -q ${COMPLETIONS}
-  " atpull'%atclone'                               \
-      ahmetb/kubectx                               \
-  trigger-load'!kubens;!kns' id-as'kubens'         \
-  sbin'kubens' from'gh-r' bpick"${KUBENS_VER}"     \
-  atclone"
-    curl -o ${COMPLETIONS}/_kubens \
-    ${KUBECTX_REPO}/master/completion/_kubens.zsh; \
-    zinit creinstall -q ${COMPLETIONS}
-  " atpull'%atclone'                               \
-      ahmetb/kubectx                               \
-  sbin'yh' from'gh-r' bpick"${YH_VER}"             \
-  trigger-load'!yh;!ky'                            \
-      andreazorzetto/yh                            \
-  trigger-load'!you-get'                           \
-      soimort/you-get                              \
-  sbin'bin/lacework' from'gh-r'                    \
-  trigger-load'!lacework'                          \
-  atclone"
-    bin/lacework completion zsh > ${COMPLETIONS}/_lacework; \
-    zinit creinstall -q ${COMPLETIONS}
-  " atpull'%atclone'                               \
-      lacework/go-sdk
+  if [[ "${ARCH}" == "x86_64" ]]; then
+    ztp wait'0' as'command' for                        \
+      trigger-load'!br;!broot'                         \
+      sbin'broot' from'gh-r'                           \
+      atpull'%atclone' src='zhook.zsh' atclone"        \
+        cp **/${BROOT_VER}/broot broot;                \
+        cp **/br*.1 ${ZSHMAN_1};                       \
+        ./broot --print-shell-function zsh >zhook.zsh; \
+        ./broot --set-install-state installed"         \
+          Canop/broot                                  \
+      trigger-load'!yh;!ky'                            \
+      sbin'yh' from'gh-r' bpick"${YH_VER}"             \
+          andreazorzetto/yh
+  fi
 
-# Min Neovim version is 0.6.0
+else
+  ztp wait'0' for OMZL::directories.zsh
+fi
+
+ztp wait'0' as'command' for                    \
+  sbin'direnv' from'gh-r' bpick"${DIRENV_VER}" \
+  atpull'%atclone' atclone"                    \
+    asdf plugin-add direnv;                    \
+    asdf install direnv latest;                \
+    asdf global direnv latest;                 \
+    ./direnv hook zsh >zhook.zsh"              \
+  src='zhook.zsh' mv'direnv* -> direnv'        \
+      direnv/direnv                            \
+  sbin'diff-so-fancy' from'gh-r'               \
+      so-fancy/diff-so-fancy                   \
+  trigger-load'!df;!duf'                       \
+  sbin'duf' from'gh-r' bpick"${DUF_VER}"       \
+      muesli/duf                               \
+  trigger-load'!hcurl'                         \
+  sbin'httpstat.sh -> hcurl'                   \
+      b4b4r07/httpstat                         \
+  trigger-load'!you-get'                       \
+      soimort/you-get
+
+# Min Neovim version is 0.7.0
 CURR_NVIM_VER=$(nvim --version | grep -m 1 "NVIM" | cut -d'.' -f2)
-if [[ ${CURR_NVIM_VER} -lt 6 ]]; then
+NVIM_VER="nvim.appimage"
+if [[ ${CURR_NVIM_VER} -lt 7 ]]; then
   ztp wait'0' as'command' for                 \
     sbin'nvim.appimage -> nvim'               \
     from'gh-r' ver'stable' bpick"${NVIM_VER}" \

@@ -1,255 +1,290 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
-  "palette": {
-      "bg0": "#1d2021", "bg1": "#282828", "bg2": "#3c3836", "bg3": "#504945",
-      "bg4": "#665c54", "bg5": "#7c6f64", "bg6": "#928374",
-      "fg0": "#a89984", "fg1": "#bdae93", "fg2": "#d5c4a1",
-      "fg3": "#ebdbb2", "fg4": "#fbf1c7",
-      "rd0": "#cc241d", "rd1": "#fb4934",
-      "gr0": "#98971a", "gr1": "#b8bb26",
-      "yw0": "#d79921", "yw1": "#fabd2f",
-      "bl0": "#458588", "bl1": "#83a598",
-      "pr0": "#b16286", "pr1": "#d3869b",
-      "aq0": "#689d6a", "aq1": "#8ec07c",
-      "or0": "#d65d0e", "or1": "#fe8019"
-  },
   "blocks": [
     {
       "alignment": "left",
-      "type": "prompt",
       "segments": [
         {
-          "type": "session", "style": "diamond",
-          "trailing_diamond": "\ue0b0",
-          "foreground": "p:bg1", "background": "p:gr0",
+          "background": "p:gr0",
           "background_templates": [
             "{{ if and .SSHSession .Root }}p:pr0{{ end }}",
             "{{ if and .SSHSession (not .Root) }}p:or0{{ end }}",
             "{{ if and (not .SSHSession) .Root }}p:rd0{{ end }}"
           ],
-          "properties": {
-            "template": "{{ if .SSHSession }} \uf817 {{ .UserName }}@{{ .HostName }}{{ end }}{{ if .Root }} \uF0E7 {{ end }}"
-          }
+          "foreground": "p:bg1",
+          "style": "diamond",
+          "template": "{{ if .SSHSession }} \uf817 {{ .UserName }}@{{ .HostName }}{{ end }}{{ if .Root }} \uf0e7 {{ end }}",
+          "trailing_diamond": "\ue0b0",
+          "type": "session"
         },
         {
-          "type": "session", "style": "plain",
-          "foreground": "p:bl0", "background": "p:bl0",
+          "background": "p:bl0",
+          "foreground": "p:bl0",
           "foreground_templates": [
             "{{ if or .SSHSession .Root }}transparent{{ end }}"
           ],
-          "properties": {
-            "template": "\ue0b0"
-          }
+          "style": "plain",
+          "template": "\ue0b0",
+          "type": "session"
         },
         {
-          "type": "path", "style": "diamond",
-          "trailing_diamond": "\ue0b0",
-          "foreground": "p:fg4", "background": "p:bl0",
+          "background": "p:bl0",
+          "foreground": "p:fg4",
           "properties": {
             "home_icon": "~",
-            "style": "unique",
-            "template": "\uf07c {{ .Path }}"
-          }
+            "style": "unique"
+          },
+          "style": "diamond",
+          "template": "\uf07c {{ .Path }}",
+          "trailing_diamond": "\ue0b0",
+          "type": "path"
         },
         {
-          "type": "git", "style": "powerline",
-          "powerline_symbol": "\ue0b0",
-          "foreground": "p:bg0", "background": "p:gr0",
+          "background": "p:gr0",
           "background_templates": [
             "{{ if or (.Working.Changed) (.Staging.Changed) }}p:yw0{{ end }}",
             "{{ if and (gt .Ahead 0) (gt .Behind 0) }}p:or0{{ end }}",
             "{{ if gt .Ahead 0 }}p:aq0{{ end }}",
             "{{ if gt .Behind 0 }}p:pr0{{ end }}"
           ],
+          "foreground": "p:bg0",
+          "powerline_symbol": "\ue0b0",
           "properties": {
             "branch_icon": "\uf126 ",
             "fetch_stash_count": true,
             "fetch_status": true,
-            "fetch_upstream_icon": true,
-            "template": " {{ .UpstreamIcon }}{{ .HEAD }}{{ .BranchStatus }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} \uf692 {{ .StashCount }}{{ end }}"
-          }
+            "fetch_upstream_icon": true
+          },
+          "style": "powerline",
+          "template": " {{ .UpstreamIcon }}{{ .HEAD }}{{ .BranchStatus }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} \uf692 {{ .StashCount }}{{ end }}",
+          "type": "git"
         }
-      ]
+      ],
+      "type": "prompt"
     },
     {
       "alignment": "right",
-      "type": "prompt",
       "filler": ".",
       "segments": [
         {
-          "style": "powerline", "type": "python",
-          "foreground": "p:fg4", "background": "p:pr0",
-          "invert_powerline": true, "powerline_symbol": "\ue0b2",
+          "background": "p:pr0",
+          "foreground": "p:fg4",
+          "invert_powerline": true,
+          "powerline_symbol": "\ue0b2",
           "properties": {
             "display_mode": "context",
             "fetch_version": true,
-            "fetch_virtual_env": true,
-            "template": "\ue235 {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }}[{{ .Full }}]{{ end }}"
-          }
+            "fetch_virtual_env": true
+          },
+          "style": "powerline",
+          "template": "\ue235 {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }}[{{ .Full }}]{{ end }}",
+          "type": "python"
         },
         {
-          "style": "powerline", "type": "terraform",
-          "foreground": "p:fg4", "background": "p:or0",
-          "invert_powerline": true, "powerline_symbol": "\ue0b2",
-          "properties": {
-            "fetch_version": true,
-            "template": "\ue77e{{ if not (contains \"default\" .WorkspaceName) }} {{ .WorkspaceName }}{{ end }}{{ if .Version }} {{ .Version }}{{ end }}"
-          }
-        },
-        {
-          "style": "powerline", "type": "kubectl",
-          "foreground": "p:fg4", "background": "p:bl0",
-          "invert_powerline": true, "powerline_symbol": "\ue0b2",
-          "properties": {
-            "template": "\ufd31 {{ .Context }}{{ if .Namespace }} :: {{ .Namespace }}{{ end }} "
-          }
-        },
-        {
-          "style": "powerline", "type": "az",
-          "foreground": "p:fg4", "background": "p:aq0",
-          "invert_powerline": true, "powerline_symbol": "\ue0b2",
-          "properties": {
-            "template": "\uf0e7 {{ .EnvironmentName }}"
-          }
-        },
-        /* {
-          "style": "powerline", "type": "command",
-          "foreground": "p:bg2", "background": "p:pr1",
-          "invert_powerline": true, "powerline_symbol": "\ue0b2",
-          "properties": {
-            "shell": "bash",
-            "command": "gcloud config configurations list --filter=\"is_active:True\" --format=\"value(properties.core.project)\"",
-            "template": "\ue7b2 {{ .Output }} "
-          }
-        },*/
-        {
-          "style": "powerline", "type": "aws",
-          "foreground": "p:fg4", "background": "p:aq0",
-          "invert_powerline": true, "powerline_symbol": "\ue0b2",
-          "properties": {
-            "display_default": false,
-            "template": "\ue7ad {{ .Profile }}{{ if .Region }}@{{ .Region }}{{ end }}"
-          }
-        },
-        {
-          "style": "powerline", "type": "executiontime",
-          "foreground": "p:yw1", "background": "transparent",
-          "invert_powerline": true, "powerline_symbol": "\ue0b2",
-          "properties": {
-            "template": "\ue0b2"
-          }
-        },
-        {
-          "style": "powerline", "type": "executiontime",
-          "foreground": "p:bg0", "background": "p:yw1",
+          "background": "p:or0",
+          "foreground": "p:fg4",
           "invert_powerline": true,
+          "powerline_symbol": "\ue0b2",
           "properties": {
-            "template": "{{ .FormattedMs }} \uf252 "
-          }
+            "fetch_version": true
+          },
+          "style": "powerline",
+          "template": "\ue77e{{ if not (contains \"default\" .WorkspaceName) }} {{ .WorkspaceName }}{{ end }}{{ if .Version }} {{ .Version }}{{ end }}",
+          "type": "terraform"
         },
         {
-          "style": "powerline", "type": "exit",
-          "foreground": "p:gr1", "background": "transparent",
+          "background": "p:bl0",
+          "foreground": "p:fg4",
+          "invert_powerline": true,
+          "powerline_symbol": "\ue0b2",
+          "style": "powerline",
+          "template": "\ufd31 {{ .Context }}{{ if .Namespace }} :: {{ .Namespace }}{{ end }} ",
+          "type": "kubectl"
+        },
+        {
+          "background": "p:aq0",
+          "foreground": "p:fg4",
+          "invert_powerline": true,
+          "powerline_symbol": "\ue0b2",
+          "style": "powerline",
+          "template": "\uf0e7 {{ .EnvironmentName }}",
+          "type": "az"
+        },
+        {
+          "background": "p:aq0",
+          "foreground": "p:fg4",
+          "invert_powerline": true,
+          "powerline_symbol": "\ue0b2",
+          "properties": {
+            "display_default": false
+          },
+          "style": "powerline",
+          "template": "\ue7ad {{ .Profile }}{{ if .Region }}@{{ .Region }}{{ end }}",
+          "type": "aws"
+        },
+        {
+          "background": "transparent",
+          "foreground": "p:yw1",
+          "invert_powerline": true,
+          "powerline_symbol": "\ue0b2",
+          "style": "powerline",
+          "template": "\ue0b2",
+          "type": "executiontime"
+        },
+        {
+          "background": "p:yw1",
+          "foreground": "p:bg0",
+          "invert_powerline": true,
+          "style": "powerline",
+          "template": "{{ .FormattedMs }} \uf252 ",
+          "type": "executiontime"
+        },
+        {
+          "background": "transparent",
+          "foreground": "p:gr1",
           "foreground_templates": [
             "{{ if gt .Code 0 }}p:rd0{{ end }}"
           ],
-          "invert_powerline": true, "powerline_symbol": "\ue0b2",
+          "invert_powerline": true,
+          "powerline_symbol": "\ue0b2",
           "properties": {
-            "always_enabled": true,
-            "template": "\ue0b2"
-          }
+            "always_enabled": true
+          },
+          "style": "powerline",
+          "template": "\ue0b2",
+          "type": "exit"
         },
         {
-          "style": "powerline", "type": "exit",
-          "foreground": "p:bg0", "background": "p:gr1",
-          "foreground_templates": [
-            "{{ if gt .Code 0 }}p:fg4{{ end }}"
-          ],
+          "background": "p:gr1",
           "background_templates": [
             "{{ if gt .Code 0 }}p:rd0{{ end }}"
           ],
+          "foreground": "p:bg0",
+          "foreground_templates": [
+            "{{ if gt .Code 0 }}p:fg4{{ end }}"
+          ],
           "invert_powerline": true,
           "properties": {
-            "always_enabled": true,
-            "template": " {{ if gt .Code 0 }}{{ .Meaning }}{{ else }}\u2714{{ end }} "
-          }
+            "always_enabled": true
+          },
+          "style": "powerline",
+          "template": " {{ if gt .Code 0 }}{{ .Meaning }}{{ else }}\u2714{{ end }} ",
+          "type": "exit"
         },
         {
-          "style": "powerline", "type": "text",
-          "foreground": "p:bg1", "background": "transparent",
-          "invert_powerline": true, "powerline_symbol": "\ue0b2",
-          "properties": {
-            "template": "\ue0b2"
-          }
-        },
-        {
-          "style": "powerline", "type": "time",
-          "foreground": "p:yw0", "background": "p:bg1",
+          "background": "transparent",
+          "foreground": "p:bg1",
           "invert_powerline": true,
-          "properties": {
-            "template": " {{ .CurrentDate | date .Format }} \uf017 "
-          }
+          "powerline_symbol": "\ue0b2",
+          "style": "powerline",
+          "template": "\ue0b2",
+          "type": "text"
+        },
+        {
+          "background": "p:bg1",
+          "foreground": "p:yw0",
+          "invert_powerline": true,
+          "style": "powerline",
+          "template": " {{ .CurrentDate | date .Format }} \uf017 ",
+          "type": "time"
         }
-      ]
+      ],
+      "type": "prompt"
     },
     {
       "alignment": "left",
-      "type": "prompt",
       "newline": true,
       "segments": [
         {
-          "style": "plain", "type": "exit",
-          "foreground": "p:gr1", "background": "transparent",
+          "background": "transparent",
+          "foreground": "p:gr1",
           "foreground_templates": [
             "{{ if gt .Code 0 }}p:rd0{{ end }}"
           ],
           "properties": {
-            "always_enabled": true,
-            "template": "\u276f"
-          }
+            "always_enabled": true
+          },
+          "style": "plain",
+          "template": "\u276f",
+          "type": "exit"
         }
-      ]
+      ],
+      "type": "prompt"
     },
     {
       "alignment": "right",
-      "type": "rprompt",
       "segments": [
         {
-          "style": "powerline", "type": "command",
-          "foreground": "p:fg2", "background": "p:bg3",
-          "invert_powerline": true, "powerline_symbol": "\ue0b2",
+          "background": "p:bg3",
+          "foreground": "p:fg2",
+          "invert_powerline": true,
+          "powerline_symbol": "\ue0b2",
           "properties": {
-            "shell": "zsh",
             "command": "basename $(echo ${DIRENV_DIR} | cut -c 2-)",
-            "template": "{{ if .Env.DIRENV_DIR }}\ue7a2 {{ .Output }} {{ end }}"
-          }
+            "shell": "zsh"
+          },
+          "style": "powerline",
+          "template": "{{ if .Env.DIRENV_DIR }}\ue7a2 {{ .Output }} {{ end }}",
+          "type": "command"
         },
         {
-          "style": "powerline", "type": "text",
-          "foreground": "p:yw0", "background": "transparent",
-          "invert_powerline": true, "powerline_symbol": "\ue0b2",
-          "properties": {
-            "template": "{{ if not .Env.TMUX }}\ue0b2{{ end }}"
-          }
+          "background": "transparent",
+          "foreground": "p:yw0",
+          "invert_powerline": true,
+          "powerline_symbol": "\ue0b2",
+          "style": "powerline",
+          "template": "{{ if not .Env.TMUX }}\ue0b2{{ end }}",
+          "type": "text"
         },
         {
-          "style": "powerline", "type": "ipify",
-          "foreground": "p:bg1", "background": "p:yw0",
+          "background": "p:yw0",
+          "foreground": "p:bg1",
           "invert_powerline": true,
           "properties": {
-            "template": "{{ if not .Env.TMUX }}{{ .IP }} {{ end }}",
             "cache_timeout": 90,
             "http_timeout": 500
-          }
+          },
+          "style": "powerline",
+          "template": "{{ if not .Env.TMUX }}{{ .IP }} {{ end }}",
+          "type": "ipify"
         }
-      ]
+      ],
+      "type": "rprompt"
     }
   ],
+  "final_space": true,
+  "palette": {
+    "aq0": "#689d6a",
+    "aq1": "#8ec07c",
+    "bg0": "#1d2021",
+    "bg1": "#282828",
+    "bg2": "#3c3836",
+    "bg3": "#504945",
+    "bg4": "#665c54",
+    "bg5": "#7c6f64",
+    "bg6": "#928374",
+    "bl0": "#458588",
+    "bl1": "#83a598",
+    "fg0": "#a89984",
+    "fg1": "#bdae93",
+    "fg2": "#d5c4a1",
+    "fg3": "#ebdbb2",
+    "fg4": "#fbf1c7",
+    "gr0": "#98971a",
+    "gr1": "#b8bb26",
+    "or0": "#d65d0e",
+    "or1": "#fe8019",
+    "pr0": "#b16286",
+    "pr1": "#d3869b",
+    "rd0": "#cc241d",
+    "rd1": "#fb4934",
+    "yw0": "#d79921",
+    "yw1": "#fabd2f"
+  },
   "transient_prompt": {
-    "foreground": "p:or0", "background": "transparent",
+    "background": "transparent",
+    "foreground": "p:or0",
     "template": "\u276f\u276f "
   },
-  "console_title": false,
-  "final_space": true,
-  "version": 1
+  "version": 2
 }

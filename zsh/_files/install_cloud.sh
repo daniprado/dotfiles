@@ -11,6 +11,7 @@ AWS_URL="https://awscli.amazonaws.com/${AWS_FILE}"
 
 pkg_install "sops"
 pipx_install "azure-cli"
+pipx_install "aiven-client"
 
 (cd ${AG_TEMP} && \
   curl -LO ${GCLOUD_URL} && \

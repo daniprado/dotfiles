@@ -13,7 +13,7 @@ pkg_install "sway" \
 FOLDERS=( "${XDG_SHARE_HOME}/base16" )
 create_folders "${FOLDERS[@]}"
 
-PIPX_PKGS=( "pybase16-builder" )
+PIPX_PKGS=( "pybase16-builder" "crudini" )
 pipx_install "${PIPX_PKGS[@]}"
 
 exe "(cd ${XDG_SHARE_HOME}/base16; pybase16 update)"

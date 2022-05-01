@@ -359,7 +359,7 @@ endif
 
   nnoremap <C-a>           <cmd>exec "normal! ggVG"<CR>|                          "Select all text in buffer
   nnoremap <C-n>           <cmd>bnext<CR>|                                        "Focus next buffer
-  nnoremap <C-m>           <cmd>bprevious<CR>|                                    "Focus previous buffer
+  nnoremap <C-b>           <cmd>bprevious<CR>|                                    "Focus previous buffer
   nnoremap <C-w>f          <cmd>ZoomWinTabToggle<CR>|                             "Get current focus full-size
   nnoremap <C-w>k          <cmd>TmuxNavigateUp<CR>|                               "TMUX
   nnoremap <C-w>j          <cmd>TmuxNavigateDown<CR>|                             "

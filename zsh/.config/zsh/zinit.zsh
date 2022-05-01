@@ -36,21 +36,6 @@ else
   ARCH_ALT=$"${ARCH}"
 fi
 
-OHMP_VER="posh-${KERN}-${ARCH_ALT}"
-FD_VER="fd-*-${ARCH}-unknown-${KERN}-gnu.tar.gz"
-EXA_VER="exa-${KERN}-${ARCH}-*.zip"
-BAT_VER="bat-*-${ARCH}-unknown-${KERN}-gnu.tar.gz"
-KUBECTX_VER="kubectx_*_${KERN}_${ARCH}.tar.gz"
-KUBENS_VER="kubens_*_${KERN}_${ARCH}.tar.gz"
-
-JQ_VER="jq-${KERN}64"
-YH_VER="yh-${KERN}-${ARCH_ALT}.zip"
-BROOT_VER="${ARCH}-${KERN}"
-
-DIRENV_VER="direnv.${KERN}-${ARCH_ALT}"
-DUF_VER="duf_*_${KERN}_${ARCH_ALT}.tar.gz"
-KUBECTX_REPO="https://raw.githubusercontent.com/ahmetb/kubectx"
-
 mkdir -p ${ZSHMAN_1} ${ZSHMAN}/man5
 
 ztp wait'0' for                                                 \
@@ -72,6 +57,11 @@ else
 fi
 
 if [[ "${KERN}" == "linux" ]]; then
+  OHMP_VER="posh-${KERN}-${ARCH_ALT}"
+  FD_VER="fd-*-${ARCH}-unknown-${KERN}-gnu.tar.gz"
+  EXA_VER="exa-${KERN}-${ARCH}-*.zip"
+  BAT_VER="bat-*-${ARCH}-unknown-${KERN}-gnu.tar.gz"
+
   ztp wait'0' as'command' for                               \
     sbin"posh* -> oh-my-posh" from'gh-r' bpick"${OHMP_VER}" \
         JanDeDobbeleer/oh-my-posh                           \
@@ -84,46 +74,66 @@ if [[ "${KERN}" == "linux" ]]; then
       cp **/bat.zsh _bat;                                   \
       cp **/bat.1 ${ZSHMAN_1}"                              \
         @sharkdp/bat                                        \
-    trigger-load'!kubectx;!kctx' id-as'kubectx'             \
-    sbin'kubectx' from'gh-r' bpick"${KUBECTX_VER}"          \
-    atpull'%atclone' atclone"                               \
-      curl -o ${COMPLETIONS}/_kubectx                       \
-      ${KUBECTX_REPO}/master/completion/_kubectx.zsh;       \
-      zinit creinstall -q ${COMPLETIONS}"                   \
-        ahmetb/kubectx                                      \
-    trigger-load'!kubens;!kns' id-as'kubens'                \
-    sbin'kubens' from'gh-r' bpick"${KUBENS_VER}"            \
-    atpull'%atclone' atclone"                               \
-      curl -o ${COMPLETIONS}/_kubens                        \
-      ${KUBECTX_REPO}/master/completion/_kubens.zsh;        \
-      zinit creinstall -q ${COMPLETIONS}"                   \
-        ahmetb/kubectx
 
   if [[ "${ARCH}" == "x86_64" ]]; then
-    ztp wait'0' as'command' for                        \
-      trigger-load'!ls;!lsa;!lst;!exa'                 \
-      sbin'bin/exa' from'gh-r' bpick"${EXA_VER}"       \
-      atpull'%atclone' atclone"                        \
-        cp **/exa.zsh _exa;                            \
-        cp **/exa.1 ${ZSHMAN_1};                       \
-        cp **/exa*.5 ${ZSHMAN}/man5"                   \
-          ogham/exa                                    \
-      sbin'jq' from'gh-r' bpick"${JQ_VER}"             \
-      atclone'cp jq* jq' atpull'%atclone'              \
-          stedolan/jq                                  \
-      trigger-load'!br;!broot'                         \
-      sbin'broot' from'gh-r'                           \
-      atpull'%atclone' src='zhook.zsh' atclone"        \
-        cp **/${BROOT_VER}/broot broot;                \
-        cp **/br*.1 ${ZSHMAN_1};                       \
-        ./broot --print-shell-function zsh >zhook.zsh; \
-        ./broot --set-install-state installed"         \
-          Canop/broot                                  \
-      trigger-load'!yh;!ky'                            \
-      sbin'yh' from'gh-r' bpick"${YH_VER}"             \
-          andreazorzetto/yh
+    JQ_VER="jq-${KERN}64"
+    YH_VER="yh-${KERN}-${ARCH_ALT}.zip"
+    BROOT_VER="${ARCH}-${KERN}"
+    KUBECTX_VER="kubectx_*_${KERN}_${ARCH}.tar.gz"
+    KUBENS_VER="kubens_*_${KERN}_${ARCH}.tar.gz"
+    NVIM_VER="nvim.appimage"
+
+    ztp wait'0' as'command' for                         \
+      trigger-load'!ls;!lsa;!lst;!exa'                  \
+      sbin'bin/exa' from'gh-r' bpick"${EXA_VER}"        \
+      atpull'%atclone' atclone"                         \
+        cp **/exa.zsh _exa;                             \
+        cp **/exa.1 ${ZSHMAN_1};                        \
+        cp **/exa*.5 ${ZSHMAN}/man5"                    \
+          ogham/exa                                     \
+      sbin'jq' from'gh-r' bpick"${JQ_VER}"              \
+      atclone'cp jq* jq' atpull'%atclone'               \
+          stedolan/jq                                   \
+      trigger-load'!br;!broot'                          \
+      sbin'broot' from'gh-r'                            \
+      atpull'%atclone' src='zhook.zsh' atclone"         \
+        cp **/${BROOT_VER}/broot broot;                 \
+        cp **/br*.1 ${ZSHMAN_1};                        \
+        ./broot --print-shell-function zsh >zhook.zsh;  \
+        ./broot --set-install-state installed"          \
+          Canop/broot                                   \
+      trigger-load'!yh;!ky'                             \
+      sbin'yh' from'gh-r' bpick"${YH_VER}"              \
+          andreazorzetto/yh                             \
+      trigger-load'!kubectx;!kctx' id-as'kubectx'       \
+      sbin'kubectx' from'gh-r' bpick"${KUBECTX_VER}"    \
+      atpull'%atclone' atclone"                         \
+        curl -o ${COMPLETIONS}/_kubectx                 \
+        ${KUBECTX_REPO}/master/completion/_kubectx.zsh; \
+        zinit creinstall -q ${COMPLETIONS}"             \
+          ahmetb/kubectx                                \
+      trigger-load'!kubens;!kns' id-as'kubens'          \
+      sbin'kubens' from'gh-r' bpick"${KUBENS_VER}"      \
+      atpull'%atclone' atclone"                         \
+        curl -o ${COMPLETIONS}/_kubens                  \
+        ${KUBECTX_REPO}/master/completion/_kubens.zsh;  \
+        zinit creinstall -q ${COMPLETIONS}"             \
+          ahmetb/kubectx
+
+    # Min Neovim version is 0.7.0
+    CURR_NVIM_VER=$(nvim --version | grep -m 1 "NVIM" | cut -d'.' -f2)
+    if [[ ${CURR_NVIM_VER} -lt 7 ]]; then
+      ztp wait'0' as'command' for                 \
+        sbin'nvim.appimage -> nvim'               \
+        from'gh-r' ver'stable' bpick"${NVIM_VER}" \
+            neovim/neovim
+    fi
   fi
 fi
+
+DIRENV_VER="direnv.${KERN}-${ARCH_ALT}"
+DUF_VER="duf_*_${KERN}_${ARCH_ALT}.tar.gz"
+KUBECTX_REPO="https://raw.githubusercontent.com/ahmetb/kubectx"
 
 ztp wait'0' as'command' for                    \
   sbin'direnv' from'gh-r' bpick"${DIRENV_VER}" \
@@ -144,15 +154,6 @@ ztp wait'0' as'command' for                    \
       b4b4r07/httpstat                         \
   trigger-load'!you-get'                       \
       soimort/you-get
-
-# Min Neovim version is 0.7.0
-CURR_NVIM_VER=$(nvim --version | grep -m 1 "NVIM" | cut -d'.' -f2)
-if [[ ${CURR_NVIM_VER} -lt 7 ]]; then
-  ztp wait'0' as'command' for                   \
-    sbin'nvim.appimage -> nvim'                 \
-    from'gh-r' ver'stable' bpick"nvim.appimage" \
-        neovim/neovim
-fi
 
 zt wait'0' for                                        \
   trigger-load'!man'                                  \

@@ -36,7 +36,8 @@ if [[ $(nvim --version | grep -m 1 "NVIM" | cut -d'.' -f2) -ge 6 ]] 2>/dev/null;
   fi
 
   if type "nvr" >/dev/null; then
-    export EDITOR="nvr -s --servername ${TMP}/nvimsocket_$(curr_dk)"
+    export CURR_DK="$(curr_dk)"
+    export EDITOR="nvr -s --servername ${TMP}/nvimsocket_${CURR_DK}"
     export NOSOCK_EDITOR="nvim"
     alias nvim="${EDITOR}"
     [[ -n "${WAYLAND_DISPLAY}" ]] && alias nvim-qt="NVIM_GUI=1 NVR_CMD=nvim-qt ${EDITOR}"

@@ -24,3 +24,6 @@ lib64/
 var/
 target/
 .pyre/
+
+neovim/.config/l@nvim/color.sh
+

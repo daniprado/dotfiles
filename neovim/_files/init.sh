@@ -18,6 +18,10 @@ pkg_install "libsqlite3-dev"
 pkg_install "npm"
 pkg_install "unzip"
 
-exe "bash -c \"nvim --headless +PlugInstall +qa\""
+CURR_NVIM_VER=$(nvim --version | grep -m 1 "NVIM" | cut -d'.' -f2)
+# Min Neovim version is 0.7.0
+if [[ ${CURR_NVIM_VER} -ge 7 ]]; then
+  exe "bash -c \"nvim --headless +PlugInstall +qa\""
+fi
 
 exit 0

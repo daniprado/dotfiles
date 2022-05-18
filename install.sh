@@ -13,7 +13,7 @@ if [[ ! -z "${AG_INSTALL}" ]]; then
   if type "pacman" >/dev/null; then
     sudo pacman -S python python-virtualenv python-pip gcc make which zsh
   elif type "apt" >/dev/null; then
-    sudo apt install -y python-is-python3 python3-venv python3-pip devtools which zsh
+    sudo apt install -y python-is-python3 python3-venv python3-pip zsh
   elif type "dnf" >/dev/null; then
     sudo dnf install python python-venv python-pip devtools which zsh
   fi

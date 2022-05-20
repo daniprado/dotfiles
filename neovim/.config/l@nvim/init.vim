@@ -248,12 +248,6 @@ endif
       autocmd FileType sql setlocal omnifunc=vim_dadbod_completion#omni
     "}}}
 
-   "VimWiki {{{
-      let g:vimwiki_list = [{'path':  expand(stdpath('data').'/vimwiki/argallar'), 'syntax': 'markdown', 'ext': '.md'},
-                          \ {'path':  expand(stdpath('data').'/vimwiki/gorillas'), 'syntax': 'markdown', 'ext': '.md'},
-                          \ ]
-    "}}}
-
     "Other {{{
       let g:startify_lists = [
         \ { 'type': 'files',                    'header': ['   MRU']            },

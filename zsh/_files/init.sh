@@ -14,7 +14,8 @@ pkg_install "tmate"
 pkg_install "gawk"
 
 ZSH_BIN=$(which zsh)
-[[ "${ZSH_BIN}" = *"${SHELL}" ]] || exe "chsh --shell ${ZSH_BIN}"
+CHSH=$((type "chsh" 2>/dev/null >/dev/null && echo "chsh") || echo "sudo usermod")
+[[ "${ZSH_BIN}" = *"${SHELL}" ]] || exe "${CHSH} --shell ${ZSH_BIN} ${USER}"
 
 exe "(cd ${CURR_PATH}; ./install_gpg.sh)"
 exe "(cd ${CURR_PATH}; ./install_zinit.sh)"

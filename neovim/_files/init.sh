@@ -14,7 +14,7 @@ pipx_install "${PIPX_PACKAGES[@]}"
 pkg_install "nvim" "neovim"
 
 # Usual dependencies
-pkg_install "libsqlite3-dev"
+pkg_install "libsqlite3-dev" "libsqlite3-dev" "sqlite-devel"
 pkg_install "npm"
 pkg_install "unzip"
 

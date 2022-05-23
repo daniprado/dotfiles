@@ -1,6 +1,7 @@
 -- Visual {{{
   require('bufferline').setup({
     options = {
+      mode = "buffers",
       numbers = "none", middle_mouse_command = nil, diagnostics = "nvim_lsp", custom_filter = nil,
       close_command = "Bdelete! %d", right_mouse_command = "Bdelete! %d", left_mouse_command = "buffer %d",
       indicator_icon = '▎', buffer_close_icon = '', modified_icon = '●', close_icon = '',
@@ -22,7 +23,7 @@
                               end,
       offsets = {{filetype = "NvimTree", text = "File Explorer", text_align = "left"}}, sort_by = 'id',
       show_buffer_icons = true, show_buffer_close_icons = false, show_close_icon = false, show_tab_indicators = true,
-      persist_buffer_sort = true, separator_style = "slant", enforce_regular_tabs = false, always_show_bufferline = true,
+      persist_buffer_sort = true, separator_style = "thin", enforce_regular_tabs = false, always_show_bufferline = true,
       custom_areas = {
         right = function()
                   local result = {}
@@ -190,6 +191,10 @@
         swap_previous = { ["<M-S-a>"] = "@parameter.inner",  ["<M-S-s>"] = "@statement.inner", },
       },
     },
+    matchup = {
+      enable = true,
+      disable_virtual_text = true,
+    },
   })
 -- }}}
 
@@ -243,14 +248,17 @@
       ['<S-TAB>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' }),
       ['<CR>'] = cmp.mapping.confirm({ select = true }),
     },
-    sources = {
+    window = {},
+    sources = cmp.config.sources({
       { name = 'nvim_lsp' },
       { name = 'tmux' },
       { name = 'path' },
-      { name = 'buffer' },
       { name = 'autopairs' },
       { name = 'nvim_lsp_signature_help' },
-    },
+      { name = 'treesitter' },
+    }, {
+      { name = 'buffer' },
+    }),
     formatting = {
       format = function(entry, vim_item)
         vim_item.kind = lspkind.presets.default[vim_item.kind]

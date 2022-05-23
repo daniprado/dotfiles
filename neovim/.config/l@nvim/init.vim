@@ -41,12 +41,11 @@ endif
     Plug 'famiu/bufdelete.nvim', { 'on': ['Bdelete', 'Bwipeout'] }             "Close buffer without changing layout
     Plug 'drmikehenry/vim-fontsize', !empty($NVIM_GUI) ? {} : { 'on': [] }     "Change GUI font size
     Plug 'troydm/zoomwintab.vim'                                               "Maximize window
-    Plug 'akinsho/bufferline.nvim'                                             "Information on buffer line
+    Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }                          "Information on buffer line
     Plug 'Konfekt/FastFold'                                                    "Simplify folding and unfolding blocks
     Plug 'Konfekt/FoldText'                                                    "Show info on folded blocks
 
     Plug 'nvim-lualine/lualine.nvim'                                           "(3)
-    Plug 'AlessandroYorba/Alduin'
     Plug 'jnurmine/zenburn'
     Plug 'ellisonleao/gruvbox.nvim'
     Plug 'ishan9299/nvim-solarized-lua'
@@ -85,10 +84,11 @@ endif
     Plug 'nvim-treesitter/nvim-treesitter-textobjects'                         "Syntax related objects
     Plug 'nvim-treesitter/nvim-treesitter-refactor'                            "Highlight and navigate based on treesitter
     Plug 'JoosepAlviste/nvim-ts-context-commentstring'                         "Change commentstring based on treesitter
-    Plug 'romgrk/nvim-treesitter-context'                                      "Show cursor context
+    Plug 'nvim-treesitter/nvim-treesitter-context'                             "Show cursor context
     Plug 'haringsrob/nvim_context_vt'                                          "Shows context on code blocks
     Plug 'p00f/nvim-ts-rainbow'                                                "Multi color parentheses
     Plug 'folke/twilight.nvim'                                                 "Dimm inactive code blocks
+    Plug 'andymass/vim-matchup'                                                "Match code blocks
   "}}}
 
   "LSP {{{
@@ -102,6 +102,8 @@ endif
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-path'
+    Plug 'hrsh7th/nvim-cmp'
+    Plug 'ray-x/cmp-treesitter'
     Plug 'hrsh7th/cmp-nvim-lsp-document-symbol'
     Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
     Plug 'onsails/lspkind-nvim'                                                "Autocomplete icons
@@ -142,7 +144,7 @@ endif
     Plug 'lambdalisue/suda.vim', { 'on': ['SudaRead', 'SudaWrite'] }           "Open/Save file as root
     Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }                         "Edit history on current buffer
     Plug 'lewis6991/gitsigns.nvim'                                             "(2) Git visual tools
-    Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }          "Browser integration
+    " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }          "Browser integration
   "}}}
 
   call plug#end()
@@ -426,6 +428,16 @@ endif
   nnoremap <leader>hw      <cmd>HopWord<CR>|                                      "Hop!
   omap     <silent>m       :<C-U>lua require('tsht').nodes()<CR>|                 "Treesitter hop!
   vnoremap <silent>m       :lua require('tsht').nodes()<CR>|                      "
+
+  nnoremap <leader>1       <Cmd>BufferLineGoToBuffer 1<CR>
+  nnoremap <leader>2       <Cmd>BufferLineGoToBuffer 2<CR>
+  nnoremap <leader>3       <Cmd>BufferLineGoToBuffer 3<CR>
+  nnoremap <leader>4       <Cmd>BufferLineGoToBuffer 4<CR>
+  nnoremap <leader>5       <Cmd>BufferLineGoToBuffer 5<CR>
+  nnoremap <leader>6       <Cmd>BufferLineGoToBuffer 6<CR>
+  nnoremap <leader>7       <Cmd>BufferLineGoToBuffer 7<CR>
+  nnoremap <leader>8       <Cmd>BufferLineGoToBuffer 8<CR>
+  nnoremap <leader>9       <Cmd>BufferLineGoToBuffer 9<CR>
 
   nnoremap <M-g>s          <cmd>lua require"gitsigns".stage_hunk()<CR>|           "Gitsigns
   nnoremap <M-g>u          <cmd>lua require"gitsigns".undo_stage_hunk()<CR>|      "

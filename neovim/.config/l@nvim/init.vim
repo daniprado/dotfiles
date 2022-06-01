@@ -145,6 +145,7 @@ endif
     Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }                         "Edit history on current buffer
     Plug 'lewis6991/gitsigns.nvim'                                             "(2) Git visual tools
     " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }          "Browser integration
+    Plug 'mickael-menu/zk-nvim'                                                "zk CLI integration
   "}}}
 
   call plug#end()

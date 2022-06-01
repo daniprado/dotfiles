@@ -3,7 +3,7 @@
 source ${AG_SRC:-~/dotfiles}/script/_files/common.sh
 CURR_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-FOLDERS=( "${AG_CACHE}/zsh" "${AG_CONFIG}/telegram" "${AG_SSH}/sockets" )
+FOLDERS=( "${AG_CACHE}/zsh" "${AG_CONFIG}/telegram" "${AG_SSH}/sockets" "${AG_SHARE}/zk" )
 create_folders "${FOLDERS[@]}"
 
 PIPX_PKGS=( "trash-cli" "telegram-send" "sshtunnel" "bpytop" "asciinema" "buku" )

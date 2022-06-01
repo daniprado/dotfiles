@@ -61,19 +61,30 @@ if [[ "${KERN}" == "linux" ]]; then
   FD_VER="fd-*-${ARCH}-unknown-${KERN}-gnu.tar.gz"
   EXA_VER="exa-${KERN}-${ARCH}-*.zip"
   BAT_VER="bat-*-${ARCH}-unknown-${KERN}-gnu.tar.gz"
+  ZK_VER="zk-*-${KERN}-${ARCH_ALT}.tar.gz"
 
   ztp wait'0' as'command' for                               \
     sbin"posh* -> oh-my-posh" from'gh-r' bpick"${OHMP_VER}" \
         JanDeDobbeleer/oh-my-posh                           \
     sbin'**/fd' from'gh-r' bpick"${FD_VER}"                 \
-    atclone"cp **/fd.1 ${ZSHMAN_1}" atpull'%atclone'        \
+    atpull'%atclone' atclone"                               \
+      cp **/fd.1 ${ZSHMAN_1};                               \
+      rm ${XDG_BIN_HOME}/fd;                                \
+      ln -s ${ZPFX}/bin/fd ${XDG_BIN_HOME}/fd"              \
         @sharkdp/fd                                         \
     trigger-load'!cat;!bat'                                 \
     sbin'**/bat' from'gh-r' bpick"${BAT_VER}"               \
     atpull'%atclone' atclone"                               \
       cp **/bat.zsh _bat;                                   \
-      cp **/bat.1 ${ZSHMAN_1}"                              \
+      cp **/bat.1 ${ZSHMAN_1};                              \
+      rm ${XDG_BIN_HOME}/bat;                               \
+      ln -s ${ZPFX}/bin/bat ${XDG_BIN_HOME}/bat"            \
         @sharkdp/bat                                        \
+    sbin'**/zk' from'gh-r' bpick"${ZK_VER}"                 \
+    atpull'%atclone' atclone"                               \
+      rm ${XDG_BIN_HOME}/zk;                                \
+      ln -s ${ZPFX}/bin/zk ${XDG_BIN_HOME}/zk"              \
+        @mickael-menu/zk
 
   if [[ "${ARCH}" == "x86_64" ]]; then
     JQ_VER="jq-${KERN}64"
@@ -89,10 +100,15 @@ if [[ "${KERN}" == "linux" ]]; then
       atpull'%atclone' atclone"                         \
         cp **/exa.zsh _exa;                             \
         cp **/exa.1 ${ZSHMAN_1};                        \
-        cp **/exa*.5 ${ZSHMAN}/man5"                    \
+        cp **/exa*.5 ${ZSHMAN}/man5;                    \
+        rm ${XDG_BIN_HOME}/exa;                         \
+        ln -s ${ZPFX}/bin/exa ${XDG_BIN_HOME}/exa"      \
           ogham/exa                                     \
       sbin'jq' from'gh-r' bpick"${JQ_VER}"              \
-      atclone'cp jq* jq' atpull'%atclone'               \
+      atpull'%atclone' atclone"                         \
+        cp jq* jq;                                      \
+        rm ${XDG_BIN_HOME}/jq;                          \
+        ln -s ${ZPFX}/bin/jq ${XDG_BIN_HOME}/jq"        \
           stedolan/jq                                   \
       trigger-load'!br;!broot'                          \
       sbin'broot' from'gh-r'                            \
@@ -100,7 +116,9 @@ if [[ "${KERN}" == "linux" ]]; then
         cp **/${BROOT_VER}/broot broot;                 \
         cp **/br*.1 ${ZSHMAN_1};                        \
         ./broot --print-shell-function zsh >zhook.zsh;  \
-        ./broot --set-install-state installed"          \
+        ./broot --set-install-state installed;          \
+        rm ${XDG_BIN_HOME}/broot;                       \
+        ln -s ${ZPFX}/bin/broot ${XDG_BIN_HOME}/broot"  \
           Canop/broot                                   \
       trigger-load'!yh;!ky'                             \
       sbin'yh' from'gh-r' bpick"${YH_VER}"              \

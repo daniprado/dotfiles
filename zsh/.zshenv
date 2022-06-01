@@ -38,3 +38,5 @@ export BORG_REMOTE_PATH="/usr/local/bin/borg1/borg1"
 export ASDF_DIR=${ZSHSHARE}/zinit/plugins/asdf-vm---asdf
 export ASDF_DATA_DIR=${ASDF_DIR}
 export ASDF_CONFIG_FILE=${ASDF_DIR}/asdfrc
+
+export ZK_NOTEBOOK_DIR="${XDG_SHARE_HOME}/zk"

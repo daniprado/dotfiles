@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Telegram
+NoDisplay=true
+Path=/usr/bin
+Exec=telegram-desktop -workdir ~/.local/share/TelegramDesktop/ -- %u
+Terminal=false
+

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Alacritty
+NoDisplay=true
+Path=/usr/bin
+Exec=alacritty
+Terminal=false
+

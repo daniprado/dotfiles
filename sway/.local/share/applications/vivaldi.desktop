@@ -1,8 +1,8 @@
 [Desktop Entry]
-Encoding=UTF-8
 Version=1.0
 Type=Application
-NoDisplay=true
-Exec=/usr/bin/vivaldi-stable --enable-features=UseOzonePlatform --enable-gpu --ozone-platform=wayland
 Name=Vivaldi
-Comment=Custom definition for Vivaldi
+NoDisplay=true
+Path=/usr/bin
+Exec=vivaldi-stable --enable-gpu --enable-features=UseOzonePlatform --ozone-platform=wayland
+Terminal=false

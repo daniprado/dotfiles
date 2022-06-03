@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Signal
+NoDisplay=true
+Path=/usr/bin
+Exec=signal-desktop --use-tray-icon --enable-gpu --enable-features=UseOzonePlatform --ozone-platform=wayland
+Terminal=false

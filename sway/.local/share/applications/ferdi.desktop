@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Ferdi
+NoDisplay=true
+Path=/usr/bin
+Exec=ferdi
+Terminal=false
+

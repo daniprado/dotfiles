@@ -8,7 +8,6 @@ set {
   $up k
   $right l
 
-  $electron_mods '--enable-features=UseOzonePlatform --ozone-platform=wayland'
   $locking swaylock --daemonize --show-failed-attempts --fade-in 0.2 --grace 2 --ignore-empty-password --clock
   $screenshot ~/Media/Pictures/Screenshot
   $wallpaper  ~/.local/share/pictures

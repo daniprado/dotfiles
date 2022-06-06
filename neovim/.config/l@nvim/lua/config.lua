@@ -142,7 +142,7 @@
 -- }}}
 
 -- Treesitter {{{
-  require('twilight').setup()
+  require('twilight').setup{}
   require('nvim-treesitter.configs').setup({
     ensure_installed = "all",
     highlight = {
@@ -257,17 +257,37 @@
       { name = 'tmux' },
       { name = 'path' },
       { name = 'autopairs' },
+      { name = 'ultisnips' },
       { name = 'nvim_lsp_signature_help' },
       { name = 'treesitter' },
     }, {
       { name = 'buffer' },
     }),
+    snippet = {
+      expand = function(args)
+        vim.fn["UltiSnips#Anon"](args.body)
+      end,
+    },
     formatting = {
       format = function(entry, vim_item)
         vim_item.kind = lspkind.presets.default[vim_item.kind]
         return vim_item
       end
     },
+  })
+  cmp.setup.cmdline('/', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = 'buffer' }
+    }
+  })
+  cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+      { name = 'path' }
+    }, {
+      { name = 'cmdline' }
+    })
   })
 
   local cmp_autopairs = require('nvim-autopairs.completion.cmp')

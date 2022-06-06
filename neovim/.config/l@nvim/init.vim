@@ -35,6 +35,7 @@ endif
     Plug 'tami5/sqlite.lua'                                                    "Lua libraries (4)
     Plug 'rktjmp/lush.nvim'                                                    "Colorscheme Lua lib (5)
     Plug 'tpope/vim-dotenv'                                                    "Load environment vars (6)
+    Plug 'godlygeek/tabular'                                                   "Markdown (7)
   "}}}
 
   "Visual {{{
@@ -67,7 +68,6 @@ endif
     Plug 'tpope/vim-surround'                                                  "Bracket objects
     Plug 'wellle/targets.vim'                                                  "Text objects
     Plug 'tommcdo/vim-lion'                                                    "Text alignment based on char
-    Plug 'tpope/vim-jdaddy'                                                    "Json!
   "}}}
 
   "Telescope {{{
@@ -97,12 +97,19 @@ endif
     Plug 'ray-x/lsp_signature.nvim'                                            "Show signature helper on autocomplete
   "}}}
 
+  "Snippets {{{
+    Plug 'SirVer/ultisnips'                                                    "Snippets!
+    Plug 'honza/vim-snippets'                                                  "Snippet library
+  "}}}
+
   "CMP {{{
     Plug 'hrsh7th/nvim-cmp'                                                    "Autocomplete engine
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-path'
     Plug 'hrsh7th/nvim-cmp'
+    Plug 'hrsh7th/cmp-cmdline'
+    Plug 'quangnguyen30192/cmp-nvim-ultisnips'
     Plug 'ray-x/cmp-treesitter'
     Plug 'hrsh7th/cmp-nvim-lsp-document-symbol'
     Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
@@ -132,10 +139,13 @@ endif
     Plug 'mfussenegger/nvim-ts-hint-textobject'                                "Hops based on Treesitter
   "}}}
 
-  "VimWiki {{{
-    Plug 'vimwiki/vimwiki'                                                     "Wiki
-    Plug 'tools-life/taskwiki'                                                 "Taskwarrior integration
-    Plug 'powerman/vim-plugin-AnsiEsc'
+  "Markdown {{{
+    Plug 'preservim/vim-markdown'                                              "(7) Syntax highlight and conceal
+    Plug 'vim-pandoc/vim-pandoc-syntax'                                        "Syntax highlight and conceal
+    Plug 'dhruvasagar/vim-table-mode'                                          "Table edition in MD
+    Plug 'tools-life/taskwiki'                                                 "Taskwarrior integration in MD
+    Plug 'blindFS/vim-taskwarrior'                                             "Taskwarrior UI
+    Plug 'mickael-menu/zk-nvim'                                                "zk CLI integration
   "}}}
 
   "Other {{{
@@ -145,7 +155,6 @@ endif
     Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }                         "Edit history on current buffer
     Plug 'lewis6991/gitsigns.nvim'                                             "(2) Git visual tools
     " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }          "Browser integration
-    Plug 'mickael-menu/zk-nvim'                                                "zk CLI integration
   "}}}
 
   call plug#end()
@@ -185,6 +194,14 @@ endif
       echo "Long lines unhighlighted"
     endif
   endfunction
+
+  function! s:isAtStartOfLine(mapping)
+    let text_before_cursor = getline('.')[0 : col('.')-1]
+    let mapping_pattern = '\V' . escape(a:mapping, '\')
+    let comment_pattern = '\V' . escape(substitute(&l:commentstring, '%s.*$', '', ''), '\')
+    return (text_before_cursor =~? '^' . ('\v(' . comment_pattern . '\v)?') . '\s*\v' . mapping_pattern . '\v$')
+  endfunction
+
 "}}}
 
 "Params {{{
@@ -249,6 +266,17 @@ endif
       autocmd FileType dbui nmap <buffer> R <Plug>(DBUI_Redraw)
       autocmd FileType dbui nmap <buffer> W <Plug>(DBUI_SaveQuery)
       autocmd FileType sql setlocal omnifunc=vim_dadbod_completion#omni
+    "}}}
+
+    "Snippets {{{
+      let g:UltiSnipsExpandTrigger="<tab>"
+      let g:UltiSnipsJumpForwardTrigger="<c-n>"
+      let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+    "}}}
+
+    "Markdown {{{
+     let g:vim_markdown_strikethrough = 1 
+     let g:vim_markdown_no_extensions_in_markdown = 1
     "}}}
 
     "Other {{{
@@ -330,6 +358,11 @@ endif
     set splitbelow
     set splitright
     set formatoptions+=j
+
+    augroup pandoc_syntax
+        au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+    augroup END
+
   "}}}
 
 "Shortcuts {{{
@@ -410,6 +443,12 @@ endif
   nnoremap <leader>wi      <cmd>Telescope treesitter<CR>|                         "Treesitter references inside file
   nnoremap <leader>ws      <cmd>Telescope lsp_document_symbols<CR>|               "LSP symbols inside file
   nnoremap <leader>wd      <cmd>Telescope diagnostics theme=get_dropdown layout_config.width=0.7<CR>
+  
+  nnoremap <leader>zz      <cmd>ZkNotes<CR>|
+  nnoremap <leader>zf      <cmd>ZkNotes { sort = { 'modified' }, match = vim.fn.input('Search: ') }<CR>|
+  vnoremap <leader>zf      :'<,'>ZkMatch<CR>|
+  nnoremap <leader>zl      <cmd>ZkLinks<CR>|
+  nnoremap <leader>zt      <cmd>ZkTags<CR>|
 
   nnoremap <leader>t       <cmd>FloatermNew<CR>|                                  "Open terminals
   vnoremap <leader>t       :FloatermNew<CR>|                                      "
@@ -423,8 +462,6 @@ endif
 
   nnoremap <leader>x       <cmd>FormatXML<CR>|                                    "Format as XML
   nnoremap <leader>j       <cmd>%!python -m json.tool<CR>|                        "Format as json
-  " nmap gqaj             Pretifies JSON under cursor
-  " nmap gwaj             Takes the JSON object on the clipboard and extends it into the JSON object under the cursor.
 
   nnoremap <leader>hw      <cmd>HopWord<CR>|                                      "Hop!
   omap     <silent>m       :<C-U>lua require('tsht').nodes()<CR>|                 "Treesitter hop!
@@ -448,12 +485,23 @@ endif
   nnoremap <M-h>           <cmd>lua require"gitsigns.actions".next_hunk()<CR>|    "Next git modified chunk
   nnoremap <M-S-h>         <cmd>lua require"gitsigns.actions".prev_hunk()<CR>|    "Previous git modified chunk
 
-  nnoremap <M-l>h          <cmd>lua vim.lsp.buf.hover()<CR>|                      "LSP commands
+  nnoremap <M-l><CR>       <cmd>lua vim.lsp.buf.definition()<CR>|                 "LSP commands
+  nnoremap <M-l>h          <cmd>lua vim.lsp.buf.hover()<CR>|                      "
   nnoremap <M-l>f          <cmd>lua vim.lsp.buf.formatting()<CR>|                 "
   nnoremap <M-l>a          <cmd>lua vim.lsp.buf.code_action()<CR>|                "
   nnoremap <M-l>i          <cmd>lua vim.lsp.buf.implementation()<CR>|             "LSP Motions
   nnoremap <M-l>t          <cmd>lua vim.lsp.buf.type_definition()<CR>|            "
   nnoremap <M-l>d          <cmd>lua vim.lsp.buf.declaration()<CR>|                "
+  nnoremap <M-l>r          <cmd>lua vim.lsp.buf.references()<CR>|                 "
+  vnoremap <M-l>c          :'<,'>lua vim.lsp.buf.range_code_action()<CR>|         "
   nnoremap <M-e>           <cmd>lua vim.diagnostic.goto_next()<CR>|               "
   nnoremap <M-S-e>         <cmd>lua vim.diagnostic.goto_prev()<CR>|               "
+
+  inoreabbrev <expr> <bar><bar>
+            \ <SID>isAtStartOfLine('\|\|') ?
+            \ '<c-o>:TableModeEnable<cr><bar><space><bar><left><left>' : '<bar><bar>'
+  inoreabbrev <expr> __
+            \ <SID>isAtStartOfLine('__') ?
+            \ '<c-o>:silent! TableModeDisable<cr>' : '__'
+
 "}}}

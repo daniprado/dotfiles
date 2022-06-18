@@ -276,7 +276,7 @@ endif
 
     "Markdown {{{
      let g:vim_markdown_strikethrough = 1 
-     let g:vim_markdown_no_extensions_in_markdown = 1
+     let g:pandoc#syntax#conceal#urls = 1
     "}}}
 
     "Other {{{

@@ -8,9 +8,6 @@ create_folders "${FOLDERS[@]}"
 PIP_PACKAGES=( "pynvim" "tasklib" )
 pip_install "${PIP_PACKAGES[@]}"
 
-PIPX_PACKAGES=( "neovim-remote" )
-pipx_install "${PIPX_PACKAGES[@]}"
-
 pkg_install "nvim" "neovim"
 
 # Usual dependencies

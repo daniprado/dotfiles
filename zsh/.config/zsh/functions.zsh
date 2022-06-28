@@ -49,15 +49,9 @@ function timer() {
    done
 }
 
-function curr_dk() {
-  swaymsg &>/dev/null
-  if [[ $? -eq 0 ]]; then
-    swaymsg --type get_outputs | jq -r ".[] | select(.focused==true) | .current_workspace" | grep -v null | cut -d' ' -f1
-  else
-    echo ${TTY} | cut -d'/' -f4
-  fi
-}
-
 function cmd_tempos() {
   NON_TRANSIENT_PROMPT=1 zsh
 }
+
+NVIM_FUNCTIONS="${HOME}/.config/zsh/nvim-functions.zsh"
+[[ -f "${NVIM_FUNCTIONS}" ]] && source "${NVIM_FUNCTIONS}"

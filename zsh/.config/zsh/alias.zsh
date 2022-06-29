@@ -11,7 +11,7 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
 alias ls='ls --color=auto'
-if type "exa" >/dev/null; then
+if type "exa" &>/dev/null; then
   alias lst="exa --long --all --modified --git --sort=modified"
   alias lss="exa --long --all --modified --git --tree --recurse --git-ignore"
   alias lsa="exa --long --all --modified --git --group"
@@ -25,17 +25,13 @@ fi
 
 alias vi="vim"
 export EDITOR="vim"
-# Min Neovim version is 0.6.0
-if [[ $(nvim --version | grep -m 1 "NVIM" | cut -d'.' -f2) -ge 6 ]] 2>/dev/null; then
+# Min Neovim version is 0.7.0
+if [[ $(nvim --version | grep -m 1 "NVIM" | cut -d'.' -f2) -ge 7 ]] &>/dev/null; then
   alias vim="nvim"
-  if [[ -n "${WAYLAND_DISPLAY}" ]]; then
-    alias gvim="NVIM_GUI=1 nvim-qt"
-    export EDITOR="nvim-qt"
-  else
-    export EDITOR="nvim"
-  fi
+  export EDITOR="nvim"
+  [[ -n "${WAYLAND_DISPLAY}" ]] && alias gvim="NVIM_GUI=1 nvim-qt"
 
-  if type "nvr" >/dev/null; then
+  if type "nvr" &>/dev/null; then
     export CURR_DK="$(curr_dk)"
     export EDITOR="nvr -s --servername ${TMP}/nvimsocket_${CURR_DK}"
     export NOSOCK_EDITOR="nvim"
@@ -46,20 +42,20 @@ fi
 [[ -z "${NOSOCK_EDITOR}" ]] && export NOSOCK_EDITOR="${EDITOR}"
 [[ -n "${WAYLAND_DISPLAY}" ]] && export VISUAL="${EDITOR}"
 
-if type "bat" >/dev/null; then
+if type "bat" &>/dev/null; then
   alias cat="bat"
   export PAGER="bat"
 else
   export PAGER="/usr/bin/cat"
 fi
 
-type "rg" >/dev/null && alias grep="rg"
-type "trash-put" >/dev/null && alias rm="trash-put"
-type "bpytop" >/dev/null && alias btop="bpytop"
-type "duf" >/dev/null && alias df="duf"
-type "wshowkeys" >/dev/null && alias wshowkeys="wshowkeys -t 2 -a bottom -a right -m 100"
-type "podman" >/dev/null && alias docker="podman"
-type "wg" >/dev/null alias wg="sudo wg"
+type "rg" &>/dev/null && alias grep="rg"
+type "trash-put" &>/dev/null && alias rm="trash-put"
+type "bpytop" &>/dev/null && alias btop="bpytop"
+type "duf" &>/dev/null && alias df="duf"
+type "wshowkeys" &>/dev/null && alias wshowkeys="wshowkeys -t 2 -a bottom -a right -m 100"
+type "podman" &>/dev/null && alias docker="podman"
+type "wg" &>/dev/null alias wg="sudo wg"
 
 alias venv="python -m venv ."
 alias src="source ./bin/activate"

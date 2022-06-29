@@ -53,8 +53,10 @@ function curr_dk() {
   swaymsg &>/dev/null
   if [[ $? -eq 0 ]]; then
     swaymsg --type get_outputs | jq -r ".[] | select(.focused==true) | .current_workspace" | grep -v null | cut -d' ' -f1
+  elif [[ ! -z "${TMUX}" ]]; then
+    echo "tmux$(echo ${TMUX} | cut -d',' -f3)"
   else
-    echo ${TTY} | cut -d'/' -f4
+    echo "tty$(echo ${TTY} | cut -d'/' -f4)"
   fi
 }
 

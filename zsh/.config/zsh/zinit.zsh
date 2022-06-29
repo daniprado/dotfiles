@@ -18,7 +18,7 @@ COMPLETIONS="${ZSHSHARE}/completions"
 source ${ZINIT_HOME}/bin/zinit.zsh
 
 svn=""
-# type "svn" >/dev/null && svn="svn"
+# type "svn" &>/dev/null && svn="svn"
 
 zt(){ zinit $svn depth'1' reset light-mode lucid "${@}"; }
 ztp(){ zinit depth'1' reset light-mode lucid "${@}"; }
@@ -150,7 +150,7 @@ if [[ "${KERN}" == "linux" ]]; then
 fi
 
 DIRENV_VER="direnv.${KERN}-${ARCH_ALT}"
-DUF_VER="duf_*_${KERN}_${ARCH_ALT}.tar.gz"
+DUF_VER="duf_*_${KERN}_${ARCH}.tar.gz"
 KUBECTX_REPO="https://raw.githubusercontent.com/ahmetb/kubectx"
 
 ztp wait'0' as'command' for                    \
@@ -176,8 +176,6 @@ ztp wait'0' as'command' for                    \
 zt wait'0' for                                        \
   trigger-load'!man'                                  \
       ael-code/zsh-colored-man-pages                  \
-  has'tmux' trigger-load'!tmux'                       \
-      OMZP::tmux                                      \
   has'task' trigger-load'!t;!task'                    \
       OMZP::taskwarrior                               \
   trigger-load'!cpv'                                  \

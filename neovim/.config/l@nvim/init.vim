@@ -16,171 +16,17 @@ endif
   silent execute "!mkdir -p ".$bkdir
 "}}}
 
-"Plugins {{{
-  "Plugin manager {{{
-    let $autoload = stdpath('data').'/site/autoload/plug.vim'
-    if empty(glob($autoload))
-      let $plugurl = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-      silent execute '!curl -fLo '.$autoload.' --create-dirs '.$plugurl
-      autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-    endif
-
-    call plug#begin(stdpath('data').'/plug')
-    " Plug 'junegunn/vim-plug'
-  "}}}
-
-  "Libraries {{{
-    Plug 'nvim-lua/plenary.nvim'                                               "Lua libraries (2)
-    Plug 'kyazdani42/nvim-web-devicons'                                        "Lua libraries (3)
-    Plug 'tami5/sqlite.lua'                                                    "Lua libraries (4)
-    Plug 'rktjmp/lush.nvim'                                                    "Colorscheme Lua lib (5)
-    Plug 'tpope/vim-dotenv'                                                    "Load environment vars (6)
-    Plug 'godlygeek/tabular'                                                   "Markdown (7)
-  "}}}
-
-  "Visual {{{
-    Plug 'famiu/bufdelete.nvim', { 'on': ['Bdelete', 'Bwipeout'] }             "Close buffer without changing layout
-    Plug 'drmikehenry/vim-fontsize', !empty($NVIM_GUI) ? {} : { 'on': [] }     "Change GUI font size
-    Plug 'troydm/zoomwintab.vim'                                               "Maximize window
-    Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }                          "Information on buffer line
-    Plug 'Konfekt/FastFold'                                                    "Simplify folding and unfolding blocks
-    Plug 'Konfekt/FoldText'                                                    "Show info on folded blocks
-
-    Plug 'nvim-lualine/lualine.nvim'                                           "(3)
-    Plug 'jnurmine/zenburn'
-    Plug 'ellisonleao/gruvbox.nvim'
-    Plug 'ishan9299/nvim-solarized-lua'
-  "}}}
-
-  "Navigation {{{
-    Plug 'nacro90/numb.nvim'                                                   "Previews destination line on jump
-    Plug 'machakann/vim-highlightedyank'                                       "Highlight yakend text
-    Plug 'bronson/vim-visual-star-search'                                      "Find text under cursor by pressing *
-    Plug 'kshenoy/vim-signature'                                               "Show and manipulate marks
-    Plug 'zhimsel/vim-stay'                                                    "Keeps last view of buffer/file
-    Plug 'lukas-reineke/indent-blankline.nvim'                                 "Indent lines properly
-    Plug 'oberblastmeister/rooter.nvim'                                        "Jumps to project root when file is open
-  "}}}
-
-  "Motions & Objects {{{
-    Plug 'tpope/vim-commentary'                                                "Comment using motions
-    Plug 'matze/vim-move'                                                      "Move lines or selected blocks
-    Plug 'tpope/vim-surround'                                                  "Bracket objects
-    Plug 'wellle/targets.vim'                                                  "Text objects
-    Plug 'tommcdo/vim-lion'                                                    "Text alignment based on char
-  "}}}
-
-  "Telescope {{{
-    Plug 'nvim-telescope/telescope.nvim'                                       "(2) search popups!
-    Plug 'nvim-telescope/telescope-file-browser.nvim'                          "
-    Plug 'nvim-telescope/telescope-frecency.nvim'                              "(4)
-    Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }          "
-    Plug 'cljoly/telescope-repo.nvim'                                          "(2) Jump to any repo
-    Plug 'AckslD/nvim-neoclip.lua'                                             "(4)
-  "}}}
-
-  "Treesitter {{{
-    Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }              "Syntax based on code tree
-    Plug 'nvim-treesitter/nvim-treesitter-textobjects'                         "Syntax related objects
-    Plug 'nvim-treesitter/nvim-treesitter-refactor'                            "Highlight and navigate based on treesitter
-    Plug 'JoosepAlviste/nvim-ts-context-commentstring'                         "Change commentstring based on treesitter
-    Plug 'nvim-treesitter/nvim-treesitter-context'                             "Show cursor context
-    Plug 'haringsrob/nvim_context_vt'                                          "Shows context on code blocks
-    Plug 'p00f/nvim-ts-rainbow'                                                "Multi color parentheses
-    Plug 'folke/twilight.nvim'                                                 "Dimm inactive code blocks
-    Plug 'andymass/vim-matchup'                                                "Match code blocks
-  "}}}
-
-  "LSP {{{
-    Plug 'neovim/nvim-lspconfig'                                               "LSP support
-    Plug 'williamboman/nvim-lsp-installer'                                     "Commands to install LSP servers
-    Plug 'ray-x/lsp_signature.nvim'                                            "Show signature helper on autocomplete
-  "}}}
-
-  "Snippets {{{
-    Plug 'SirVer/ultisnips'                                                    "Snippets!
-    Plug 'honza/vim-snippets'                                                  "Snippet library
-  "}}}
-
-  "CMP {{{
-    Plug 'hrsh7th/nvim-cmp'                                                    "Autocomplete engine
-    Plug 'hrsh7th/cmp-nvim-lsp'
-    Plug 'hrsh7th/cmp-buffer'
-    Plug 'hrsh7th/cmp-path'
-    Plug 'hrsh7th/nvim-cmp'
-    Plug 'hrsh7th/cmp-cmdline'
-    Plug 'quangnguyen30192/cmp-nvim-ultisnips'
-    Plug 'ray-x/cmp-treesitter'
-    Plug 'hrsh7th/cmp-nvim-lsp-document-symbol'
-    Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
-    Plug 'onsails/lspkind-nvim'                                                "Autocomplete icons
-    Plug 'andersevenrud/cmp-tmux', !empty($NVIM_TMUX) ? {} : { 'on': [] }      "Autocomplete for tmux
-    Plug 'windwp/nvim-autopairs'                                               "Autocomplete on bracket-type chars
-  "}}}
-
-  "Sessions {{{
-    Plug 'rmagatti/auto-session'                                               "Autosave sessions per folder
-    Plug 'rmagatti/session-lens'                                               "Integrate auto-session with Telescope
-  "}}}
-
-  "TMUX {{{
-    Plug 'christoomey/vim-tmux-navigator'                                      "Navigate between tmux & vim panels
-    Plug 'roxma/vim-tmux-clipboard', !empty($NVIM_TMUX) ? {} : { 'on': [] }    "Share yank/clipboard between tmux & vim
-  "}}}
-
-  "Database {{{
-    Plug 'tpope/vim-dadbod', { 'on': 'DBUIToggle' }                            "(6) DB connector
-    Plug 'kristijanhusak/vim-dadbod-ui', { 'on': 'DBUIToggle' }                "Simple UI for dadbod
-    Plug 'kristijanhusak/vim-dadbod-completion', { 'on': 'DBUIToggle' }        "Autocomplete for dadbod
-  "}}}
-
-  "Hops {{{
-    Plug 'phaazon/hop.nvim'                                                    "Hop motions
-    Plug 'mfussenegger/nvim-ts-hint-textobject'                                "Hops based on Treesitter
-  "}}}
-
-  "Markdown {{{
-    Plug 'preservim/vim-markdown'                                              "(7) Syntax highlight and conceal
-    Plug 'vim-pandoc/vim-pandoc-syntax'                                        "Syntax highlight and conceal
-    Plug 'dhruvasagar/vim-table-mode'                                          "Table edition in MD
-    Plug 'tools-life/taskwiki'                                                 "Taskwarrior integration in MD
-    Plug 'blindFS/vim-taskwarrior'                                             "Taskwarrior UI
-    Plug 'mickael-menu/zk-nvim'                                                "zk CLI integration
-  "}}}
-
-  "Other {{{
-    Plug 'mhinz/vim-startify'                                                  "Start screen
-    Plug 'voldikss/vim-floaterm', { 'on': ['FloatermNew', 'FloatermRepl'] }    "Terminal
-    Plug 'lambdalisue/suda.vim', { 'on': ['SudaRead', 'SudaWrite'] }           "Open/Save file as root
-    Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }                         "Edit history on current buffer
-    Plug 'lewis6991/gitsigns.nvim'                                             "(2) Git visual tools
-    " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }          "Browser integration
-  "}}}
-
-  call plug#end()
-"}}}
-
 "LUA config {{{
-  lua require('config')
+  lua require('plugins')
 "}}}
 
 "Functions {{{
-
-  function! s:gitModified()
-      let files = systemlist('git ls-files -m 2>/dev/null')
-      return map(files, "{'line': v:val, 'path': v:val}")
-  endfunction
-  function! s:gitUntracked()
-      let files = systemlist('git ls-files -o --exclude-standard 2>/dev/null')
-      return map(files, "{'line': v:val, 'path': v:val}")
-  endfunction
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+  augroup end
 
   com! FormatXML :%!python3 -c "import xml.dom.minidom, sys; print(xml.dom.minidom.parse(sys.stdin).toprettyxml())"
-
-  function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-  endfunction
 
   hi OverLength ctermbg=none cterm=none
   match OverLength /\%>80v/
@@ -194,314 +40,221 @@ endif
       echo "Long lines unhighlighted"
     endif
   endfunction
+"}}}
 
-  function! s:isAtStartOfLine(mapping)
-    let text_before_cursor = getline('.')[0 : col('.')-1]
-    let mapping_pattern = '\V' . escape(a:mapping, '\')
-    let comment_pattern = '\V' . escape(substitute(&l:commentstring, '%s.*$', '', ''), '\')
-    return (text_before_cursor =~? '^' . ('\v(' . comment_pattern . '\v)?') . '\s*\v' . mapping_pattern . '\v$')
+"REMOVE {{{
+  function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
   endfunction
 
+  let g:wordmotion_uppercase_spaces = ['-']
 "}}}
 
-"Params {{{
+"General config {{{
+  syntax enable
 
-  "Plugin config {{{
+  syntax on
+  set ruler
+  set relativenumber                       "Line numbers are relative
+  set number                               "Display the absolute line number at the line you're on
+  set ls=2                                 "Always show status bar
+  set t_Co=256                             "256 colors on console
+  if (has('termguicolors'))
+    set termguicolors
+    hi LineNr ctermbg=NONE guibg=NONE
+  endif
+  set visualbell
+  set viewoptions=cursor,folds,slash,unix
 
-    "Visual {{{
-      let g:gruvbox_contrast_dark = 'hard'
-      let g:gruvbox_italic = 1
-      let g:gruvbox_material_disable_italic_comment = 0
-    "}}}
+  set background=dark
 
-    "Navigation {{{
-      let g:fastfold_savehook                               = 1
+  set cursorline
+  set cursorcolumn
+  set fillchars+=vert:¦                    "Improve tile division look
+  set ttyfast                              "Improve screen redrawing
+  set hidden                               "Hidde closed buffers
+  set autoread                             "Read external changes on open files
+  set ttimeoutlen=0                        "No delay between modes
+  set noshowmode
+  set clipboard=unnamed
+  set wildmode=longest:list,full           "Autocomplete behaviour
+  set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+  set incsearch                            "Incremental search
+  set showmatch                            "Show matching bracket of cursor position
+  set hlsearch                             "Show search results
+  set smartcase
+  set complete=.,w,b,t
 
-      let g:indent_blankline_space_char                     = '.'
-      let g:indent_blankline_char                           = '|'
-      let g:indent_blankline_show_end_of_line               = v:true
-      let g:indent_blankline_show_trailing_blankline_indent = v:true
-      let g:indent_blankline_show_foldtext                  = v:true
-      let g:indent_blankline_use_treesitter                 = v:true
-      let g:indent_blankline_show_current_context           = v:true
-      let g:indent_blankline_context_patterns               = ['class', 'function', 'method', '^if', '^for']
-      let g:indent_blankline_buftype_exclude                = ['terminal']
-    "}}}
+  set completeopt=menuone,noselect
 
-    "Motions & Objects {{{
-      let g:move_key_modifier           = 'C'
-      let g:wordmotion_uppercase_spaces = ['-']
+  set undofile
+  set backup
+  set history=1000
+  set undoreload=1000
+  set undodir=$undodir//
+  set directory=$swpdir//
+  set backupdir=$bkdir//
 
-      let b:lion_squeeze_spaces         = 1
-      let g:lion_squeeze_spaces         = 1
-      let g:lion_map_right              = '<M-t>l'
-      let g:lion_map_left               = '<M-t>h'
-    "}}}
+  set expandtab
+  set tabstop=4
+  set shiftwidth=2
+  set softtabstop=4
+  set autoindent
+  set scrolloff=4
+  set nu
+  set showbreak=↪\
+  set listchars=tab:→\ ,eol:↲,trail:•,extends:»,precedes:«,nbsp:‡
+  set splitbelow
+  set splitright
+  set formatoptions+=j
 
-    "Terminal {{{
-      let g:floaterm_keymap_toggle = '<C-M-t>'
-      let g:floaterm_keymap_next   = '<C-M-n>'
-      let g:floaterm_keymap_prev   = '<C-M-m>'
-      let g:floaterm_width         = 0.8
-      let g:floaterm_height        = 0.8
-      let g:floaterm_opener        = 'edit'
-      let g:floaterm_autoclose     = 1
-      let g:floaterm_repl_runner   = expand(stdpath('config').'/repl-runner.sh')
-      hi FloatermNC guibg          = gray
-    "}}}
-
-    "TMUX {{{
-      let g:tmux_navigator_no_mappings = 1
-    "}}}
-
-    "Database {{{
-      let g:db_ui_show_help                  = 0
-      let g:db_ui_disable_mappings           = 1
-      let g:db_ui_dotenv_variable_prefix     = 'DATABASE_'
-      let g:db_ui_save_location              = expand(stdpath('data').'/dadbod-ui')
-      let g:db_ui_auto_execute_table_helpers = 1
-
-      autocmd FileType dbui nmap <buffer> <Enter> <Plug>(DBUI_SelectLine)
-      autocmd FileType dbui nmap <buffer> o <Plug>(DBUI_SelectLine)
-      autocmd FileType dbui nmap <buffer> R <Plug>(DBUI_Redraw)
-      autocmd FileType dbui nmap <buffer> W <Plug>(DBUI_SaveQuery)
-      autocmd FileType sql setlocal omnifunc=vim_dadbod_completion#omni
-    "}}}
-
-    "Snippets {{{
-      let g:UltiSnipsExpandTrigger="<tab>"
-      let g:UltiSnipsJumpForwardTrigger="<c-n>"
-      let g:UltiSnipsJumpBackwardTrigger="<c-b>"
-    "}}}
-
-    "Markdown {{{
-     let g:vim_markdown_strikethrough = 1 
-     let g:pandoc#syntax#conceal#urls = 1
-    "}}}
-
-    "Other {{{
-      let g:startify_lists = [
-        \ { 'type': 'files',                    'header': ['   MRU']            },
-        \ { 'type': 'sessions',                 'header': ['   Sessions']       },
-        \ { 'type': 'bookmarks',                'header': ['   Bookmarks']      },
-        \ { 'type': function('s:gitModified'),  'header': ['   git modified']   },
-        \ { 'type': function('s:gitUntracked'), 'header': ['   git untracked']  },
-        \ { 'type': 'commands',                 'header': ['   Commands']       },
-      \ ]
-      let g:startify_session_dir = expand(stdpath('data').'/sessions')
-
-      let g:suda_smart_edit = 1
-    "}}}
-
-  "}}}
 "}}}
-
-  "General config {{{
-    syntax enable
-
-    syntax on
-    set ruler
-    set relativenumber                       "Line numbers are relative
-    set number                               "Display the absolute line number at the line you're on
-    set ls=2                                 "Always show status bar
-    set t_Co=256                             "256 colors on console
-    if (has("termguicolors"))
-      set termguicolors
-      hi LineNr ctermbg=NONE guibg=NONE
-    endif
-    set visualbell
-    set viewoptions=cursor,folds,slash,unix
-
-    set background=dark
-    colorscheme gruvbox
-
-    set cursorline
-    set cursorcolumn
-    set fillchars+=vert:¦                    "Improve tile division look
-    set ttyfast                              "Improve screen redrawing
-    set hidden                               "Hidde closed buffers
-    set autoread                             "Read external changes on open files
-    set ttimeoutlen=0                        "No delay between modes
-    set noshowmode
-    set clipboard=unnamed
-    set wildmode=longest:list,full           "Autocomplete behaviour
-    set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-    set incsearch                            "Incremental search
-    set showmatch                            "Show matching bracket of cursor position
-    set hlsearch                             "Show search results
-    set smartcase
-    set complete=.,w,b,t
-
-    set completeopt=menuone,noselect
-
-    set foldmethod=expr
-    set foldexpr=nvim_treesitter#foldexpr()
-    autocmd FileType json,yaml,vim setlocal foldmethod=indent
-
-    set undofile
-    set backup
-    set history=1000
-    set undoreload=1000
-    set undodir=$undodir//
-    set directory=$swpdir//
-    set backupdir=$bkdir//
-
-    set expandtab                            "Replace \t with whitespaces
-    set tabstop=4                            "# of whitespaces per \t
-    set shiftwidth=2                         "# of whitespaces per indent level
-    set softtabstop=4                        "# of whitespaces per \t
-    set autoindent
-    set scrolloff=4
-    set nu
-    set showbreak=↪\
-    set listchars=tab:→\ ,eol:↲,trail:•,extends:»,precedes:«,nbsp:‡
-    set splitbelow
-    set splitright
-    set formatoptions+=j
-
-    augroup pandoc_syntax
-        au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
-    augroup END
-
-  "}}}
 
 "Shortcuts {{{
-  let mapleader = "\<SPACE>"
-  let g:mapleader = "\<SPACE>"
+  let mapleader = "\<space>"
+  let g:mapleader = "\<space>"
 
-  cnoremap <EXPR> %%       getcmdtype() == ':' ? expand('%:h').'/' : '%%'         "Expand HOME path on command
-  inoremap <EXPR><TAB>     pumvisible() ? "\<C-n>" : "\<TAB>"|                    "
-  inoremap <EXPR><S-TAB>   pumvisible() ? "\<C-p>" : "\<S-TAB>"|                  "
-  nnoremap <C-M-V>         "+gP|                                                  "
-  inoremap <C-M-V>         <C-R>+|                                                "
-  cnoremap <C-M-V>         <C-R>+|                                                "Copy & Paste
-  vmap     <C-c>           "+yi|                                                  "shortcuts
-  xnoremap "+y             y:call system("wl-copy", @")<CR>|                      "
+  cnoremap <EXPR> %%       getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+  inoremap <EXPR><TAB>     pumvisible() ? "\<C-n>" : "\<TAB>"
+  inoremap <EXPR><S-TAB>   pumvisible() ? "\<C-p>" : "\<S-TAB>"
+  nnoremap <C-M-V>         "+gP
+  inoremap <C-M-V>         <C-R>+
+  cnoremap <C-M-V>         <C-R>+
+  vmap     <C-c>           "+yi
+  xnoremap "+y             y:call system("wl-copy", @")<cr>
 
-  cmap w!!                 SudaWrite|                                             "Write as root
-  cmap e!!                 SudaRead|                                              "Read as root
+  cmap w!!                 SudaWrite
+  cmap e!!                 SudaRead
 
-  nnoremap <leader>h       <cmd>cd<CR>|                                           "Switch CWD to $home directory
-  nnoremap <leader>cwd     <cmd>cd %:p:h<CR>:pwd<CR>|                             "Switch CWD to the directory of the open buffer
+  nnoremap <leader>h       <cmd>cd<cr>
+  nnoremap <leader>cwd     <cmd>cd %:p:h<cr>:pwd<cr>
 
-  onoremap ie              <cmd>exec "normal! ggVG"<CR>|                          "Text object for whole buffer
-  onoremap iv              <cmd>exec "normal! HVL"<CR>|                           "Text object for whole view
-  xnoremap iz              <cmd>FastFoldUpdate<CR><ESC>:<C-u>normal! ]zv[z<CR>|   "Text object for inside fold
-  xnoremap az              <cmd>FastFoldUpdate<CR><ESC>:<C-u>normal! ]zV[z<CR>]|   "Text object for arround fold
-  xnoremap ih              <cmd>lua require('gitsigns').select_hunk()<CR>|        "Text object for inside hunk (git mod.)
-  onoremap ih              <cmd>lua require('gitsigns').select_hunk()<CR>|        "Text object for inside hunk (git mod.)
+  onoremap ie              <cmd>exec "normal! ggVG"<cr>
+  onoremap iv              <cmd>exec "normal! HVL"<cr>
+  xnoremap ih              <cmd>lua require('gitsigns').select_hunk()<cr>
+  onoremap ih              <cmd>lua require('gitsigns').select_hunk()<cr>
+  xnoremap iz              <cmd>FastFoldUpdate<cr><ESC>:<C-u>normal! ]zv[z<cr>
+  xnoremap az              <cmd>FastFoldUpdate<cr><ESC>:<C-u>normal! ]zV[z<cr>]
   " onoremap [iIaA] [nl_] (){}B[]<>t'`",.;:+-=~_*#/|\&$a Text objects for any of those (t=tag, a=argument)
   " onoremap [ia]j          Text objects for Json
 
-  nnoremap <C-a>           <cmd>exec "normal! ggVG"<CR>|                          "Select all text in buffer
-  nnoremap <C-n>           <cmd>bnext<CR>|                                        "Focus next buffer
-  nnoremap <C-b>           <cmd>bprevious<CR>|                                    "Focus previous buffer
-  nnoremap <C-w>f          <cmd>ZoomWinTabToggle<CR>|                             "Get current focus full-size
-  nnoremap <C-w>k          <cmd>TmuxNavigateUp<CR>|                               "TMUX
-  nnoremap <C-w>j          <cmd>TmuxNavigateDown<CR>|                             "
-  nnoremap <C-w>h          <cmd>TmuxNavigateLeft<CR>|                             "
-  nnoremap <C-w>l          <cmd>TmuxNavigateRight<CR>|                            "
+  nnoremap <C-a>           <cmd>exec "normal! ggVG"<cr>
+  nnoremap <C-n>           <cmd>BufferLineCycleNext<cr>
+  nnoremap <C-b>           <cmd>BufferLineCyclePrev<cr>
+  nnoremap <C-w>f          <cmd>ZoomWinTabToggle<cr>
+  nnoremap <C-w>k          <cmd>TmuxNavigateUp<cr>
+  nnoremap <C-w>j          <cmd>TmuxNavigateDown<cr>
+  nnoremap <C-w>h          <cmd>TmuxNavigateLeft<cr>
+  nnoremap <C-w>l          <cmd>TmuxNavigateRight<cr>
 
-  nmap     <leader>R       <cmd>source $MYVIMRC<CR>|                              "Reload config
+  nmap     <leader>R       <cmd>source $MYVIMRC<cr>
 
-  nnoremap <leader>v       <C-v>|                                                 "Cursor visual mode
+  nnoremap <leader>v       <C-v>
 
-  nnoremap <leader>ip      <cmd>set invpaste paste?<CR>|                          "Toggle paste modes
-  nmap     <leader>lc      <cmd>IndentBlanklineToggle<CR>|                        "Show empty lines as they were indented
-  nnoremap <leader>ln      <cmd>set relativenumber!<CR>|                          "Toggle line numbers relative/absolute
-  nnoremap <leader>lh      <cmd>call<SID>LongLineHLToggle()<CR>|                  "Highlight text above col 80
-  nnoremap <leader>lb      <cmd>lua require"gitsigns".toggle_current_line_blame()<CR>|
-  nnoremap <leader>lt      <cmd>Twilight<CR>|                                     "Twilight inactive code blocks
+  nnoremap <leader>ip      <cmd>set invpaste paste?<cr>
+  nmap     <leader>lc      <cmd>IndentBlanklineToggle<cr>
+  nnoremap <leader>ln      <cmd>set relativenumber!<cr>
+  nnoremap <leader>lh      <cmd>call<SID>LongLineHLToggle()<cr>
+  nnoremap <leader>lb      <cmd>lua require('gitsigns').toggle_current_line_blame()<cr>
+  nnoremap <leader>lt      <cmd>Twilight<cr>
 
-  nnoremap <leader>dt      <cmd>diffthis<CR>|                                     "Activate diff on buffer
-  nnoremap <leader>do      <cmd>diffoff<CR>|                                      "Deactivate diff on buffer
+  nnoremap <leader>dt      <cmd>diffthis<cr>
+  nnoremap <leader>do      <cmd>diffoff<cr>
 
-  nnoremap <leader>s       <cmd>Telescope session-lens search_session<CR>|        "List of saved sessions
-  nnoremap <leader>S       <cmd>SaveSession<CR>|                                  "Saves current session
-  nnoremap <leader>u       <cmd>UndotreeToggle<CR>|                               "Open change history for buffer
-  nnoremap <leader>p       <cmd>Telescope neoclip<CR>|                            "Yank stack
-  nnoremap <leader>"       <cmd>Telescope registers theme=get_dropdown<CR>|       "List of registers
-  nnoremap <leader>:       <cmd>Telescope command_history theme=get_dropdown<CR>| "List of executed commands
-  nnoremap <leader>/       <cmd>Telescope search_history theme=get_dropdown<CR>|  "List of executed searches
-  nnoremap <leader><TAB>   <cmd>Telescope commands<CR>|                           "List of possible commands
-  nnoremap <leader><S-TAB> <cmd>Telescope keymaps<CR>|                            "List of possible shortcuts
-  nnoremap <leader><M-TAB> <cmd>Telescope help_tags<CR>|                          "List of help topics
-  nnoremap <leader>fb      <cmd>Telescope buffers theme=get_dropdown layout_config.width=0. layout_config.height=0.2<CR>
-  nnoremap <leader>fl      <cmd>Telescope current_buffer_fuzzy_find<CR>|          "
-  nnoremap <leader>fh      <Cmd>lua require('telescope').extensions.frecency.frecency()<CR>|
-  nnoremap <leader>ff      <cmd>FloatermNew broot<CR>|                            "Open files
-  nnoremap <leader>fF      <cmd>Telescope file_browser<CR>|                       "Open files
-  nnoremap <leader>fif     <cmd>Telescope live_grep<CR>|                          "
-  nnoremap <leader>F       <cmd>Telescope builtin theme=get_dropdown layout_config.height=085 previewer=false<CR>
+  " nnoremap <leader>s       <cmd>Telescope session-lens search_session<cr>
+  " nnoremap <leader>S       <cmd>SaveSession<cr>
+  nnoremap <leader>u       <cmd>UndotreeToggle<cr>
+  nnoremap <leader>p       <cmd>Telescope neoclip<cr>
+  nnoremap <leader>"       <cmd>Telescope registers<cr>
+  nnoremap <leader>:       <cmd>Telescope command_history<cr>
+  nnoremap <leader>/       <cmd>Telescope search_history<cr>
+  nnoremap <leader><TAB>   <cmd>Telescope commands<cr>
+  nnoremap <leader><S-TAB> <cmd>Telescope keymaps<cr>
+  nnoremap <leader><M-TAB> <cmd>Telescope help_tags<cr>
+  nnoremap <leader>fb      <cmd>Telescope buffers layout_config.width=0. layout_config.height=0.2<cr>
+  nnoremap <leader>fl      <cmd>Telescope current_buffer_fuzzy_find<cr>
+  nnoremap <leader>fh      <cmd>Telescope frecency<cr>
+  nnoremap <leader>ff      <cmd>FloatermNew broot<cr>
+  nnoremap <leader>fif     <cmd>Telescope live_grep<cr>
+  nnoremap <leader>F       <cmd>Telescope builtin layout_config.height=085 previewer=false<cr>
 
-  nnoremap <leader>gc      <cmd>Telescope git_commits<CR>|                        "List of repository commits
-  nnoremap <leader>gC      <cmd>Telescope git_bcommits<CR>|                       "List of file commits
-  nnoremap <leader>gst     <cmd>Telescope git_status theme=get_dropdown layout_config.height=0.2<CR>
-  nnoremap <leader>gR      <cmd>Telescope repo list<CR>|                          "List system repositories
+  nnoremap <leader>gc      <cmd>Telescope git_commits<cr>
+  nnoremap <leader>gC      <cmd>Telescope git_bcommits<cr>
+  nnoremap <leader>gst     <cmd>Telescope git_status layout_config.height=0.2<cr>
+  nnoremap <leader>gR      <cmd>Telescope repo list<cr>
 
-  nnoremap <leader>wr      <cmd>Telescope lsp_references theme=get_dropdown<CR>|  "LSP references inside file
-  nnoremap <leader>wi      <cmd>Telescope treesitter<CR>|                         "Treesitter references inside file
-  nnoremap <leader>ws      <cmd>Telescope lsp_document_symbols<CR>|               "LSP symbols inside file
-  nnoremap <leader>wd      <cmd>Telescope diagnostics theme=get_dropdown layout_config.width=0.7<CR>
-  
-  nnoremap <leader>zz      <cmd>ZkNotes<CR>|
-  nnoremap <leader>zf      <cmd>ZkNotes { sort = { 'modified' }, match = vim.fn.input('Search: ') }<CR>|
-  vnoremap <leader>zf      :'<,'>ZkMatch<CR>|
-  nnoremap <leader>zl      <cmd>ZkLinks<CR>|
-  nnoremap <leader>zt      <cmd>ZkTags<CR>|
+  nnoremap <leader>wr      <cmd>Telescope lsp_references<cr>
+  nnoremap <leader>wi      <cmd>Telescope treesitter<cr>
+  nnoremap <leader>ws      <cmd>Telescope lsp_document_symbols<cr>
+  nnoremap <leader>wd      <cmd>Telescope diagnostics layout_config.width=0.7<cr>
 
-  nnoremap <leader>t       <cmd>FloatermNew<CR>|                                  "Open terminals
-  vnoremap <leader>t       :FloatermNew<CR>|                                      "
-  nnoremap <leader>tp      <cmd>FloatermNew python<CR>|                           "
-  vnoremap <leader>tp      :FloatermNew python<CR>|                               "
-  nnoremap <leader>tb      <cmd>FloatermNew bpytop<CR>|                           "
-  nnoremap <leader>tg      <cmd>FloatermNew lazygit<CR>|                          "
+  nnoremap <leader>zz      <cmd>ZkNotes<cr>
+  nnoremap <leader>zf      <cmd>ZkNotes { sort = { 'modified' }, match = vim.fn.input('Search: ') }<cr>
+  vnoremap <leader>zf      :'<,'>ZkMatch<cr>
+  nnoremap <leader>zl      <cmd>ZkLinks<cr>
+  nnoremap <leader>zt      <cmd>ZkTags<cr>
 
-  nnoremap <leader>bd      <cmd>DBUIToggle<CR>|                                   "Activate/deactivate DB-UI
-  vnoremap <leader><ENTER> :DB<CR>|                                               "Execute query
+  nnoremap <leader>t       <cmd>FloatermNew<cr>
+  vnoremap <leader>t       :FloatermNew<cr>
+  nnoremap <leader>tp      <cmd>FloatermNew python<cr>
+  vnoremap <leader>tp      :FloatermNew python<cr>
+  nnoremap <leader>tb      <cmd>FloatermNew bpytop<cr>
+  nnoremap <leader>tg      <cmd>FloatermNew lazygit<cr>
 
-  nnoremap <leader>x       <cmd>FormatXML<CR>|                                    "Format as XML
-  nnoremap <leader>j       <cmd>%!python -m json.tool<CR>|                        "Format as json
+  " nnoremap <leader>bd      <cmd>DBUIToggle<cr>
+  " vnoremap <leader><ENTER> :DB<cr>
 
-  nnoremap <leader>hw      <cmd>HopWord<CR>|                                      "Hop!
-  omap     <silent>m       :<C-U>lua require('tsht').nodes()<CR>|                 "Treesitter hop!
-  vnoremap <silent>m       :lua require('tsht').nodes()<CR>|                      "
+  nnoremap <leader>x       <cmd>FormatXML<cr>
+  nnoremap <leader>j       <cmd>%!python -m json.tool<cr>
 
-  nnoremap <leader>1       <Cmd>BufferLineGoToBuffer 1<CR>
-  nnoremap <leader>2       <Cmd>BufferLineGoToBuffer 2<CR>
-  nnoremap <leader>3       <Cmd>BufferLineGoToBuffer 3<CR>
-  nnoremap <leader>4       <Cmd>BufferLineGoToBuffer 4<CR>
-  nnoremap <leader>5       <Cmd>BufferLineGoToBuffer 5<CR>
-  nnoremap <leader>6       <Cmd>BufferLineGoToBuffer 6<CR>
-  nnoremap <leader>7       <Cmd>BufferLineGoToBuffer 7<CR>
-  nnoremap <leader>8       <Cmd>BufferLineGoToBuffer 8<CR>
-  nnoremap <leader>9       <Cmd>BufferLineGoToBuffer 9<CR>
+  nnoremap <leader>hw      <cmd>HopWord<cr>
+  nnoremap <leader>hl      <cmd>HopLine<cr>
+  nnoremap <leader>hv      <cmd>HopVertical<cr>
+  nnoremap <leader>m       <cmd>lua require('tsht').nodes()<cr>
+  vnoremap <leader>m       <cmd>lua require('tsht').nodes()<cr>
 
-  nnoremap <M-g>s          <cmd>lua require"gitsigns".stage_hunk()<CR>|           "Gitsigns
-  nnoremap <M-g>u          <cmd>lua require"gitsigns".undo_stage_hunk()<CR>|      "
-  nnoremap <M-g>r          <cmd>lua require"gitsigns".reset_hunk()<CR>|           "
-  nnoremap <M-g>R          <cmd>lua require"gitsigns".reset_buffer()<CR>|         "
-  nnoremap <M-g>p          <cmd>lua require"gitsigns".preview_hunk()<CR>|         "
-  nnoremap <M-h>           <cmd>lua require"gitsigns.actions".next_hunk()<CR>|    "Next git modified chunk
-  nnoremap <M-S-h>         <cmd>lua require"gitsigns.actions".prev_hunk()<CR>|    "Previous git modified chunk
+  nnoremap <leader>1       <cmd>BufferLineGoToBuffer 1<cr>
+  nnoremap <leader>2       <cmd>BufferLineGoToBuffer 2<cr>
+  nnoremap <leader>3       <cmd>BufferLineGoToBuffer 3<cr>
+  nnoremap <leader>4       <cmd>BufferLineGoToBuffer 4<cr>
+  nnoremap <leader>5       <cmd>BufferLineGoToBuffer 5<cr>
+  nnoremap <leader>6       <cmd>BufferLineGoToBuffer 6<cr>
+  nnoremap <leader>7       <cmd>BufferLineGoToBuffer 7<cr>
+  nnoremap <leader>8       <cmd>BufferLineGoToBuffer 8<cr>
+  nnoremap <leader>9       <cmd>BufferLineGoToBuffer 9<cr>
 
-  nnoremap <M-l><CR>       <cmd>lua vim.lsp.buf.definition()<CR>|                 "LSP commands
-  nnoremap <M-l>h          <cmd>lua vim.lsp.buf.hover()<CR>|                      "
-  nnoremap <M-l>f          <cmd>lua vim.lsp.buf.formatting()<CR>|                 "
-  nnoremap <M-l>a          <cmd>lua vim.lsp.buf.code_action()<CR>|                "
-  nnoremap <M-l>i          <cmd>lua vim.lsp.buf.implementation()<CR>|             "LSP Motions
-  nnoremap <M-l>t          <cmd>lua vim.lsp.buf.type_definition()<CR>|            "
-  nnoremap <M-l>d          <cmd>lua vim.lsp.buf.declaration()<CR>|                "
-  nnoremap <M-l>r          <cmd>lua vim.lsp.buf.references()<CR>|                 "
-  vnoremap <M-l>c          :'<,'>lua vim.lsp.buf.range_code_action()<CR>|         "
-  nnoremap <M-e>           <cmd>lua vim.diagnostic.goto_next()<CR>|               "
-  nnoremap <M-S-e>         <cmd>lua vim.diagnostic.goto_prev()<CR>|               "
+  nnoremap <leader>xx      <cmd>TroubleToggle<cr>
+  nnoremap <leader>xw      <cmd>TroubleToggle workspace_diagnostics<cr>
+  nnoremap <leader>xd      <cmd>TroubleToggle document_diagnostics<cr>
+  nnoremap <leader>xq      <cmd>TroubleToggle quickfix<cr>
+  nnoremap <leader>xl      <cmd>TroubleToggle loclist<cr>
+  nnoremap gR              <cmd>TroubleToggle lsp_references<cr>
 
-  inoreabbrev <expr> <bar><bar>
-            \ <SID>isAtStartOfLine('\|\|') ?
-            \ '<c-o>:TableModeEnable<cr><bar><space><bar><left><left>' : '<bar><bar>'
-  inoreabbrev <expr> __
-            \ <SID>isAtStartOfLine('__') ?
-            \ '<c-o>:silent! TableModeDisable<cr>' : '__'
+  nnoremap <M-g>s          <cmd>lua require('gitsigns').stage_hunk()<cr>
+  nnoremap <M-g>u          <cmd>lua require('gitsigns').undo_stage_hunk()<cr>
+  nnoremap <M-g>r          <cmd>lua require('gitsigns').reset_hunk()<cr>
+  nnoremap <M-g>R          <cmd>lua require('gitsigns').reset_buffer()<cr>
+  nnoremap <M-g>p          <cmd>lua require('gitsigns').preview_hunk()<cr>
+  nnoremap <M-h>           <cmd>lua require('gitsigns.actions').next_hunk()<cr>
+  nnoremap <M-S-h>         <cmd>lua require('gitsigns.actions').prev_hunk()<cr>
 
+  nnoremap <M-l><cr>       <cmd>lua vim.lsp.buf.definition()<cr>
+  nnoremap <M-l>h          <cmd>lua vim.lsp.buf.hover()<cr>
+  nnoremap <M-l>f          <cmd>lua vim.lsp.buf.formatting()<cr>
+  nnoremap <M-l>a          <cmd>lua vim.lsp.buf.code_action()<cr>
+  nnoremap <M-l>i          <cmd>lua vim.lsp.buf.implementation()<cr>
+  nnoremap <M-l>t          <cmd>lua vim.lsp.buf.type_definition()<cr>
+  nnoremap <M-l>d          <cmd>lua vim.lsp.buf.declaration()<cr>
+  nnoremap <M-l>r          <cmd>lua vim.lsp.buf.references()<cr>
+  vnoremap <M-l>c          :'<,'>lua vim.lsp.buf.range_code_action()<cr>
+  nnoremap <M-e>           <cmd>lua vim.diagnostic.goto_next()<cr>
+  nnoremap <M-S-e>         <cmd>lua vim.diagnostic.goto_prev()<cr>
+
+  nnoremap <C-M-b>         <cmd>FloatermPrev<cr>
+  tnoremap <C-M-b>         <C-\><C-n>:FloatermPrev<cr>
+  nnoremap <C-M-n>         <cmd>:FloatermNext<cr>
+  tnoremap <C-M-n>         <C-\><C-n>:FloatermNext<cr>
+  nnoremap <C-M-t>         <cmd>:FloatermToggle<cr>
+  tnoremap <C-M-t>         <C-\><C-n>:FloatermToggle<cr>
 "}}}

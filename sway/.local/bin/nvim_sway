@@ -1,5 +1,6 @@
 #!/bin/sh
 
+export NVIM_GUI=1
 export NVR_CMD="nvim-qt --"
 dk=$(swaymsg --type get_workspaces --pretty | grep "focused" | cut -d" " -f2)
 ${HOME}/.local/bin/nvr -s --servername ${HOME}/tmp/nvimsocket_${dk} "$@"

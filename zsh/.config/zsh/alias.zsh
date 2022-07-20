@@ -29,7 +29,7 @@ export EDITOR="vim"
 if [[ $(nvim --version | grep -m 1 "NVIM" | cut -d'.' -f2) -ge 7 ]] &>/dev/null; then
   alias vim="nvim"
   export EDITOR="nvim"
-  [[ -n "${WAYLAND_DISPLAY}" ]] && alias gvim="NVIM_GUI=1 nvim-qt"
+  [[ -n "${WAYLAND_DISPLAY}" ]] && gvim="NVIM_GUI=1 nvim-qt"
 
   if type "nvr" &>/dev/null; then
     export CURR_DK="$(curr_dk)"

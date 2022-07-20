@@ -21,7 +21,7 @@ pkg_install "unzip"
 CURR_NVIM_VER=$(nvim --version | grep -m 1 "NVIM" | cut -d'.' -f2)
 # Min Neovim version is 0.7.0
 if [[ ${CURR_NVIM_VER} -ge 7 ]]; then
-  exe "bash -c \"nvim --headless +PlugInstall +qa\""
+  exec "bash -c \"nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'\""
 fi
 
 exit 0
